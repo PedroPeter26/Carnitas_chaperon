@@ -1,0 +1,225 @@
+body
+{
+    background-color: #F4F6F6;
+}
+.barranav
+{
+    display: flex;
+    height: 70px;
+    background-color: #E59866;
+    align-items: center;
+    justify-content: center;
+    font-family: fantasy;
+    font-size: 30px;
+    color: brown;
+    text-shadow: 2px 2px white;
+    margin: auto;
+    padding-top: 10px;
+    position:fixed;
+    top:0;
+    width: 100%;
+    z-index: 1000;
+}
+.titulomodalnav
+{
+    color: black;
+    font-size: 30px;
+    font-family: "Andale Mono", monospace;
+    font-weight: bold;
+}
+.textomodalnav
+{
+    color: black;
+    font-size: 16px;
+    font-family: "Andale Mono", monospace;
+}
+.regnav
+{
+    float: right;
+    margin-right: 10px;
+    color: brown;
+    text-justify: center;
+    align-items: center;
+    border-radius: 20px;
+    order: 1;text-shadow: none;
+    text-decoration: underline;
+}
+.barranav2
+{
+    height: 55px;
+    background-color:white;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+    font-family: fantasy;
+    font-size: 22px;
+    color: brown;
+    text-shadow: 2px 2px white;
+    position:fixed;
+    top:70px;
+    width: 100%;
+    z-index: 1000;
+}
+div.principal
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position:relative;
+    top: 125px;
+}
+div.comida
+{
+    position: relative;
+}
+div.comida img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    align-self: center;
+    opacity: 1.0;
+    border: none;
+}
+div.presentacion
+{
+    padding-left: 20px;
+    margin-top: 50px;
+}
+.menuyubi
+{
+    text-decoration: none;
+    color: black;
+}
+.menuyubi:hover
+{
+    color: brown;
+    font-size: 22px;
+}
+button.iniciarsesionnav
+{
+    float: right;
+    border: 1px solid brown;
+    color: brown;
+    text-justify: center;
+    align-items: center;
+    border-radius: 20px;
+    margin: 0 auto;
+    align-content: center;
+}
+button.iniciarsesionnav:hover
+{
+    background-color: brown;
+    border: 1px solid brown;
+    color: white;
+}
+button.iniciarsesionnav:active
+{
+    background-color: brown;
+    border: 1px solid brown;
+    color: white;
+}
+/*PRESENTACION*/
+.titulo
+{
+    font-size: 38px;
+    font-weight: 999;
+    font-family: "Verona";
+    color: brown;
+    text-shadow: 3px 3px rgb(236, 199, 77);
+    display: inline-block;
+    animation: titulo 1s infinite alternate;
+}
+@keyframes titulo
+{
+    0%
+    {
+    transform: scale(1);
+    }
+    100%
+    {
+    transform: scale(1.2);
+    }
+}
+.eslogan
+{
+    font-size: 25px;
+    font-family: "Andale Mono", monospace;
+}
+.ven
+{
+    font-size: 18px;
+    font-family: "Andale Mono", monospace;
+}
+.teesperamos
+{
+    font-size: 18px;
+    font-family: Comic Sans MS;
+    font-style: italic;
+}
+.ubi
+{
+    text-decoration: none;
+    font-size: 18px;
+    font-family: "Andale Mono", monospace;
+    color: brown;
+}
+/*MODAL UBICACION*/
+.modalubi
+{
+    display: flex;
+    max-width: 70% !important;
+    text-align: center;
+    align-self: auto;
+}
+.contenedormodal
+{
+    width: inherit; /* Hereda el ancho del contenedor padre (modal) */
+    height: inherit; /* Hereda el alto del contenedor padre (modal) */
+}
+.map-container
+{
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* Proporción 16:9 (dividir la altura por el ancho y multiplicar por 100) */
+}
+.map-container iframe
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+@media (max-width: 768px)
+{
+    .modalubi
+    {
+      width: 80%; /* Ajusta el ancho del modal al 90% de la ventana */
+      height: 80%; /* Ajusta la altura del modal al 90% de la ventana */
+    }
+}
+/*PROMOCIONES: PAQUETES*/
+.espacio
+{
+    height: 80px;
+}
+.tprom
+{
+    font-size: 30px;
+    font-family: "Andale Mono", monospace;
+}
+.divdecard
+{
+    justify-content: center;
+    align-items:center;
+}
+.contenidocards
+{
+    text-align: justify;
+    height: 550px;
+}
+.espacio2
+{
+    height: 50px;
+}
