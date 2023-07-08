@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../Bootstrap/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/index.css">
     <title>Carnitas Chaperon</title>
 </head>
@@ -11,7 +11,7 @@
     <!--BARRA DE NAV 1-->
     <nav class="barranav">
         <div class="container-fluid">
-        <a class="navbar-brand" href="principalclientes.html">
+        <a class="navbar-brand " href="index.html">
         <img src="../img/logo.png" alt="Logo" width="35" height="50">&nbsp; &nbsp;&nbsp;CARNITAS EL CHAPERON
         </a>
         <button type="button" class="btn btn-outline-secondary iniciarsesionnav" data-bs-toggle="modal" data-bs-target="#iniciarsesion" style="margin-top: 5px;">Iniciar sesión</button>
@@ -21,7 +21,7 @@
     <nav class="barranav2">
         <div class="row">
             <div class="col-6 col-md-6 col-lg-6 text-center">
-                <a class="menuyubi" href="">Menú</a>
+                <a class="menuyubi" href="menusencillo.html">Menú</a>
             </div>
             <div class="col-6 col-md-6 col-lg-6 text-center">
                 <a class="menuyubi" href="" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
@@ -97,10 +97,10 @@
         </div>
     </div>
     <!--CUERPO-->
-    <div class="container principal">
+    <div class="container principal"> 
         <div class="row">
             <!--PRESENTACIÓN: IMAGENES-->
-            <div class="col-12 col-md-6 col-lg-6 text-center comida">
+            <div class="col-xs-12 col-12 col-md-6 col-lg-6 text-center comida">
                 <!--Carrousel-->
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
@@ -130,13 +130,14 @@
                 </div>
             </div>
             <!--PRESENTACIÓN: TEXTO-->
-            <div class="col-12 col-md-6 col-lg-6 text-center presentacion">
+            <div class="col-xs-12 col-12 col-md-6 col-lg-6 presentacion">
                 <h1 class="titulo">CARNITAS EL CHAPERON</h1><br><br>
                 <h2 class="eslogan">Las carnitas más ricas de toda la ciudad</h2><br>
                 <h3 class="ven"><u>Haz tu pedido en línea</u></h3><br>
                 <h3 class="teesperamos">¡TE ESPERAMOS!</h3><br><br>
+                <p class="ven">Carr. Torreón - Matamoros 159, Oscar Flores Tapia, 27086 Torreón, Coah.</p>
                 <p class="ven">En un horario de 10:00 a.m a 6:00 p.m</p>
-                <p class="ven"><a href="" class="ubi" data-bs-toggle="modal" data-bs-target="#alta">Ver ubicación</a></p>
+
             </div>
             <!--ESPACIO DE 50PX-->
             <div class="col-12 col-md-12 col-lg-12 espacio"></div>
@@ -230,7 +231,8 @@
             </div><br>
         </div>
     </div>
-    <script src="../../Bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
 </body>
