@@ -2,6 +2,10 @@ body
 {
     background-color: #F4F6F6;
 }
+html, body
+{
+    max-width: 100% !important;
+}
 .barranav
 {
     display: flex;
@@ -19,6 +23,38 @@ body
     width: 100%;
     z-index: 1200;
 }
+@media screen and (max-width: 576px) /*Pantalla pequeña*/
+{
+    .barranav
+    {
+        font-size: 26px;
+    }
+}
+/*BOTÓN DE INICIAR SESIÓN DE LA BARRA DE NAV 1*/
+button.iniciarsesionnav
+{
+    float: right;
+    border: 1px solid brown;
+    color: brown;
+    text-justify: center;
+    align-items: center;
+    border-radius: 20px;
+    margin: 0 auto;
+    align-content: center;
+}
+button.iniciarsesionnav:hover
+{
+    background-color: brown;
+    border: 1px solid brown;
+    color: white;
+}
+button.iniciarsesionnav:active
+{
+    background-color: brown;
+    border: 1px solid brown;
+    color: white;
+}
+/*FORMATO AL TEXTO DE LOS MODAL INICIAR SESIÓN Y REGISTRARSE*/
 .titulomodalnav
 {
     color: black;
@@ -48,16 +84,22 @@ body
     width: 100%;
     z-index: 1200;
 }
+/*CUERPO*/
 div.principal
 {
     margin-top: 20px;
-    margin-bottom: 20px;
     position:relative;
     top: 125px;
+    width: 100% !important;
+    height: auto;
+    margin: 0 auto;
 }
+/*DIV DEL CARROUSEL DE IMAGENES*/
 div.comida
 {
     position: relative;
+    margin-top: 15px;
+    
 }
 div.comida img
 {
@@ -68,45 +110,14 @@ div.comida img
     opacity: 1.0;
     border: none;
 }
+/*DIV DE LA PRESENTACIÓN DE LA IMAGEN, O EL TEXTO*/
 div.presentacion
 {
     padding-left: 20px;
     margin-top: 50px;
+    text-align: center;
 }
-.menuyubi
-{
-    text-decoration: none;
-    color: black;
-}
-.menuyubi:hover
-{
-    color: brown;
-    font-size: 22px;
-}
-button.iniciarsesionnav
-{
-    float: right;
-    border: 1px solid brown;
-    color: brown;
-    text-justify: center;
-    align-items: center;
-    border-radius: 20px;
-    margin: 0 auto;
-    align-content: center;
-}
-button.iniciarsesionnav:hover
-{
-    background-color: brown;
-    border: 1px solid brown;
-    color: white;
-}
-button.iniciarsesionnav:active
-{
-    background-color: brown;
-    border: 1px solid brown;
-    color: white;
-}
-/*PRESENTACION*/
+/*FORMATO AL TEXTO DE LA PRESENTACIÓN*/
 .titulo
 {
     font-size: 38px;
@@ -144,12 +155,16 @@ button.iniciarsesionnav:active
     font-family: Comic Sans MS;
     font-style: italic;
 }
-.ubi
+/*LINKS DE LA BARRA DE NAV 2*/
+.menuyubi
 {
     text-decoration: none;
-    font-size: 18px;
-    font-family: "Andale Mono", monospace;
+    color: black;
+}
+.menuyubi:hover
+{
     color: brown;
+    font-size: 22px;
 }
 /*MODAL UBICACION*/
 .modalubi
@@ -189,6 +204,15 @@ button.iniciarsesionnav:active
       height: 80%; /* Ajusta la altura del modal al 90% de la ventana */
     }
 }
+@media screen and (max-width: 576px) /*Pantalla pequeña*/
+{
+    .modalubi
+    {
+        width: 90%; /* Ajusta el ancho del modal al 90% de la ventana */
+        height: 90%; /* Ajusta la altura del modal al 90% de la ventana */
+        margin: 0 auto;
+    }
+}
 /*PROMOCIONES: PAQUETES*/
 .espacio
 {
@@ -200,16 +224,21 @@ button.iniciarsesionnav:active
     font-family: "Andale Mono", monospace;
     text-shadow: 2px 2px #E59866;
 }
-.divdecard
+.divdecard /*Cada división de 3 de los 12 que hay por fila*/
 {
     display: flex;
     justify-content: center;
     align-items:center;
 }
-.contenidocards
+.contenidocards /*El card en sí*/
 {
     text-align: justify;
-    height: 570px;
+    height: auto;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.contenidocards:hover /*Cuando el cursor pasa por encima de los cards*/
+{
+    transform: scale(1.05);
 }
 .botoncards
 {
