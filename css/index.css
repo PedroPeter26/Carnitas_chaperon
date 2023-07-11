@@ -14,11 +14,10 @@ body
     color: brown;
     text-shadow: 2px 2px white;
     margin: auto;
-    padding-top: 10px;
     position:fixed;
     top:0;
     width: 100%;
-    z-index: 1000;
+    z-index: 1200;
 }
 .titulomodalnav
 {
@@ -32,17 +31,6 @@ body
     color: black;
     font-size: 16px;
     font-family: "Andale Mono", monospace;
-}
-.regnav
-{
-    float: right;
-    margin-right: 10px;
-    color: brown;
-    text-justify: center;
-    align-items: center;
-    border-radius: 20px;
-    order: 1;text-shadow: none;
-    text-decoration: underline;
 }
 .barranav2
 {
@@ -58,7 +46,7 @@ body
     position:fixed;
     top:70px;
     width: 100%;
-    z-index: 1000;
+    z-index: 1200;
 }
 div.principal
 {
@@ -170,8 +158,10 @@ button.iniciarsesionnav:active
     max-width: 70% !important;
     text-align: center;
     align-self: auto;
+    z-index: 1300;
+
 }
-.contenedormodal
+.contenedormodal /*UBI*/
 {
     width: inherit; /* Hereda el ancho del contenedor padre (modal) */
     height: inherit; /* Hereda el alto del contenedor padre (modal) */
@@ -206,20 +196,23 @@ button.iniciarsesionnav:active
 }
 .tprom
 {
-    font-size: 30px;
+    font-size: 35px;
     font-family: "Andale Mono", monospace;
+    text-shadow: 2px 2px #E59866;
 }
 .divdecard
 {
+    display: flex;
     justify-content: center;
     align-items:center;
 }
 .contenidocards
 {
     text-align: justify;
-    height: 550px;
+    height: 570px;
 }
-.espacio2
+.botoncards
 {
-    height: 50px;
+    width: fit-content;
+    float: right;
 }
