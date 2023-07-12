@@ -11,8 +11,8 @@
     <!--BARRA DE NAV 1-->
     <nav class="barranav">
         <div class="container-fluid">
-        <a class="navbar-brand " href="index.html">
-        <img src="../img/logo.png" alt="Logo" width="35" height="50">&nbsp; &nbsp;&nbsp;CARNITAS EL CHAPERON
+        <a class="navbar-brand " href="index.php">
+        <img src="../img/logo.png" alt="Logo" width="35" height="50">&nbsp; &nbsp; &nbsp;CARNITAS EL CHAPERON
         </a>
         <button type="button" class="btn btn-outline-secondary iniciarsesionnav" data-bs-toggle="modal" data-bs-target="#iniciarsesion" style="margin-top: 5px;">Iniciar sesión</button>
         </div>
