@@ -3,34 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<<< Updated upstream:html/principalclientes.html
-    <link rel="stylesheet" href="../../Bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/principalclientes.css">
-========
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="css/index.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
->>>>>>>> Stashed changes:index.php
     <title>Carnitas Chaperon</title>
 </head>
 <body>
-    <!--BARRA DE NAV 1-->
+    <!--BARRA DE NAV 1
     <nav class="barranav">
         <div class="container-fluid">
-<<<<<<<< Updated upstream:html/principalclientes.html
-        <a class="navbar-brand" href="principalclientes.html">
-========
         <a class="navbar-brand " href="index.php">
->>>>>>>> Stashed changes:index.php
-        <img src="../img/logo.png" alt="Logo" width="35" height="50">&nbsp; &nbsp;&nbsp;CARNITAS EL CHAPERON
+        <img src="img/logo.png" alt="Logo" width="35" height="50">CARNITAS&nbsp;EL&nbsp;CHAPERON
         </a>
-        <button type="button" class="btn btn-outline-secondary iniciarsesionnav" data-bs-toggle="modal" data-bs-target="#iniciarsesion">Iniciar sesión</button>
+        <button type="button" class="btn btn-outline-secondary iniciarsesionnav" data-bs-toggle="modal" data-bs-target="#iniciarsesion" style="margin-top: 5px;">Iniciar sesión</button>
         </div>
-<<<<<<<< Updated upstream:html/principalclientes.html
-        <!-- MODAL: INICIAR SESIÓN-->
-    <div class="modal fade" id="iniciarsesion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-========
+    </nav>-->
+    <nav class="navbar navbar-expand-lg barranav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.php">
+                <img src="img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
+            </a>
+            <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-8" style="color: white;">
+                <!--<li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>-->
+                <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="views/menusencillo.php">Menú</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="#">Iniciar sesión</a>
+                </li>
+            </ul>
+            </div>
+        </div>
     </nav>
     <!--BARRA DE NAV 2
     <nav class="barranav2">
@@ -41,11 +54,10 @@
             <div class="col-6 col-md-6 col-lg-6 text-center">
                 <a class="menuyubi" href="" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
             </div>
-        </div>-->
-    </nav> 
+        </div>
+    </nav> -->
     <!-- MODAL: INICIAR SESIÓN-->
     <div class="modal fade" id="iniciarsesion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1400;">
->>>>>>>> Stashed changes:index.php
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header titulomodalnav">
@@ -68,7 +80,7 @@
         </div>
     </div>
     <!-- MODAL: REGISTRARSE-->
-    <div class="modal fade" id="registrarse" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="registrarse" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" style="z-index: 1400;">
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header titulomodalnav">
@@ -94,21 +106,9 @@
         </div>
         </div>
     </div>
-    </nav>
-    <!--BARRA DE NAV 2-->
-    <nav class="barranav2">
-        <div class="row">
-            <div class="col-6 col-md-6 col-lg-6 text-center">
-                <a class="menuyubi" href="">Menú</a>
-            </div>
-            <div class="col-6 col-md-6 col-lg-6 text-center">
-                <a class="menuyubi" href="" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
-            </div>
-        </div>
-    </nav>
     <!--MODAL DE LA UBICACIÓN-->
-    <div class="modal fade" id="alta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modalubi">
+    <div class="modal fade" id="alta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1300;">
+        <div class="modal-dialog modal-lg modalubi d-flex flex-column bd-highlight mb-3 mt-130">
         <div class="modal-content">
             <div class="modal-header titulomodalnav">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Ubicación</h1>
@@ -125,32 +125,25 @@
         </div>
     </div>
     <!--CUERPO-->
-<<<<<<<< Updated upstream:html/principalclientes.html
-    <div class="container principal">
-        <div class="row">
-            <!--PRESENTACIÓN: IMAGEN-->
-            <div class="col-12 col-md-6 col-lg-6 text-center comida">
-                <img src="../img/comida.jpg" alt="">
-========
     <!--PRESENTACIÓN: IMAGENES-->
     <div class="col-12">
                 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner eslogan">
                         <div class="carousel-item active">
-                        <img src="../img/comida1.jpg" class="d-block w-100" alt="...">
+                        <img src="img/comida1.jpg" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Carnitas el Chaperon</h5>
                             <p>Las carnitas más ricas de toda la ciudad</p>
                         </div>
                         </div>
                         <div class="carousel-item">
-                        <img src="../img/gringa.jpg" class="d-block w-100" alt="...">
+                        <img src="img/gringa.jpg" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Haz tu pedido en línea</h5>
                         </div>
                         </div>
                         <div class="carousel-item">
-                        <a href="" data-bs-toggle="modal" data-bs-target="#alta"><img src="../img/fachada1.jpg" class="d-block w-100" alt="..."></a>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#alta"><img src="img/fachada1.jpg" class="d-block w-100" alt="..."></a>
                         <div class="carousel-caption d-none d-md-block">
                             <h5>¡TE ESPERAMOS!</h5>
                             <p>Horario de 10:00 a.m a 6:00 p.m</p>
@@ -162,7 +155,6 @@
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
                     </button>
                 </div>
->>>>>>>> Stashed changes:index.php
             </div>
     <div class="container principal"> 
         <div class="row">
@@ -180,32 +172,34 @@
             <div class="col-12 col-md-12 col-lg-12 espacio"></div>
             <!--TITULO: PROMOCIONES-->
             <div class="col-12 col-md-12 col-lg-12">
-                <h1 class="tprom">Promociones</h1>
+                <h1 class="tprom" style="text-align: center;">Promociones</h1>
+                <hr style="border: 1px solid #E59866; background-color: #E59866; height: 3px;">
             </div>
             <!--PAQUETE 1-->
-            <div class="col-12 col-md-4 col-lg-4 divdecard">
+            <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
                 <!--CARD 1-->
                 <div class="card contenidocards" style="width: 18rem;">
-                    <img src="../img/paquetes.jpg" class="card-img-top" alt="...">
+                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="card-title">Paquete 1</h5>
                     <p class="card-text">
                         Incluye:
                         <ul>
-                            <li>1 kg de Carnitas</li>
+                            <li>1 kg de carnitas</li>
                             <li>1 kg de tortillas</li>
                             <li>1 refresco de 2L</li>
+                            <br><br>
                         </ul>
                     </p>
-                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <a href="#" class="btn btn-primary botoncards">Comprar</a>
                     </div>
                 </div>
             </div>
             <!--PAQUETE 2-->
-            <div class="col-12 col-md-4 col-lg-4 divdecard">
+            <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
                 <!--CARD 2-->
                 <div class="card contenidocards" style="width: 18rem;">
-                    <img src="../img/paquetes.jpg" class="card-img-top" alt="...">
+                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="card-title">Paquete 2</h5>
                     <p class="card-text">
@@ -215,65 +209,57 @@
                             <li>¼ kg de buche</li>
                             <li>1 kg de tortillas</li>
                             <li>1 refresco de 2L</li>
+                            <br>
                         </ul>
                     </p>
-                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <a href="#" class="btn btn-primary botoncards">Comprar</a>
                     </div>
                 </div>
             </div>
             <!--PAQUETE 3-->
-            <div class="col-12 col-md-4 col-lg-4 divdecard">
+            <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
                 <!--CARD 3-->
-<<<<<<<< Updated upstream:html/principalclientes.html
-                <div class="card contenidocards" style="width: 18rem;">
-========
                 <div class="card contenidocards justify-content: flex-end;
                 " style="width: 18rem;">
->>>>>>>> Stashed changes:index.php
-                    <img src="../img/paquetes.jpg" class="card-img-top" alt="...">
+                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="card-title">Paquete 3</h5>
                     <p class="card-text">
                         Incluye:
                         <ul>
-                            <li>1 kg de Carnitas</li>
-                            <li>1 kg de tortillas</li>
-                            <li>1 refresco de 2L</li>
+                            <li>1 chamorro</li>
+                            <li>½ de tortillas</li>
+                            <li>¼ chicharrón botanero</li>
+                            <br><br>
                         </ul>
                     </p>
-                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <a href="#" class="btn btn-primary botoncards">Comprar</a>
                     </div>
                 </div>
             </div>
-            <!--ESPACIO DE 50PX-->
-            <div class="col-12 col-md-12 col-lg-12 espacio2"></div>
             <!--PAQUETE 4-->
-            <div class="col-12 col-md-4 col-lg-4 divdecard">
+            <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
                 <!--CARD 4-->
                 <div class="card contenidocards" style="width: 18rem;">
-                    <img src="../img/paquetes.jpg" class="card-img-top" alt="...">
+                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="card-title">Paquete 4</h5>
                     <p class="card-text">
                         Incluye:
                         <ul>
                             <li>¼ buche</li>
+                            <li>¼ chicharrón botanero</li>
                             <li>1 kg carnitas</li>
                             <li>1 kg de tortillas</li>
                             <li>1 refresco de 2L</li>
                         </ul>
                     </p>
-                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <a href="#" class="btn btn-primary botoncards d-flex justify-content-end">Comprar</a>
                     </div>
                 </div>
-            </div>
-
+            </div><br>
         </div>
     </div>
-<<<<<<<< Updated upstream:html/principalclientes.html
-    <script src="../../Bootstrap/js/bootstrap.min.js"></script>
-========
->>>>>>>> Stashed changes:index.php
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
 </body>
