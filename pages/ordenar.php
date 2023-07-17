@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/index.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-
+<!-- file:///C:/xampp/htdocs/Carnitas_chaperon-jonathan/pages/ordenar.php -->
     <style>
         @font-face
         {
@@ -28,7 +29,7 @@
 
         .content-section
         {
-        background-color: #FFEFCF;
+        background-color: #FACE7F;
         padding: 20px;
         margin-bottom: 20px;
         }
@@ -62,6 +63,12 @@
         {
         float: right;
         }
+
+        .navbar.sticky-top 
+        {
+          z-index: 99;
+        }
+
     </style>
 
     <title>Ordenar</title>
@@ -70,37 +77,38 @@
 
     <header class="d-flex align-items-center justify-content-center lilita bg-header">
 
-        <div class="col-1">
-            <img src="../img/carnitaschap_logo.png" class="w-50">
-        </div>
-
-        <ul class="nav col-9 mb-2 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-5">Ordenar</a></li>
-            <li><a href="#" class="nav-link px-5">Menú</a></li>
-            <li><a href="#" class="nav-link px-5">Ubicación</a></li>
-        </ul>
-
-        <div class="col-2 text-end">
-            <div class="row align-items-center" style="margin: 0%;">
-                <div class="dropdown z-2 w-75">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Usuario
-                    </a>
-                  
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Perfil</a></li>
-                      <li><a class="dropdown-item" href="#">Historial de compras</a></li>
-                      <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
-                    </ul>
-                </div>
+    <nav class="navbar navbar-expand-lg barranav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.php">
+                <img src="../img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
+            </a>
+            <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-8" style="color: white;">
+                <!--<li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>-->
+                <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="../views/menusencillo.php">Menú</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="../views/formlogin.php">Iniciar sesión</a>
+                </li>
+            </ul>
             </div>
         </div>
+    </nav>
 
     </header>
     
     <!-- Nav Bar de comidas -->
 
-    <nav class="navbar navbar-dark bg-redmarron lilita sticky-top z-1">
+    <nav class="navbar navbar-dark bg-redmarron lilita sticky-top">
         <div class="container-fluid justify-content-center">
           <span class="navbar-brand">Carnitas chaperón</span>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvashamburguesa">
@@ -132,24 +140,156 @@
     <div class="content-section">
       <h2 class="lilita">Tacos</h2>
       <div class="row">
-        <div class="col-md-6">
-          <div class="product-card">
-            <img src="../img/taco1.jpeg" alt="Taco 1">
-            <div class="product-name">Orden de tacos</div>
-            <div class="price">$10.00</div>
-            <button class="add-to-cart btn btn-primary">Agregar al carrito</button>
+
+        <div class="card mb-3 col-md-6" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="../img/orden_adobada.jpeg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-6">
+              <div class="card-body">
+                <h5 class="card-title">Orden de tacos</h5>
+                <p class="card-text">$80.00</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ordenTacosModal">Añadir</button>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="product-card">
-            <img src="../img/tacos.jpeg" alt="Taco 2">
-            <div class="product-name">Arma tu orden de tacos</div>
-            <div class="price">$12.00</div>
-            <button class="add-to-cart btn btn-primary">Agregar al carrito</button>
+
+        <div class="card mb-3 col-md-6" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="../img/orden_4tacos.jpeg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-6">
+              <div class="card-body">
+                <h5 class="card-title">Arma tu orden</h5>
+                <p class="card-text">$80.00</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#armaOrdenModal">Añadir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      </div>
+    </div>
+
+          <!-- Primer Modal -->
+      <div class="modal fade" id="ordenTacosModal" tabindex="-1" aria-labelledby="ordenTacosModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="ordenTacosModalLabel">Orden de tacos</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="POST" action="procesar_orden.php">
+                <div class="mb-3">
+                  <label for="ingredienteSelect" class="form-label">Ingrediente</label>
+                  <select class="form-select" id="ingredienteSelect" name="ingrediente">
+                    <option value="carnitas">Carnitas</option>
+                    <option value="buche">Buche</option>
+                    <option value="cuerito">Cuerito</option>
+                    <option value="trompo">Trompo</option>
+                    <option value="costilla">Costilla</option>
+                    <option value="adobada">Adobada</option>
+                    <option value="bistec">Bistec</option>
+                    <option value="suadero">Suadero</option>
+                    <option value="surtido">Surtido</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="cantidadSelect" class="form-label">Cantidad</label>
+                  <select class="form-select" id="cantidadSelect" name="cantidad">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Aceptar</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <!-- Segundo Modal -->
+        <div class="modal fade" id="armaOrdenModal" tabindex="-1" aria-labelledby="armaOrdenModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="armaOrdenModalLabel">Arma tu orden</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form method="POST" action="procesar_orden.php">
+                  <div class="mb-3">
+                    <label for="taco1Select" class="form-label">Taco 1</label>
+                    <select class="form-select" id="taco1Select" name="taco1">
+                      <option value="carnitas">Carnitas</option>
+                      <option value="buche">Buche</option>
+                      <option value="cuerito">Cuerito</option>
+                      <option value="trompo">Trompo</option>
+                      <option value="costilla">Costilla</option>
+                      <option value="adobada">Adobada</option>
+                      <option value="bistec">Bistec</option>
+                      <option value="suadero">Suadero</option>
+                      <option value="surtido">Surtido</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="taco2Select" class="form-label">Taco 2</label>
+                    <select class="form-select" id="taco2Select" name="taco2">
+                      <option value="carnitas">Carnitas</option>
+                      <option value="buche">Buche</option>
+                      <option value="cuerito">Cuerito</option>
+                      <option value="trompo">Trompo</option>
+                      <option value="costilla">Costilla</option>
+                      <option value="adobada">Adobada</option>
+                      <option value="bistec">Bistec</option>
+                      <option value="suadero">Suadero</option>
+                      <option value="surtido">Surtido</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="taco3Select" class="form-label">Taco 3</label>
+                    <select class="form-select" id="taco3Select" name="taco3">
+                      <option value="carnitas">Carnitas</option>
+                      <option value="buche">Buche</option>
+                      <option value="cuerito">Cuerito</option>
+                      <option value="trompo">Trompo</option>
+                      <option value="costilla">Costilla</option>
+                      <option value="adobada">Adobada</option>
+                      <option value="bistec">Bistec</option>
+                      <option value="suadero">Suadero</option>
+                      <option value="surtido">Surtido</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="taco4Select" class="form-label">Taco 4</label>
+                    <select class="form-select" id="taco4Select" name="taco4">
+                      <option value="carnitas">Carnitas</option>
+                      <option value="buche">Buche</option>
+                      <option value="cuerito">Cuerito</option>
+                      <option value="trompo">Trompo</option>
+                      <option value="costilla">Costilla</option>
+                      <option value="adobada">Adobada</option>
+                      <option value="bistec">Bistec</option>
+                      <option value="suadero">Suadero</option>
+                      <option value="surtido">Surtido</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Aceptar</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
     <br>
 

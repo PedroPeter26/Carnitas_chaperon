@@ -10,38 +10,30 @@ html, body
 }
 .barranav
 {
+    display: flex;
     height: 70px;
     background-image: url(../img/barranav1.jpg);
     background-size:contain;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lilita One', sans-serif;
+    font-size: 30px;
+<<<<<<< Updated upstream:css/principalclientes.css
+    color: brown;
+    text-shadow: 2px 2px white;
+    margin: auto;
+    padding-top: 10px;
+=======
+>>>>>>> Stashed changes:css/index.css
     position:fixed;
     top:0;
     width: 100%;
-    z-index: 1200;
-    font-family: 'Lilita One', sans-serif;
-    color: white;
-}
-.navbar-brand
-{
-    font-family: 'Lilita One', sans-serif;
-    font-size: 30px;
-    
-}
-.navbar-brand:hover
-{
-    color: white;
-}
-a.color
-{
-    color: white;
-}
-a.color:hover
-{
-    color: white;
-    font-size: 20px;
+    z-index: 1000;
 }
 @media screen and (max-width: 576px) /*Pantalla pequeña*/
 {
-    .navbar-brand
+    .barranav
     {
         font-size: 26px;
     }
@@ -54,11 +46,22 @@ button.iniciarsesionnav
     color: white;
     text-justify: center;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 20px;
     margin: 0 auto;
     align-content: center;
 }
-
+button.iniciarsesionnav:hover
+{
+    background-color: white;
+    border: 1px solid white;
+    color: #d44000;
+}
+button.iniciarsesionnav:active
+{
+    background-color: blue;
+    border: 1px solid blue;
+    color: purple;
+}
 /*FORMATO AL TEXTO DE LOS MODAL INICIAR SESIÓN Y REGISTRARSE*/
 .titulomodalnav
 {
@@ -73,6 +76,17 @@ button.iniciarsesionnav
     font-size: 16px;
     font-family: "Andale Mono", monospace;
 }
+.regnav
+{
+    float: right;
+    margin-right: 10px;
+    color: brown;
+    text-justify: center;
+    align-items: center;
+    border-radius: 20px;
+    order: 1;text-shadow: none;
+    text-decoration: underline;
+}
 .barranav2
 {
     height: 55px;
@@ -86,7 +100,7 @@ button.iniciarsesionnav
     position:fixed;
     top:70px;
     width: 100%;
-    z-index: 1200;
+    z-index: 1000;
 }
 /*CUERPO*/
 .carousel, .carousel-inner
@@ -178,10 +192,8 @@ div.presentacion
     max-width: 70% !important;
     text-align: center;
     align-self: auto;
-    z-index: 1300;
-
 }
-.contenedormodal /*UBI*/
+.contenedormodal
 {
     width: inherit; /* Hereda el ancho del contenedor padre (modal) */
     height: inherit; /* Hereda el alto del contenedor padre (modal) */
@@ -225,28 +237,35 @@ div.presentacion
 }
 .tprom
 {
+<<<<<<< Updated upstream:css/principalclientes.css
+    font-size: 30px;
+    font-family: "Andale Mono", monospace;
+=======
     font-size: 35px;
     font-family: 'Lilita One', sans-serif;
     text-shadow: 2px 2px #E59866;
+>>>>>>> Stashed changes:css/index.css
 }
 .divdecard /*Cada división de 3 de los 12 que hay por fila*/
 {
-    display: flex;
     justify-content: center;
     align-items:center;
 }
 .contenidocards /*El card en sí*/
 {
     text-align: justify;
+<<<<<<< Updated upstream:css/principalclientes.css
+    height: 550px;
+=======
     height: auto;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .contenidocards:hover /*Cuando el cursor pasa por encima de los cards*/
 {
     transform: scale(1.05);
+>>>>>>> Stashed changes:css/index.css
 }
-.botoncards
+.espacio2
 {
-    width: fit-content;
-    float: right;
+    height: 50px;
 }
