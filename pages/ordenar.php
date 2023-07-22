@@ -1,3 +1,12 @@
+<<<<<<< Updated upstream
+=======
+<?php
+include '../class/database.php';
+$db = new Database();
+$db->conectarDB();
+$pdo = $db->getConexion();
+?>
+>>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +43,7 @@
         margin-bottom: 20px;
         }
 
+<<<<<<< Updated upstream
         .product-card
         {
         margin-bottom: 20px;
@@ -69,6 +79,8 @@
           z-index: 99;
         }
 
+=======
+>>>>>>> Stashed changes
     </style>
 
     <title>Ordenar</title>
@@ -108,6 +120,7 @@
     
     <!-- Nav Bar de comidas -->
 
+<<<<<<< Updated upstream
     <nav class="navbar navbar-dark bg-redmarron lilita sticky-top">
         <div class="container-fluid justify-content-center">
           <span class="navbar-brand">Carnitas chaperón</span>
@@ -562,6 +575,67 @@
           </div>
         </div>
     </div>
+=======
+    <!-- Contenido principal -->
+  <div class="container mt-5">
+    <div class="content-section">
+    <form>
+            <div class="mb-3">
+                <div class="alert alert-success">
+                    pantalla de mensajes
+                    <a href="#" class="badge badge-warning">Ver carrito</a>
+                </div><br>
+                <label for="tipoComida" class="form-label">Seleccione el tipo de comida:</label>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Seleccionar
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="#">Carnes</a></li>
+                        <li><a class="dropdown-item" href="#">Tacos</a></li>
+                        <li><a class="dropdown-item" href="#">Lonches</a></li>
+                        <li><a class="dropdown-item" href="#">Gringas</a></li>
+                        <li><a class="dropdown-item" href="#">Chicharrones</a></li>
+                        <li><a class="dropdown-item" href="#">Paquetes</a></li>
+                        <li><a class="dropdown-item" href="#">Bebidas</a></li>
+                        <li><a class="dropdown-item" href="#">Complementos</a></li>
+                    </ul>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+        <?php
+         $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.disponibilidad = 'Ambos' OR productos.disponibilidad = 'Rapido'");
+         $sentencia->execute();
+         $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+        ?>
+        <div class="row">
+            <?php foreach($listaProductos as $producto){ ?>
+                <div class="col-3">
+                <div class="card">
+                    <img
+                    title="Titulo producto"
+                    alt="Título"
+                    class="card-img-top"
+                    src="<?php echo $producto['img'];?>"
+                    >
+                    <div class="card-body">
+                        <span><?php echo $producto['nombre'];?></span>
+                        <h5 class="card-title">$<?php echo $producto['precio_app']?></h5>
+                        <button class="btn btn-primary"
+                        name="btnAccion"
+                        value="Agregar"
+                        type="submit">Agregar al carrito</button>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+
+        </div>
+    </div>
+
+  </div>
+>>>>>>> Stashed changes
 
 </body>
 </html>

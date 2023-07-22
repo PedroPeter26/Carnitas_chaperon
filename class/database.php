@@ -4,7 +4,11 @@ class Database
     private $PDOLocal;
     private $user = "root";
     private $password = "";
+<<<<<<< Updated upstream
     private $server = "mysql:host=localhost; dbname=depaclients";
+=======
+    private $server = "mysql:host=localhost; dbname=bdcarnitaschaperon";
+>>>>>>> Stashed changes
 
     function conectarDB()
     {
@@ -30,6 +34,14 @@ class Database
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    function getConexion()
+    {
+        return $this->PDOLocal;
+    }
+
+>>>>>>> Stashed changes
     function seleccionar($consulta)
     {
         try
@@ -54,6 +66,7 @@ class Database
             echo $e->getMessage();
         }
     }
+<<<<<<< Updated upstream
 
     function verifica($usuario, $contra)
     {
@@ -98,5 +111,7 @@ class Database
         session_destroy();
         header("Location: ../index.php");
     }
+=======
+>>>>>>> Stashed changes
 }
 ?>

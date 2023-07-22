@@ -20,6 +20,20 @@ html, body
     font-family: 'Lilita One', sans-serif;
     color: white;
 }
+<<<<<<< Updated upstream
+=======
+.barranav2
+{
+    height: 70px;
+    background-image: url(../img/barranav1.jpg);
+    background-size:contain;
+    top:0;
+    width: 100%;
+    z-index: 1200;
+    font-family: 'Lilita One', sans-serif;
+    color: white;
+}
+>>>>>>> Stashed changes
 .navbar-brand
 {
     font-family: 'Lilita One', sans-serif;
