@@ -1,3 +1,10 @@
+<?php
+include '../class/databaseInt.php';
+$db = new Database();
+$db->conectarBD();
+$pdo = $db->getConexion();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -211,14 +218,20 @@
                 <a class="nav-link" href="#Chicharrones" data-bs-toggle="tab">Chicharrones</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="#Paquetes" data-bs-toggle="tab">Paquetes</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#Bebidas" data-bs-toggle="tab">Bebidas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#Extras" data-bs-toggle="tab">Extras</a>
             </li>
         </ul>
     </nav>
 
     <!--CONTENIDO-->
     <div class="container tab-content contenido">
-        <!--CARNITAS-->
+        <!--.1 CARNITAS-->
         <div class="tab-pane fade show active" id="Carnitas" style="text-align: justify;">
             <div class="container principal">
                 <!--CARNITAS-->
@@ -226,20 +239,13 @@
                     <h2 class="mb-4">Carnitas</h2>
                     <!--CARD-->
                     <?php
-                        include '../class/databaseInt.php';
-                        $db = new Database();
-                        $db->conectarBD();
-                        
-                        $consulta="SELECT * FROM productos where disponibilidad<>'Comedor' and tipo='TIPO1' and status='Activo'";
-                        $resultados = $db->seleccionar($consulta);
-                        $resultados->execute();
-                        $listaproductos=$resultados->fetchAll(PDO::FETCH_ASSOC);
+                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO1' and status='Activo'");
+                        $sentencia->execute();
+                        $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <?php
                         foreach ($listaproductos as $producto)
                         {
-                            // Convertir el array del producto en una cadena JSON
-                            $producto_json = json_encode($producto);
                     ?>
                         <div class="col-12 col-md-12 col-lg-6">
                             <div class="card mb-3 cardcarnes" style="max-width: 540px;">
@@ -250,11 +256,22 @@
                                 <div class="col-7 col-md-7 col-lg-8">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
-                                        <p class="card-text">$<?php echo $producto['precio_app']; ?></p>
+                                        <p class="card-text">
+                                            <?php
+                                            if ($producto['disponibilidad'] == 'Comedor')
+                                            {
+                                                echo "<b>No aplica para llevar.</b>";
+                                            } 
+                                            else
+                                            {
+                                                echo "<b>$" . $producto['precio_app'] . "</b>";
+                                            }
+                                            ?>
+                                        </p>
                                         <!-- Agregar el atributo data-bs-producto con la información del producto -->
                                         <p class="card-text">
                                             <small class="text-body-secondary">
-                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#modalproductos" data-bs-producto='<?php echo $producto_json; ?>'>Más información</a>
+                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#<?php echo $producto['producto_id'];?>">Más información</a>
                                             </small>
                                         </p>
                                     </div>
@@ -262,6 +279,57 @@
                             </div>
                             </div>
                         </div>
+
+                        <!--MODAL: PRODUCTOS-->
+                        <div class="modal fade modalproductos" id="<?php echo $producto['producto_id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1400;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" style="background-color: #EFE2CF;">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTitle-<?php echo $producto['producto_id'];?>"><?php echo $producto['nombre'];?></h5>
+                                            </div>
+                                            <div class="modal-body" style="background-color: white;">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-12 col-lg-6 justify-content-center d-flex align-items-center p-2">
+                                                        <img src="<?php echo $producto['img'];?>" class="img-fluid rounded-start rounded-end imgmodal" alt="<?php echo $producto['nombre'];?>">
+                                                    </div>
+                                                    <div class="col-12 col-md-12 col-lg-6" style="padding: 30px; padding-left: 50px;">
+                                                        <h4><?php echo $producto['nombre'];?></h4>
+                                                        <h5><b>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] == 'Comedor')
+                                                                {
+                                                                    echo "<b>No aplica para llevar.</b>";
+                                                                } 
+                                                                else
+                                                                {
+                                                                    echo "<b>$" . $producto['precio_app'] . "</b>";
+                                                                }
+                                                            ?>  
+                                                        </b></h5><br>
+                                                        Descripción:
+                                                        <p style="text-align: justify"><?php echo $producto['descripcion'];?></p>
+                                                        <small>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] <> 'Rapido')
+                                                                {
+                                                                    echo "Precio en comedor: <b>$" . $producto['precio_com'] . "</b>";
+                                                                }
+                                                                else
+                                                                {
+                                                                    echo "<b>No aplica para comedor.</b>";
+                                                                }
+                                                            ?>    
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="btn-ok" type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+
                     <?php
                         }
                     ?>
@@ -269,7 +337,7 @@
             </div>
         </div>
 
-        <!--TACOS-->
+        <!--2. TACOS-->
         <div class="tab-pane fade" id="Tacos" style="text-align: justify;">
             <div class="container principal">
                 <!--TACOS-->
@@ -277,16 +345,13 @@
                     <h2 class="mb-4">Tacos</h2>
                     <!--CARD-->
                     <?php
-                        $consulta="SELECT * FROM productos where disponibilidad<>'Comedor' and tipo='TIPO2' and status='Activo'";
-                        $resultados = $db->seleccionar($consulta);
-                        $resultados->execute();
-                        $listaproductos=$resultados->fetchAll(PDO::FETCH_ASSOC);
+                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO2' and status='Activo'");
+                        $sentencia->execute();
+                        $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <?php
                         foreach ($listaproductos as $producto)
                         {
-                            // Convertir el array del producto en una cadena JSON
-                            $producto_json = json_encode($producto);
                     ?>
                         <div class="col-12 col-md-12 col-lg-6">
                             <div class="card mb-3 cardcarnes" style="max-width: 540px;">
@@ -297,11 +362,22 @@
                                 <div class="col-7 col-md-7 col-lg-8">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
-                                        <p class="card-text">$<?php echo $producto['precio_app']; ?></p>
+                                        <p class="card-text">
+                                            <?php
+                                            if ($producto['disponibilidad'] == 'Comedor')
+                                            {
+                                                echo "<b>No aplica para llevar.</b>";
+                                            } 
+                                            else
+                                            {
+                                                echo "<b>$" . $producto['precio_app'] . "</b>";
+                                            }
+                                            ?>
+                                        </p>
                                         <!-- Agregar el atributo data-bs-producto con la información del producto -->
                                         <p class="card-text">
                                             <small class="text-body-secondary">
-                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#modalproductos" data-bs-producto='<?php echo $producto_json; ?>'>Más información</a>
+                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#<?php echo $producto['producto_id'];?>">Más información</a>
                                             </small>
                                         </p>
                                     </div>
@@ -309,6 +385,57 @@
                             </div>
                             </div>
                         </div>
+
+                        <!--MODAL: PRODUCTOS-->
+                        <div class="modal fade modalproductos" id="<?php echo $producto['producto_id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1400;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" style="background-color: #EFE2CF;">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTitle-<?php echo $producto['producto_id'];?>"><?php echo $producto['nombre'];?></h5>
+                                            </div>
+                                            <div class="modal-body" style="background-color: white;">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-12 col-lg-6 justify-content-center d-flex align-items-center p-2">
+                                                        <img src="<?php echo $producto['img'];?>" class="img-fluid rounded-start rounded-end imgmodal" alt="<?php echo $producto['nombre'];?>">
+                                                    </div>
+                                                    <div class="col-12 col-md-12 col-lg-6" style="padding: 30px; padding-left: 50px;">
+                                                        <h4><?php echo $producto['nombre'];?></h4>
+                                                        <h5><b>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] == 'Comedor')
+                                                                {
+                                                                    echo "<b>No aplica para llevar.</b>";
+                                                                } 
+                                                                else
+                                                                {
+                                                                    echo "<b>$" . $producto['precio_app'] . "</b>";
+                                                                }
+                                                            ?>  
+                                                        </b></h5><br>
+                                                        Descripción:
+                                                        <p style="text-align: justify"><?php echo $producto['descripcion'];?></p>
+                                                        <small>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] <> 'Rapido')
+                                                                {
+                                                                    echo "Precio en comedor: <b>$" . $producto['precio_com'] . "</b>";
+                                                                }
+                                                                else
+                                                                {
+                                                                    echo "<b>No aplica para comedor.</b>";
+                                                                }
+                                                            ?>    
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="btn-ok" type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+
                     <?php
                         }
                     ?>
@@ -316,7 +443,7 @@
             </div>
         </div>
 
-        <!--LONCHES-->
+        <!--3. LONCHES-->
         <div class="tab-pane fade" id="Lonches" style="text-align: justify;">
             <div class="container principal">
                 <!--LONCHES-->
@@ -324,16 +451,13 @@
                     <h2 class="mb-4">Lonches</h2>
                     <!--CARD-->
                     <?php
-                        $consulta="SELECT * FROM productos where disponibilidad<>'Comedor' and tipo='TIPO3' and status='Activo'";
-                        $resultados = $db->seleccionar($consulta);
-                        $resultados->execute();
-                        $listaproductos=$resultados->fetchAll(PDO::FETCH_ASSOC);
+                        $sentencia=$pdo->prepare("SELECT * FROM productos where disponibilidad<>'Comedor' and tipo='TIPO3' and status='Activo'");
+                        $sentencia->execute();
+                        $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <?php
                         foreach ($listaproductos as $producto)
                         {
-                            // Convertir el array del producto en una cadena JSON
-                            $producto_json = json_encode($producto);
                     ?>
                         <div class="col-12 col-md-12 col-lg-6">
                             <div class="card mb-3 cardcarnes" style="max-width: 540px;">
@@ -344,11 +468,22 @@
                                 <div class="col-7 col-md-7 col-lg-8">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
-                                        <p class="card-text">$<?php echo $producto['precio_app']; ?></p>
+                                        <p class="card-text">
+                                            <?php
+                                            if ($producto['disponibilidad'] == 'Comedor')
+                                            {
+                                                echo "<b>No aplica para llevar.</b>";
+                                            } 
+                                            else
+                                            {
+                                                echo "<b>$" . $producto['precio_app'] . "</b>";
+                                            }
+                                            ?>
+                                        </p>
                                         <!-- Agregar el atributo data-bs-producto con la información del producto -->
                                         <p class="card-text">
                                             <small class="text-body-secondary">
-                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#modalproductos" data-bs-producto='<?php echo $producto_json; ?>'>Más información</a>
+                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#<?php echo $producto['producto_id'];?>">Más información</a>
                                             </small>
                                         </p>
                                     </div>
@@ -356,6 +491,57 @@
                             </div>
                             </div>
                         </div>
+
+                        <!--MODAL: PRODUCTOS-->
+                        <div class="modal fade modalproductos" id="<?php echo $producto['producto_id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1400;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" style="background-color: #EFE2CF;">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTitle-<?php echo $producto['producto_id'];?>"><?php echo $producto['nombre'];?></h5>
+                                            </div>
+                                            <div class="modal-body" style="background-color: white;">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-12 col-lg-6 justify-content-center d-flex align-items-center p-2">
+                                                        <img src="<?php echo $producto['img'];?>" class="img-fluid rounded-start rounded-end imgmodal" alt="<?php echo $producto['nombre'];?>">
+                                                    </div>
+                                                    <div class="col-12 col-md-12 col-lg-6" style="padding: 30px; padding-left: 50px;">
+                                                        <h4><?php echo $producto['nombre'];?></h4>
+                                                        <h5><b>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] == 'Comedor')
+                                                                {
+                                                                    echo "<b>No aplica para llevar.</b>";
+                                                                } 
+                                                                else
+                                                                {
+                                                                    echo "<b>$" . $producto['precio_app'] . "</b>";
+                                                                }
+                                                            ?>  
+                                                        </b></h5><br>
+                                                        Descripción:
+                                                        <p style="text-align: justify"><?php echo $producto['descripcion'];?></p>
+                                                        <small>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] <> 'Rapido')
+                                                                {
+                                                                    echo "Precio en comedor: <b>$" . $producto['precio_com'] . "</b>";
+                                                                }
+                                                                else
+                                                                {
+                                                                    echo "<b>No aplica para comedor.</b>";
+                                                                }
+                                                            ?>    
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="btn-ok" type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+
                     <?php
                         }
                     ?>
@@ -363,7 +549,7 @@
             </div>
         </div>
 
-        <!--GRINGAS-->
+        <!--4. GRINGAS-->
         <div class="tab-pane fade" id="Gringas" style="text-align: justify;">
             <div class="container principal">
                 <!--GRINGAS-->
@@ -371,16 +557,13 @@
                     <h2 class="mb-4">Gringas</h2>
                     <!--CARD-->
                     <?php
-                        $consulta="SELECT * FROM productos where disponibilidad<>'Comedor' and tipo='TIPO4' and status='Activo'";
-                        $resultados = $db->seleccionar($consulta);
-                        $resultados->execute();
-                        $listaproductos=$resultados->fetchAll(PDO::FETCH_ASSOC);
+                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO4' and status='Activo'");
+                        $sentencia->execute();
+                        $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <?php
                         foreach ($listaproductos as $producto)
                         {
-                            // Convertir el array del producto en una cadena JSON
-                            $producto_json = json_encode($producto);
                     ?>
                         <div class="col-12 col-md-12 col-lg-6">
                             <div class="card mb-3 cardcarnes" style="max-width: 540px;">
@@ -391,11 +574,22 @@
                                 <div class="col-7 col-md-7 col-lg-8">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
-                                        <p class="card-text">$<?php echo $producto['precio_app']; ?></p>
+                                        <p class="card-text">
+                                            <?php
+                                            if ($producto['disponibilidad'] == 'Comedor')
+                                            {
+                                                echo "<b>No aplica para llevar.</b>";
+                                            } 
+                                            else
+                                            {
+                                                echo "<b>$" . $producto['precio_app'] . "</b>";
+                                            }
+                                            ?>
+                                        </p>
                                         <!-- Agregar el atributo data-bs-producto con la información del producto -->
                                         <p class="card-text">
                                             <small class="text-body-secondary">
-                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#modalproductos" data-bs-producto='<?php echo $producto_json; ?>'>Más información</a>
+                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#<?php echo $producto['producto_id'];?>">Más información</a>
                                             </small>
                                         </p>
                                     </div>
@@ -403,6 +597,57 @@
                             </div>
                             </div>
                         </div>
+
+                        <!--MODAL: PRODUCTOS-->
+                        <div class="modal fade modalproductos" id="<?php echo $producto['producto_id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1400;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" style="background-color: #EFE2CF;">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTitle-<?php echo $producto['producto_id'];?>"><?php echo $producto['nombre'];?></h5>
+                                            </div>
+                                            <div class="modal-body" style="background-color: white;">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-12 col-lg-6 justify-content-center d-flex align-items-center p-2">
+                                                        <img src="<?php echo $producto['img'];?>" class="img-fluid rounded-start rounded-end imgmodal" alt="<?php echo $producto['nombre'];?>">
+                                                    </div>
+                                                    <div class="col-12 col-md-12 col-lg-6" style="padding: 30px; padding-left: 50px;">
+                                                        <h4><?php echo $producto['nombre'];?></h4>
+                                                        <h5><b>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] == 'Comedor')
+                                                                {
+                                                                    echo "<b>No aplica para llevar.</b>";
+                                                                } 
+                                                                else
+                                                                {
+                                                                    echo "<b>$" . $producto['precio_app'] . "</b>";
+                                                                }
+                                                            ?>  
+                                                        </b></h5><br>
+                                                        Descripción:
+                                                        <p style="text-align: justify"><?php echo $producto['descripcion'];?></p>
+                                                        <small>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] <> 'Rapido')
+                                                                {
+                                                                    echo "Precio en comedor: <b>$" . $producto['precio_com'] . "</b>";
+                                                                }
+                                                                else
+                                                                {
+                                                                    echo "<b>No aplica para comedor.</b>";
+                                                                }
+                                                            ?>    
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="btn-ok" type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+
                     <?php
                         }
                     ?>
@@ -410,7 +655,7 @@
             </div>
         </div>
 
-        <!--CHICHARRONES-->
+        <!--5. CHICHARRONES-->
         <div class="tab-pane fade" id="Chicharrones" style="text-align: justify;">
             <div class="container principal">
                 <!--CHICHARRONES-->
@@ -418,16 +663,13 @@
                     <h2 class="mb-4">Chicharrones</h2>
                     <!--CARD-->
                     <?php
-                        $consulta="SELECT * FROM productos where disponibilidad<>'Comedor' and tipo='TIPO5' and status='Activo'";
-                        $resultados = $db->seleccionar($consulta);
-                        $resultados->execute();
-                        $listaproductos=$resultados->fetchAll(PDO::FETCH_ASSOC);
+                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO5' and status='Activo'");
+                        $sentencia->execute();
+                        $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <?php
                         foreach ($listaproductos as $producto)
                         {
-                            // Convertir el array del producto en una cadena JSON
-                            $producto_json = json_encode($producto);
                     ?>
                         <div class="col-12 col-md-12 col-lg-6">
                             <div class="card mb-3 cardcarnes" style="max-width: 540px;">
@@ -438,11 +680,22 @@
                                 <div class="col-7 col-md-7 col-lg-8">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
-                                        <p class="card-text">$<?php echo $producto['precio_app']; ?></p>
+                                        <p class="card-text">
+                                            <?php
+                                            if ($producto['disponibilidad'] == 'Comedor')
+                                            {
+                                                echo "<b>No aplica para llevar.</b>";
+                                            } 
+                                            else
+                                            {
+                                                echo "<b>$" . $producto['precio_app'] . "</b>";
+                                            }
+                                            ?>
+                                        </p>
                                         <!-- Agregar el atributo data-bs-producto con la información del producto -->
                                         <p class="card-text">
                                             <small class="text-body-secondary">
-                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#modalproductos" data-bs-producto='<?php echo $producto_json; ?>'>Más información</a>
+                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#<?php echo $producto['producto_id'];?>">Más información</a>
                                             </small>
                                         </p>
                                     </div>
@@ -450,6 +703,57 @@
                             </div>
                             </div>
                         </div>
+
+                        <!--MODAL: PRODUCTOS-->
+                        <div class="modal fade modalproductos" id="<?php echo $producto['producto_id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1400;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" style="background-color: #EFE2CF;">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTitle-<?php echo $producto['producto_id'];?>"><?php echo $producto['nombre'];?></h5>
+                                            </div>
+                                            <div class="modal-body" style="background-color: white;">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-12 col-lg-6 justify-content-center d-flex align-items-center p-2">
+                                                        <img src="<?php echo $producto['img'];?>" class="img-fluid rounded-start rounded-end imgmodal" alt="<?php echo $producto['nombre'];?>">
+                                                    </div>
+                                                    <div class="col-12 col-md-12 col-lg-6" style="padding: 30px; padding-left: 50px;">
+                                                        <h4><?php echo $producto['nombre'];?></h4>
+                                                        <h5><b>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] == 'Comedor')
+                                                                {
+                                                                    echo "<b>No aplica para llevar.</b>";
+                                                                } 
+                                                                else
+                                                                {
+                                                                    echo "<b>$" . $producto['precio_app'] . "</b>";
+                                                                }
+                                                            ?>  
+                                                        </b></h5><br>
+                                                        Descripción:
+                                                        <p style="text-align: justify"><?php echo $producto['descripcion'];?></p>
+                                                        <small>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] <> 'Rapido')
+                                                                {
+                                                                    echo "Precio en comedor: <b>$" . $producto['precio_com'] . "</b>";
+                                                                }
+                                                                else
+                                                                {
+                                                                    echo "<b>No aplica para comedor.</b>";
+                                                                }
+                                                            ?>    
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="btn-ok" type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+
                     <?php
                         }
                     ?>
@@ -457,7 +761,113 @@
             </div>
         </div>
 
-        <!--BEBIDAS-->
+        <!--6. PAQUETES-->
+        <div class="tab-pane fade" id="Paquetes" style="text-align: justify;">
+            <div class="container principal">
+                <!--CHICHARRONES-->
+                <div class="row mb-5">
+                    <h2 class="mb-4">Paquetes</h2>
+                    <!--CARD-->
+                    <?php
+                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO6' and status='Activo'");
+                        $sentencia->execute();
+                        $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                    <?php
+                        foreach ($listaproductos as $producto)
+                        {
+                    ?>
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="card mb-3 cardcarnes" style="max-width: 540px;">
+                            <div class="row g-0 rounded" style="background-color: #FCF4E9; height: 150px;">
+                                <div class="col-5 col-md-5 col-lg-4">
+                                    <img src="<?php echo $producto['img']; ?>" class="img-fluid rounded-start" alt="<?php echo $producto['nombre']; ?>" style="height: 150px; width: 180px;">
+                                </div>
+                                <div class="col-7 col-md-7 col-lg-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
+                                        <p class="card-text">
+                                            <?php
+                                            if ($producto['disponibilidad'] == 'Comedor')
+                                            {
+                                                echo "<b>No aplica para llevar.</b>";
+                                            } 
+                                            else
+                                            {
+                                                echo "<b>$" . $producto['precio_app'] . "</b>";
+                                            }
+                                            ?>
+                                        </p>
+                                        <!-- Agregar el atributo data-bs-producto con la información del producto -->
+                                        <p class="card-text">
+                                            <small class="text-body-secondary">
+                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#<?php echo $producto['producto_id'];?>">Más información</a>
+                                            </small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!--MODAL: PRODUCTOS-->
+                        <div class="modal fade modalproductos" id="<?php echo $producto['producto_id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1400;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" style="background-color: #EFE2CF;">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTitle-<?php echo $producto['producto_id'];?>"><?php echo $producto['nombre'];?></h5>
+                                            </div>
+                                            <div class="modal-body" style="background-color: white;">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-12 col-lg-6 justify-content-center d-flex align-items-center p-2">
+                                                        <img src="<?php echo $producto['img'];?>" class="img-fluid rounded-start rounded-end imgmodal" alt="<?php echo $producto['nombre'];?>">
+                                                    </div>
+                                                    <div class="col-12 col-md-12 col-lg-6" style="padding: 30px; padding-left: 50px;">
+                                                        <h4><?php echo $producto['nombre'];?></h4>
+                                                        <h5><b>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] == 'Comedor')
+                                                                {
+                                                                    echo "<b>No aplica para llevar.</b>";
+                                                                } 
+                                                                else
+                                                                {
+                                                                    echo "<b>$" . $producto['precio_app'] . "</b>";
+                                                                }
+                                                            ?>  
+                                                        </b></h5><br>
+                                                        Descripción:
+                                                        <p style="text-align: justify"><?php echo $producto['descripcion'];?></p>
+                                                        <small>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] <> 'Rapido')
+                                                                {
+                                                                    echo "Precio en comedor: <b>$" . $producto['precio_com'] . "</b>";
+                                                                }
+                                                                else
+                                                                {
+                                                                    echo "<b>No aplica para comedor.</b>";
+                                                                }
+                                                            ?>    
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="btn-ok" type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+
+                    <?php
+                        }
+                    ?>
+                </div>
+            </div>
+        </div>
+
+        <!--7. BEBIDAS-->
         <div class="tab-pane fade" id="Bebidas" style="text-align: justify;">
             <div class="container principal">
                 <!--BEBIDAS-->
@@ -465,16 +875,13 @@
                     <h2 class="mb-4">Bebidas</h2>
                     <!--CARD-->
                     <?php
-                        $consulta="SELECT * FROM productos where disponibilidad<>'Comedor' and tipo='TIPO7' and status='Activo'";
-                        $resultados = $db->seleccionar($consulta);
-                        $resultados->execute();
-                        $listaproductos=$resultados->fetchAll(PDO::FETCH_ASSOC);
+                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO7' and status='Activo'");
+                        $sentencia->execute();
+                        $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <?php
                         foreach ($listaproductos as $producto)
                         {
-                            // Convertir el array del producto en una cadena JSON
-                            $producto_json = json_encode($producto);
                     ?>
                         <div class="col-12 col-md-12 col-lg-6">
                             <div class="card mb-3 cardcarnes" style="max-width: 540px;">
@@ -485,11 +892,22 @@
                                 <div class="col-7 col-md-7 col-lg-8">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
-                                        <p class="card-text">$<?php echo $producto['precio_app']; ?></p>
+                                        <p class="card-text">
+                                            <?php
+                                            if ($producto['disponibilidad'] == 'Comedor')
+                                            {
+                                                echo "<b>No aplica para llevar.</b>";
+                                            } 
+                                            else
+                                            {
+                                                echo "<b>$" . $producto['precio_app'] . "</b>";
+                                            }
+                                            ?>
+                                        </p>
                                         <!-- Agregar el atributo data-bs-producto con la información del producto -->
                                         <p class="card-text">
                                             <small class="text-body-secondary">
-                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#modalproductos" data-bs-producto='<?php echo $producto_json; ?>'>Más información</a>
+                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#<?php echo $producto['producto_id'];?>">Más información</a>
                                             </small>
                                         </p>
                                     </div>
@@ -497,6 +915,163 @@
                             </div>
                             </div>
                         </div>
+
+                        <!--MODAL: PRODUCTOS-->
+                        <div class="modal fade modalproductos" id="<?php echo $producto['producto_id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1400;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" style="background-color: #EFE2CF;">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTitle-<?php echo $producto['producto_id'];?>"><?php echo $producto['nombre'];?></h5>
+                                            </div>
+                                            <div class="modal-body" style="background-color: white;">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-12 col-lg-6 justify-content-center d-flex align-items-center p-2">
+                                                        <img src="<?php echo $producto['img'];?>" class="img-fluid rounded-start rounded-end imgmodal" alt="<?php echo $producto['nombre'];?>">
+                                                    </div>
+                                                    <div class="col-12 col-md-12 col-lg-6" style="padding: 30px; padding-left: 50px;">
+                                                        <h4><?php echo $producto['nombre'];?></h4>
+                                                        <h5><b>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] == 'Comedor')
+                                                                {
+                                                                    echo "<b>No aplica para llevar.</b>";
+                                                                } 
+                                                                else
+                                                                {
+                                                                    echo "<b>$" . $producto['precio_app'] . "</b>";
+                                                                }
+                                                            ?>  
+                                                        </b></h5><br>
+                                                        Descripción:
+                                                        <p style="text-align: justify"><?php echo $producto['descripcion'];?></p>
+                                                        <small>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] <> 'Rapido')
+                                                                {
+                                                                    echo "Precio en comedor: <b>$" . $producto['precio_com'] . "</b>";
+                                                                }
+                                                                else
+                                                                {
+                                                                    echo "<b>No aplica para comedor.</b>";
+                                                                }
+                                                            ?>    
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="btn-ok" type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+
+                    <?php
+                        }
+                    ?>
+                </div>
+            </div>
+        </div>
+
+        <!--8. EXTRAS-->
+        <div class="tab-pane fade" id="Extras" style="text-align: justify;">
+            <div class="container principal">
+                <!--EXTRAS-->
+                <div class="row mb-5">
+                    <h2 class="mb-4">Extras</h2>
+                    <!--CARD-->
+                    <?php
+                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO8' and status='Activo'");
+                        $sentencia->execute();
+                        $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                    <?php
+                        foreach ($listaproductos as $producto)
+                        {
+                    ?>
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="card mb-3 cardcarnes" style="max-width: 540px;">
+                            <div class="row g-0 rounded" style="background-color: #FCF4E9; height: 150px;">
+                                <div class="col-5 col-md-5 col-lg-4">
+                                    <img src="<?php echo $producto['img']; ?>" class="img-fluid rounded-start" alt="<?php echo $producto['nombre']; ?>" style="height: 150px; width: 180px;">
+                                </div>
+                                <div class="col-7 col-md-7 col-lg-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
+                                        <p class="card-text">
+                                            <?php
+                                            if ($producto['disponibilidad'] == 'Comedor')
+                                            {
+                                                echo "<b>No aplica para llevar.</b>";
+                                            } 
+                                            else
+                                            {
+                                                echo "<b>$" . $producto['precio_app'] . "</b>";
+                                            }
+                                            ?>
+                                        </p>
+                                        <!-- Agregar el atributo data-bs-producto con la información del producto -->
+                                        <p class="card-text">
+                                            <small class="text-body-secondary">
+                                            <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#<?php echo $producto['producto_id'];?>">Más información</a>
+                                            </small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!--MODAL: PRODUCTOS-->
+                        <div class="modal fade modalproductos" id="<?php echo $producto['producto_id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1400;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" style="background-color: #EFE2CF;">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTitle-<?php echo $producto['producto_id'];?>"><?php echo $producto['nombre'];?></h5>
+                                            </div>
+                                            <div class="modal-body" style="background-color: white;">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-12 col-lg-6 justify-content-center d-flex align-items-center p-2">
+                                                        <img src="<?php echo $producto['img'];?>" class="img-fluid rounded-start rounded-end imgmodal" alt="<?php echo $producto['nombre'];?>">
+                                                    </div>
+                                                    <div class="col-12 col-md-12 col-lg-6" style="padding: 30px; padding-left: 50px;">
+                                                        <h4><?php echo $producto['nombre'];?></h4>
+                                                        <h5><b>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] == 'Comedor')
+                                                                {
+                                                                    echo "<b>No aplica para llevar.</b>";
+                                                                } 
+                                                                else
+                                                                {
+                                                                    echo "<b>$" . $producto['precio_app'] . "</b>";
+                                                                }
+                                                            ?>  
+                                                        </b></h5><br>
+                                                        Descripción:
+                                                        <p style="text-align: justify"><?php echo $producto['descripcion'];?></p>
+                                                        <small>
+                                                            <?php 
+                                                                if ($producto['disponibilidad'] <> 'Rapido')
+                                                                {
+                                                                    echo "Precio en comedor: <b>$" . $producto['precio_com'] . "</b>";
+                                                                }
+                                                                else
+                                                                {
+                                                                    echo "<b>No aplica para comedor.</b>";
+                                                                }
+                                                            ?>    
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="btn-ok" type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+
                     <?php
                         }
                     ?>
@@ -504,69 +1079,6 @@
             </div>
         </div>
     </div>
-
-    <!--MODAL: PRODUCTOS-->
-    <div class="modal fade modalproductos" id="modalproductos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1400;">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content" style="background-color: #EFE2CF;">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modal-producto-nombre"></h5>
-                        </div>
-                        <div class="modal-body" style="background-color: white;">
-                            <div class="row">
-                                <div class="col-12 col-md-12 col-lg-6 justify-content-center d-flex align-items-center p-2">
-                                    <img id="modal-producto-imagen" class="img-fluid rounded-start rounded-end imgmodal" alt="">
-                                </div>
-                                <div class="col-12 col-md-12 col-lg-6" style="padding: 30px; padding-left: 50px;">
-                                    <h4 id="modal-producto-name"></h4>
-                                    <h5><b id="modal-producto-precio"></b></h5><br>
-                                    Descripción:
-                                    <p id="modal-producto-descripcion" style="text-align: justify"></p>
-                                    <small>Precio en comedor: <b id="modal-producto-precio-comedor"></b></small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button id="btn-ok" type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
-                        </div>
-                    </div>
-                </div>
-    </div>
-
-    <!--CREAR INSTANCIA PARA PODER MANDAR LOS DETALLES DE CADA PRODUCTO CORRECTAMENTE AL MDOAL-->
-    <script>
-        // Crear una instancia del modal
-        var modalProductos = new bootstrap.Modal(document.getElementById('modalproductos'));
-
-        // Función para mostrar la información del producto en el modal cuando se hace clic en "Más información"
-        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function(link) {
-            link.addEventListener('click', function(event) {
-                event.preventDefault();
-                var producto = JSON.parse(link.getAttribute('data-bs-producto'));
-
-                // Actualiza el contenido del modal con los detalles del producto
-                document.getElementById('modal-producto-nombre').innerText = producto.nombre;
-                document.getElementById('modal-producto-name').innerText = producto.nombre;
-                document.getElementById('modal-producto-precio').innerText = '$' + producto.precio_app;
-                document.getElementById('modal-producto-descripcion').innerText = producto.descripcion;
-                document.getElementById('modal-producto-precio-comedor').innerText = '$' + producto.precio_com;
-                document.getElementById('modal-producto-imagen').src = producto.img;
-                document.getElementById('modal-producto-imagen').alt = producto.nombre;
-
-                // Muestra el modal
-                modalProductos.show();
-            });
-        });
-
-        // Agregar el evento click al botón "OK"
-        document.getElementById('btn-ok').addEventListener('click', function() {
-            // Aquí puedes realizar las acciones que desees antes de ocultar el modal
-            // Por ejemplo, guardar datos, enviar una solicitud al servidor, etc.
-
-            // Luego, oculta el modal
-            modalProductos.hide();
-        });
-    </script>
 
 </body>
 </html>
