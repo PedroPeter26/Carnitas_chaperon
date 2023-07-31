@@ -12,6 +12,7 @@
         include '../class/database.php';
         $db = new Database();
         $db->conectarDB();
+        $pdo = $db->getConexion();
         extract($_POST);
         $db->verifica("$usuario",$password);
         $db->desconectarDB();

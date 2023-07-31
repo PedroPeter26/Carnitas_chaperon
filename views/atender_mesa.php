@@ -45,7 +45,7 @@ if (isset($_GET['mesa_id']) && is_numeric($_GET['mesa_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atendiendo Mesa <?php echo $mesa['numero_mesa']; ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="../scripts/funciones.js"></script>
 </head>
 
@@ -84,8 +84,7 @@ if (isset($_GET['mesa_id']) && is_numeric($_GET['mesa_id'])) {
                     <!-- Aquí se mostrarán los productos agregados -->
                 </div>
                 <p><strong>Total a pagar:</strong> <span id="totalPagar">$0.00</span></p>
-                <button class="btn btn-primary" onclick="calcularTotal()">Calcular Total</button>
-                <button class="btn btn-danger" onclick="borrarProductos()">Borrar</button>
+                <button class="btn btn-danger" onclick="borrarProductos()">Borrar orden</button>
                 <button class="btn btn-secondary">Regresar</button>
                 <button class="btn btn-success">Finalizar</button>
             </div>

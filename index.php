@@ -1,3 +1,10 @@
+<?php
+include 'class/database.php';
+$db = new Database();
+$db->conectarDB();
+$pdo = $db->getConexion();
+require 'class/config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,15 +17,6 @@
     <title>Carnitas Chaperon</title>
 </head>
 <body>
-<?php
-    session_start();
-    if(isset($_SESSION["usuario"]))
-    {
-      echo "<h4 align='right'>Usuario: ".$_SESSION["usuario"]."</h4>";
-      echo "<h5 align='right'>
-      <a href='scripts\logout.php'>[logout]</a></h5>";
-    }
-  ?>
     <!--BARRA DE NAV 1
     <nav class="barranav">
         <div class="container-fluid">
@@ -41,15 +39,34 @@
                 <!--<li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>-->
+                <?php
+                if (isset($_SESSION["usuario"])) {
+                    echo "<li class='nav-item'>
+                            <a class='btn btn-warning' href='checkout.php'>Carrito <span id='num_cart' class='badge bg-secondary'>$num_cart</span></a>
+                          </li>";
+                    echo "<li class='nav-item'>
+                            <a class='nav-link' style='color: white;' href='views/ordenar.php'>Ordenar</a>
+                          </li>";
+                }
+                ?>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="views/menusencillo.php">Menú</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="views/formlogin.php">Iniciar sesión</a>
-                </li>
+                <?php
+                    if (isset($_SESSION["usuario"])) {
+                        echo '<li class="nav-item">';
+                        echo '<a class="nav-link" style="color: white;" href="scripts/logout.php">Cerrar sesión</a>';
+                        echo '</li>';
+                    } else {
+                        echo '<li class="nav-item">';
+                        echo '<a class="nav-link" style="color: white;" href="views/login.php">Iniciar sesión</a>';
+                        echo '</li>';
+                    }
+                ?>
+
             </ul>
             </div>
         </div>
@@ -65,56 +82,6 @@
             </div>
         </div>
     </nav> -->
-    <!-- MODAL: INICIAR SESIÓN-->
-    <div class="modal fade" id="iniciarsesion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1400;">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header titulomodalnav">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Iniciar sesión</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body textomodalnav">
-            <form action="">
-                <label class="form-label" for="usuario">Usuario:</label>
-                <input class="form-control" type="text" name="usuario">
-                <label class="form-label" for="contraseña">Contraseña:</label>
-                <input class="form-control" type="password" name="contraseña">
-                <br>¿Aún no tienes una cuenta? <a href="" data-bs-toggle="modal" data-bs-target="#registrarse">Registrate</a><br>
-            </form>
-            </div>
-            <div class="modal-footer textomodalnav">
-            <button type="button" class="btn btn-primary">Ok</button>
-            </div>
-        </div>
-        </div>
-    </div>
-    <!-- MODAL: REGISTRARSE-->
-    <div class="modal fade" id="registrarse" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" style="z-index: 1400;">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header titulomodalnav">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Registrate</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            <form action="" class="textomodalnav">
-                <label class="form-label" for="nombre">Nombre:</label>
-                <input class="form-control" type="text" name="nombre">
-                <label class="form-label" for="apellido">Apellido:</label>
-                <input class="form-control" type="text" name="apellido">
-                <label class="form-label" for="correo">Correo:</label>
-                <input class="form-control" type="email" name="correo">
-                <label class="form-label" for="contraseña">Contraseña:</label>
-                <input class="form-control" type="password" name="contraseña">
-                <br>¿Ya tienes una cuenta? <a href="" data-bs-toggle="modal" data-bs-target="#iniciarsesion">Inicia sesión</a><br>
-            </form>
-            </div>
-            <div class="modal-footer textomodalnav">
-            <button type="submit" class="btn btn-primary">Registrarme</button>
-            </div>
-        </div>
-        </div>
-    </div>
     <!--MODAL DE LA UBICACIÓN-->
     <div class="modal fade" id="alta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1300;">
         <div class="modal-dialog modal-lg modalubi d-flex flex-column bd-highlight mb-3 mt-130">

@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-lg barranav">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">
+                <a class="navbar-brand" href="../index.php">
                     <img src="../img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
                 </a>
             </div>

@@ -3,6 +3,7 @@ include '../class/database.php';
 $db = new Database();
 $db->conectarDB();
 $pdo = $db->getConexion();
+require '../class/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +14,6 @@ $pdo = $db->getConexion();
     <link rel="stylesheet" href="../css/index.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-<!-- file:///C:/xampp/htdocs/Carnitas_chaperon-jonathan/pages/ordenar.php -->
     <style>
         @font-face
         {
@@ -50,7 +50,7 @@ $pdo = $db->getConexion();
 
     <nav class="navbar navbar-expand-lg barranav">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">
+            <a class="navbar-brand" href="../index.php">
                 <img src="../img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
             </a>
             <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,13 +62,19 @@ $pdo = $db->getConexion();
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>-->
                 <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="../views/menusencillo.php">Menú</a>
+                <a class="btn btn-warning" href="../checkout.php">Carrito <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="ordenar.php">Ordenar</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="menusencillo.php">Menú</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="../views/formlogin.php">Iniciar sesión</a>
+                    <a class="nav-link" style="color: white;" href="../scripts/logout.php">Cerrar sesión</a>
                 </li>
             </ul>
             </div>
@@ -82,39 +88,15 @@ $pdo = $db->getConexion();
     <!-- Contenido principal -->
   <div class="container mt-5">
     <div class="content-section">
-    <form>
-            <div class="mb-3">
-                <div class="alert alert-success">
-                    pantalla de mensajes
-                    <a href="#" class="badge badge-warning">Ver carrito</a>
-                </div><br>
-                <label for="tipoComida" class="form-label">Seleccione el tipo de comida:</label>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        Seleccionar
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#">Carnes</a></li>
-                        <li><a class="dropdown-item" href="#">Tacos</a></li>
-                        <li><a class="dropdown-item" href="#">Lonches</a></li>
-                        <li><a class="dropdown-item" href="#">Gringas</a></li>
-                        <li><a class="dropdown-item" href="#">Chicharrones</a></li>
-                        <li><a class="dropdown-item" href="#">Paquetes</a></li>
-                        <li><a class="dropdown-item" href="#">Bebidas</a></li>
-                        <li><a class="dropdown-item" href="#">Complementos</a></li>
-                    </ul>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
         <?php
-         $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.disponibilidad = 'Ambos' OR productos.disponibilidad = 'Rapido'");
+         $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.disponibilidad = 'Ambos' OR productos.disponibilidad = 'Rapido' AND status = 'Activo'");
          $sentencia->execute();
          $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
         ?>
         <div class="row">
             <?php foreach($listaProductos as $producto){ ?>
                 <div class="col-3">
+                    <?php $id = $producto['producto_id'];?>
                     <div class="card">
                         <img
                         title="Titulo producto"
@@ -125,10 +107,8 @@ $pdo = $db->getConexion();
                         <div class="card-body">
                             <span><?php echo $producto['nombre'];?></span>
                             <h5 class="card-title">$<?php echo $producto['precio_app']?></h5>
-                            <button class="btn btn-primary"
-                            name="btnAccion"
-                            value="Agregar"
-                            type="submit">Agregar al carrito</button>
+                            <button class="btn btn-outline-primary" type="button"
+                            onclick="addProducto(<?php echo $producto['producto_id']; ?>)">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
@@ -138,6 +118,26 @@ $pdo = $db->getConexion();
     </div>
 
   </div>
+
+  <script>
+    function addProducto(producto_id) {
+        let url = '../class/carrito.php'
+        let formData = new FormData()
+        formData.append('producto_id', producto_id)
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+            mode: 'cors'
+        }).then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                let elemento = document.getElementById("num_cart")
+                elemento.innerHTML = data.numero
+            }
+        })
+    }
+  </script>
 
 </body>
 </html>

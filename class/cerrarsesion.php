@@ -1,5 +1,5 @@
-<?php
-include '../class/database.php';
+<?php 
+include 'database.php';
 $obj = new Database();
 $obj->cerrarSesion();
 ?>
