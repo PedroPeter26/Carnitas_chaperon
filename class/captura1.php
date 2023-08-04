@@ -54,7 +54,7 @@ if (is_array($datos)) {
         }
 
         unset($_SESSION['carrito']);
-        echo "<div class='alert alert-success'>Compra exitosa!</div>";
-        header("refresh: 2; ../views/ordenar.php");
+        //echo "<div class='alert alert-success'>Compra exitosa!</div>";
+        //header("refresh: 2; ordenar.php");
     }
 }

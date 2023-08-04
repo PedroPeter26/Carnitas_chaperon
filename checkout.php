@@ -82,7 +82,7 @@ if($productos != null){
                 <a class="nav-link" style="color: white;" href="views/ordenar.php">Ordenar</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="views/menusencillo.php">Menú</a>
+                <a class="nav-link" style="color: white;" href="views/menu1.php">Menú</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>

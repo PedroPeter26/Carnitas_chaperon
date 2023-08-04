@@ -84,7 +84,7 @@ if($productos != null){
                 <a class="nav-link" style="color: white;" href="ordenar.php">Ordenar</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="menusencillo.php">Menú</a>
+                <a class="nav-link" style="color: white;" href="menu1.php">Menú</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
@@ -188,7 +188,18 @@ if($productos != null){
                         body : JSON.stringify({
                             detalles: detalles
                         })
-                    })
+                    }).then(function () {
+                    // Mostrar el mensaje de "Compra exitosa!"
+                    let successMessage = document.createElement('div');
+                    successMessage.classList.add('alert', 'alert-success');
+                    successMessage.textContent = 'Compra exitosa!';
+                    document.body.appendChild(successMessage);
+
+                    // Redireccionar a ordenar.php después de 2 segundos
+                    setTimeout(function () {
+                        window.location.href = 'ordenar.php';
+                    }, 2000);
+                });
                 });
             },
 

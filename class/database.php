@@ -65,6 +65,7 @@ class Database
         try
         {
             $query = "SELECT * FROM USUARIOS WHERE user = '$usuario'";
+
             $resultado = $this->PDOLocal->query($query);
 
             if($resultado->fetch(PDO::FETCH_ASSOC))
