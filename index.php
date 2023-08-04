@@ -4,43 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/index.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
     <title>Carnitas Chaperon</title>
 </head>
 <body>
-    <!--BARRA DE NAV 1
-    <nav class="barranav">
+    <!--BARRA DE NAV 1-->
+    <nav class="navbar navbar-expand-lg barranav sticky-top">
         <div class="container-fluid">
-        <a class="navbar-brand " href="index.php">
-        <img src="img/logo.png" alt="Logo" width="35" height="50">CARNITAS&nbsp;EL&nbsp;CHAPERON
-        </a>
-        <button type="button" class="btn btn-outline-secondary iniciarsesionnav" data-bs-toggle="modal" data-bs-target="#iniciarsesion" style="margin-top: 5px;">Iniciar sesión</button>
-        </div>
-    </nav>-->
-    <nav class="navbar navbar-expand-lg barranav">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">
-                <img src="img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
+            <a class="navbar-brand" style="color: white;" href="index.php">
+                <img src="img/logo.png" alt="Logo" width="35" height="50">  CARNITAS&nbsp;EL&nbsp;CHAPERON
             </a>
-            <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="true">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-8" style="color: white;">
-                <!--<li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>-->
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="views/menusencillo.php">Menú</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="#">Iniciar sesión</a>
-                </li>
+            <ul class="navbar-nav dropdown-menu position-static gap-1 p-2 rounded-3 ms-auto shadow w-220px">
+                <li><a class="dropdown-item rounded-2" href="views/menusencillo.php">Menú</a></li>
+                <li><a class="dropdown-item rounded-2" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item rounded-2" href="#">Iniciar sesión</a></li>
             </ul>
             </div>
         </div>
@@ -62,7 +47,7 @@
         <div class="modal-content">
             <div class="modal-header titulomodalnav">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Iniciar sesión</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body textomodalnav">
             <form action="">
@@ -176,7 +161,7 @@
                 <hr style="border: 1px solid #E59866; background-color: #E59866; height: 3px;">
             </div>
             <!--PAQUETE 1-->
-            <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
+            <div class="col-12 col-md-8 col-lg-8 divdecard p-3">
                 <!--CARD 1-->
                 <div class="card contenidocards" style="width: 18rem;">
                     <img src="img/paquetes.jpg" class="card-img-top" alt="...">
@@ -257,7 +242,22 @@
                     <a href="#" class="btn btn-primary botoncards d-flex justify-content-end">Comprar</a>
                     </div>
                 </div>
-            </div><br>
+            </div>
+            <br>
+            <div class="row divdecard">
+                <div class="col-7 contenidocards">
+                    <img src="img/paquetes.jpg" style="width: 100%; padding: 25px; margin: 0;">
+                </div>
+                <div class="col-5 contenidocards">
+                    <img src="img/paquetes.jpg" style="width: 100%; padding: 25px; margin: 0;">
+                </div>
+                <div class="col-12 contenidocards">
+                    <img src="img/paquetes.jpg" style="width: 100%; padding: 25px; margin: 0;">
+                </div>
+                <div class="col-12 contenidocards">
+                    <img src="img/paquetes.jpg" style="width: 100%; padding: 25px; margin: 0;">
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
