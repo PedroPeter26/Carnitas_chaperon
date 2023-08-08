@@ -159,5 +159,52 @@ class database
         header("Location:../index.php");
     }
 
+    function editarUsuario($nombre, $apellido, $usuario, $correo, $id)
+    {
+        $sentencia = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido', user = '$usuario', correo = '$correo' WHERE user_id = '$id'";
+        $resultado = $this->PDOlocal->query($sentencia);
+
+        if($resultado)
+        {
+            echo "
+            <div class='alert alert-success mt-3' role='alert'>
+                Información de usuario actualizada con éxito.
+            </div>";
+        }
+        else
+        {
+            echo "
+            <div class='alert alert-danger mt-3' role='alert'>
+                Hubo un error al actualizar la informacion del usuario. Intente de nuevo más tarde.
+            </div>";
+        }
+    }
+
+    function verificarPassword($idUsuario, $password)
+    {
+        $query = "SELECT * FROM usuarios WHERE user_id = '$idUsuario'";
+        $consulta = $this->PDOlocal->query($query);
+        $renglon=$consulta->fetch(PDO::FETCH_ASSOC);
+
+        if(password_verify($password,$renglon['password']))
+        {
+            return true;
+        }
+    }
+
+    function cambiarPassword($idUsuario, $password)
+    {
+        $nueva = password_hash($password, PASSWORD_DEFAULT);
+        $sentencia = "UPDATE usuarios SET password = '$nueva' WHERE user_id = '$idUsuario'";
+        $resultado = $this->PDOlocal->query($sentencia);
+
+        if($resultado)
+        {
+            echo '
+            <div class="alert alert-success mt-3" role="alert">
+                Contraseña actualizada correctamente.
+            </div>';
+        }
+    }
 }
 ?>
