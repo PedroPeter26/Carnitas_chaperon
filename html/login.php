@@ -123,8 +123,9 @@
             <p>¿No tienes una cuenta aun?<a href="registrarse.php" align="center" color="">Registrate</a></p>
             <?php 
                 include '../class/databaseInt.php';
-                $db=new Database();
-                $db->ConectarBD();
+                $db = new Database();
+                $db->conectarBD();
+                $pdo = $db->getConexion();
 
                 extract($_POST);
 
