@@ -92,11 +92,24 @@
 </head>
 <body>
     <!--BARRA DE NAV 1-->
-    <nav class="barranav">
+    <nav class="navbar navbar-expand-lg barranav">
         <div class="container-fluid">
-        <a class="navbar-brand " href="../index.php">
-        <img src="../img/logo.png" alt="Logo" width="35" height="50">&nbsp; &nbsp;&nbsp;CARNITAS EL CHAPERON
-        </a>
+            <a class="navbar-brand" href="validacionAdmin.php">
+                <img src="../img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
+            </a>
+            <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-10" style="color: white;">
+                <!--<li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>-->
+                <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="administradores.php">Regresar</a>
+                </li>
+            </ul>
+            </div>
         </div>
     </nav>
     <div class="container" id="contenedor">

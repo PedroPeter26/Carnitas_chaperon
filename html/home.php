@@ -71,8 +71,8 @@
     </nav>-->
     <nav class="navbar navbar-expand-lg barranav">
         <div class="container-fluid">
-            <a class="navbar-brand" href="indjona.php">
-                <img src="img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
+            <a class="navbar-brand" href="index.php">
+                <img src="../img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
             </a>
             <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -83,7 +83,12 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>-->
                 <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="html/menusencillo.php">Menú</a>
+                    <a class="nav-link" style="color: white;" href="tucarrito.php">
+                        <img src="../img/carrito_icon.png" alt="carrito" width="35" height="40">
+                    </a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="ordenar.php">Ordenar</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>

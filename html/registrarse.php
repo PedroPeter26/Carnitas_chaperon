@@ -121,8 +121,8 @@
                 <input type="mail" name="correo" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label class="control-label" for="contraseña">Contraseña</label>
-                <input type="password" name="contraseña" class="form-control" required>
+                <label class="control-label" for="password">Contraseña</label>
+                <input type="password" name="password" class="form-control" required>
             </div>
             <div class="d-grid gap-2">
                 <button class="btn btn-lg boton" type="submit" name="registro">Crear Cuenta</button>

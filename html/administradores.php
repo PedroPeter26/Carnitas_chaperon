@@ -75,7 +75,12 @@ $usuarios = $sentencia;
         {
             font-family: 'Lilita One', sans-serif;
             font-size: 30px;
+            color: white;
             
+        }
+        .navbar-brand:hover
+        {
+            color: white;
         }
         @media screen and (max-width: 576px) /*Pantalla pequeña*/
         {
@@ -115,9 +120,6 @@ $usuarios = $sentencia;
         <a class="navbar-brand" href="validacionAdmin.php">
             <img src="../img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
         </a>
-        <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-7" style="color: white;">
             <!--<li class="nav-item">

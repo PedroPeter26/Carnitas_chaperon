@@ -188,7 +188,8 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>-->
                 <li class="nav-item">
-                    <a class="nav-link" style="color: white;" href="ParaLlevar.php">Regresar</a>
+                    <a class="nav-link" style="color: white;" href="productos_pllevar.php">Regresar</a>
+                </li>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="../class/cerrarsesion.php">Cerrar sesión</a>
                 </li>
@@ -264,11 +265,13 @@
             </table>
         </div>
 
+        <?php if($lista_carrito != null) { ?>
         <div class="row">
             <div class="col-md-5 offset-md-7 d-grid gap-2">
                 <a href="pago_Pllevar.php" class="btn btn-dark btn-lg">Realizar pago</a>
             </div>
         </div>
+        <?php } ?>
     </div>
 
     <!--MODAL-->

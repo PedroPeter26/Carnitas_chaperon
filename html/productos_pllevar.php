@@ -96,7 +96,7 @@
         }
     </style>
     <title>PARA LLEVAR</title>
-</head>
+</head>   
 <body>
 <nav class="navbar navbar-expand-lg barranav">
         <div class="container-fluid">
@@ -115,6 +115,9 @@
                     <a class="btn btn-danger" style="color: white;" href="checkout_pllevar.php">
                         Orden <span id="num_cart" class="badge"><?php echo $num_cart; ?></span>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: white;" href="validacionAdmin.php">Regresar</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="../class/cerrarsesion.php">Cerrar sesión</a>
@@ -182,7 +185,7 @@
                                     <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
                                     <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ',');?></p>
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')">Agregar</button>
+                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
                                     </div>
                                 </div>
                             </div>
@@ -218,7 +221,7 @@
                                         <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
                                         <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')">Agregar</button>
+                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -254,7 +257,7 @@
                                         <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
                                         <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')">Agregar</button>
+                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -290,7 +293,7 @@
                                         <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
                                         <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')">Agregar</button>
+                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -326,7 +329,7 @@
                                         <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
                                         <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')">Agregar</button>
+                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -362,7 +365,7 @@
                                         <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
                                         <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')">Agregar</button>
+                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -398,7 +401,7 @@
                                         <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
                                         <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')">Agregar</button>
+                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -434,7 +437,7 @@
                                         <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
                                         <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')">Agregar</button>
+                                        <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-id="<?php echo $_id; ?>" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -442,6 +445,23 @@
                     <?php
                         }
                     ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" style="margin-top: 10%;" id="prodAgregado" tabindex="-1" aria-labelledby="prodAgregadoLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="prodAgregadoLabel">¡Atención!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Se ha agregdo un nuevo producto a la orden.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
                 </div>
             </div>
         </div>
