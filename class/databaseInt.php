@@ -1,10 +1,10 @@
-<?php
+<?php 
 class database
 {
     public $PDOlocal;
     private $user="root";
     private $password="";
-    private $server="mysql:host=localhost;dbname=carnitasdb";
+    private $server="mysql:host=localhost;dbname=bdcarnitaschaperon";
 
     function ConectarBD()
     {
@@ -16,6 +16,11 @@ class database
         {
         echo $e->getMessage();
         }
+    }
+
+    function getConexion()
+    {
+        return $this->PDOlocal;
     }
 
     function desconectarBD() //SE PUEDE HACER EN EL CONSTRUCTOR PARA QUE SE CONECTE SOLO CADA VEZ QUE SE INSTANCIE
@@ -56,7 +61,6 @@ class database
         }
     }
 
-
     function ExisteUsuario($usuario)
     {
         try
@@ -74,10 +78,20 @@ class database
             {
                 extract($_POST);
 
+                if(strlen($password) < 8)
+                {
+                    echo'
+                    <div class="alert alert-danger mt-3" role="alert">
+                        La contraseña nueva debe tener al menos 8 caracteres.
+                    </div>';
+                }
+
                 $tipo="client";
+                $status="activo";
+
                 $hash = password_hash($contraseña, PASSWORD_DEFAULT);
 
-                $cadena = "insert into usuarios(nombre, apellido, user, tipo, correo, password) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash')";
+                $cadena = "insert into usuarios(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
                    
                 $resultado = $this->PDOlocal->query($cadena);
 
@@ -100,11 +114,54 @@ class database
         }
     }
 
+    function ExisteAdmin($usuario)
+    {
+        try
+        {
+            $query = "SELECT * FROM USUARIOS WHERE user = '$usuario'";
+            $resultado = $this->PDOlocal->query($query);
+
+            if($resultado->fetch(PDO::FETCH_ASSOC))
+            {
+                echo "<br><div class='alert alert-danger'>";
+                echo "<H6 align='center'>Este usuario ya existe actualmente.</H6>";
+                echo "</div>";
+            }
+            else
+            {
+                extract($_POST);
+
+                $tipo="admin";
+                $status="activo";
+
+                $hash = password_hash($contraseña, PASSWORD_DEFAULT);
+
+                $cadena = "insert into usuarios(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
+                   
+                $resultado = $this->PDOlocal->query($cadena);
+
+                if($resultado)
+                {
+                    echo "<br>";
+                    echo "<div class='alert alert-success'>¡Cliente registrado exitosamente!</div>";
+                }
+                else 
+                {
+                    echo "<br>";
+                    echo "<div class='alert alert-danger'>Hubo un error al registrarse. Intente de nuevo.</div>";
+                }
+            }
+        }
+        catch (PDOException $e)
+        {
+        echo $e->getMessage();
+        }
+    }
+
     function verifica($usuario,$contraseña)
     {
         try
         {
-
             $pase = false;
             $query = "select * from usuarios where user = '$usuario'";
             $consulta = $this->PDOlocal->query($query);
@@ -122,28 +179,30 @@ class database
             {
                 if($renglon['tipo']=="client")
                 {
-                    session_start();
-                    $_SESSION["usuario"]=$usuario;
-                    echo "<div class='alert alert-success'>";
-                    echo "<H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>";
-                    echo "</div>";
-                    header("refresh:2; ../html/home.php");
+                session_start();
+                $_SESSION["usuario"]=$usuario;
+                $_SESSION["idUsuario"]=$renglon['user_id'];
+                echo "<div class='alert alert-success'>
+                <H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>
+                </div>";
+                header("refresh:2; ../index.php");
                 }
                 else 
                 {
-                    session_start();
-                    $_SESSION["usuario"]=$usuario;
-                    echo "<div class='alert alert-success'>";
-                    echo "<H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>";
-                    echo "</div>";
-                    header("refresh:2; ../html/validacionAdmin.php");
+                session_start();
+                $_SESSION["usuario"]=$usuario;
+                $_SESSION["idUsuario"]=$renglon['user_id'];
+                echo "<div class='alert alert-success'>";
+                echo "<H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>";
+                echo "</div>";
+                header("refresh:2; ../html/validacionAdmin.php");
                 }
             }
             else
             {
-                echo "<div class='alert alert-danger'>";
-                echo "<H6 align='center'>Usuario o contraseña incorrecta.</H6>";
-                echo "</div>";
+            echo "<div class='alert alert-danger'>";
+            echo "<H6 align='center'>Usuario o contraseña incorrecta.</H6>";
+            echo "</div>";
             }
         }
         catch (PDOException $e)
