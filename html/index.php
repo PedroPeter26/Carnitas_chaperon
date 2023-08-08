@@ -1,34 +1,107 @@
+<?php
+require 'class/config.php';
+include 'class/databaseInt.php';
+$db = new Database();
+$db->conectarBD();
+$pdo = $db->getConexion();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/css2/index.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
     <title>Carnitas Chaperon</title>
 </head>
 <body>
-    <!--BARRA DE NAV 1-->
+    <!--BARRA DE NAV 1
     <nav class="barranav">
         <div class="container-fluid">
-        <a class="navbar-brand " href="index.html">
-        <img src="../img/logo.png" alt="Logo" width="35" height="50">&nbsp; &nbsp;&nbsp;CARNITAS EL CHAPERON
+        <a class="navbar-brand " href="index.php">
+        <img src="img/logo.png" alt="Logo" width="35" height="50">CARNITAS&nbsp;EL&nbsp;CHAPERON
         </a>
-        <a class="btn btn-outline-secondary iniciarsesionnav" href="login.php" style="margin-top: 5px;">Iniciar sesión</a>
+        <button type="button" class="btn btn-outline-secondary iniciarsesionnav" data-bs-toggle="modal" data-bs-target="#iniciarsesion" style="margin-top: 5px;">Iniciar sesión</button>
+        </div>
+    </nav>-->
+    <nav class="navbar navbar-expand-lg barranav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.php">
+                <img src="img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
+            </a>
+            <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-6" style="color: white;">
+                <!--
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>-->
+                <?php
+                if (isset($_SESSION["usuario"]))
+                {
+                echo "<li class='nav-item'>
+                        <a class='btn btn-warning' href='html/checkout_online.php'>Carrito <span id='num_cart' class='badge bg-secondary'>$num_cart</span></a>
+                        </li>";
+                echo "<li class='nav-item'>
+                        <a class='nav-link' style='color: white;' href='html/ordenar.php'>Ordenar</a>
+                        </li>";
+                }
+                ?>
+                <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="html/menuSinOrdenar.php">Menú</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
+                </li>
+                <?php
+                    if (isset($_SESSION["usuario"]))
+                    {
+                    echo '<li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color: white;" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Usuario
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li>
+                            <a class="dropdown-item" href="html/perfil_usuario.php">
+                                Perfil
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="class/cerrarsesion.php">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                    </li>';
+                    }
+                    else
+                    {
+                    echo '<li class="nav-item">';
+                    echo '<a class="nav-link" style="color: white;" href="html/login.php">Iniciar sesión</a>';
+                    echo '</li>';
+                    }
+                ?>
+            </ul>
+            </div>
         </div>
     </nav>
-    <!--BARRA DE NAV 2-->
+
+    <!--BARRA DE NAV 2
     <nav class="barranav2">
         <div class="row">
             <div class="col-6 col-md-6 col-lg-6 text-center">
-                <a class="menuyubi" href="../html/menusencillo.php">Menú</a>
+                <a class="menuyubi" href="menusencillo.php">Menú</a>
             </div>
             <div class="col-6 col-md-6 col-lg-6 text-center">
-                <a class="menuyubi" href="../iniciosesion.php" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
+                <a class="menuyubi" href="" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
             </div>
         </div>
-    </nav>
-    
+    </nav> -->
     <!--MODAL DE LA UBICACIÓN-->
     <div class="modal fade" id="alta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1300;">
         <div class="modal-dialog modal-lg modalubi d-flex flex-column bd-highlight mb-3 mt-130">
@@ -48,39 +121,40 @@
         </div>
     </div>
     <!--CUERPO-->
-    <div class="container principal"> 
-        <div class="row">
-            <!--PRESENTACIÓN: IMAGENES-->
-            <div class="col-xs-12 col-12 col-md-6 col-lg-6 text-center comida">
-                <!--Carrousel-->
-                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <!--PRESENTACIÓN: IMAGENES-->
+    <div class="col-12">
+                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner eslogan">
+                        <div class="carousel-item active">
+                        <img src="img/comida1.jpg" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Carnitas el Chaperon</h5>
+                            <p>Las carnitas más ricas de toda la ciudad</p>
+                        </div>
+                        </div>
+                        <div class="carousel-item">
+                        <img src="img/gringa.jpg" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Haz tu pedido en línea</h5>
+                        </div>
+                        </div>
+                        <div class="carousel-item">
+                        <a href="" data-bs-toggle="modal" data-bs-target="#alta"><img src="img/fachada1.jpg" class="d-block w-100" alt="..."></a>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>¡TE ESPERAMOS!</h5>
+                            <p>Horario de 10:00 a.m a 6:00 p.m</p>
+                        </div>
+                        </div>
                     </div>
-                    <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="../img/comida.jpg" class="d-block w-100" alt="Comida">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="../img/fachada.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="../img/carta.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
                     </button>
                 </div>
             </div>
-            <!--PRESENTACIÓN: TEXTO-->
+    <div class="container principal"> 
+        <div class="row">
+            <!--PRESENTACIÓN: TEXTO
             <div class="col-xs-12 col-12 col-md-6 col-lg-6 presentacion">
                 <h1 class="titulo">CARNITAS EL CHAPERON</h1><br><br>
                 <h2 class="eslogan">Las carnitas más ricas de toda la ciudad</h2><br>
@@ -89,7 +163,7 @@
                 <p class="ven">Carr. Torreón - Matamoros 159, Oscar Flores Tapia, 27086 Torreón, Coah.</p>
                 <p class="ven">En un horario de 10:00 a.m a 6:00 p.m</p>
 
-            </div>
+            </div>-->
             <!--ESPACIO DE 50PX-->
             <div class="col-12 col-md-12 col-lg-12 espacio"></div>
             <!--TITULO: PROMOCIONES-->
@@ -101,7 +175,7 @@
             <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
                 <!--CARD 1-->
                 <div class="card contenidocards" style="width: 18rem;">
-                    <img src="../img/paquetes.jpg" class="card-img-top" alt="...">
+                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="card-title">Paquete 1</h5>
                     <p class="card-text">
@@ -121,7 +195,7 @@
             <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
                 <!--CARD 2-->
                 <div class="card contenidocards" style="width: 18rem;">
-                    <img src="../img/paquetes.jpg" class="card-img-top" alt="...">
+                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="card-title">Paquete 2</h5>
                     <p class="card-text">
@@ -143,7 +217,7 @@
                 <!--CARD 3-->
                 <div class="card contenidocards justify-content: flex-end;
                 " style="width: 18rem;">
-                    <img src="../img/paquetes.jpg" class="card-img-top" alt="...">
+                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="card-title">Paquete 3</h5>
                     <p class="card-text">
@@ -163,7 +237,7 @@
             <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
                 <!--CARD 4-->
                 <div class="card contenidocards" style="width: 18rem;">
-                    <img src="../img/paquetes.jpg" class="card-img-top" alt="...">
+                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="card-title">Paquete 4</h5>
                     <p class="card-text">
@@ -182,8 +256,6 @@
             </div><br>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
 </body>
