@@ -280,7 +280,7 @@
               <div class="inner">
                 <?php
                 $host = "localhost";
-                $dbname = "bdcarnitaschaperon_vnueva";
+                $dbname = "BDCarnitasChaperon";
                 $username = "root";
                 $password = "";
 
@@ -320,7 +320,7 @@
                 $primerDiaSemanaOficial = $primerDiaSemana->format("Y-m-d");
 
                 $host = "localhost";
-                $dbname = "bdcarnitaschaperon_vnueva";
+                $dbname = "BDCarnitasChaperon";
                 $username = "root";
                 $password = "";
 
@@ -358,7 +358,7 @@
                 $año = $fechaActual->format("Y");
 
                 $host = "localhost";
-                $dbname = "bdcarnitaschaperon_vnueva";
+                $dbname = "BDCarnitasChaperon";
                 $username = "root";
                 $password = "";
 
@@ -389,7 +389,7 @@
               <div class="inner">
                 <?php
                 $host = "localhost";
-                $dbname = "bdcarnitaschaperon_vnueva";
+                $dbname = "BDCarnitasChaperon";
                 $username = "root";
                 $password = "";
 

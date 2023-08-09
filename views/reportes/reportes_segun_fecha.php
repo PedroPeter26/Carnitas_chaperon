@@ -1,3 +1,10 @@
+<?PHP
+require '../../class/config.php';
+include '../../class/database.php';
+$db = new database();
+$db->conectarDB();
+$pdo = $db->getConexion();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,10 +75,6 @@
             //condicionamos que si ya se hizo post con el botón de buscar me muestre todo lo demas, en caso contrario, no se mostrará la tabla
             if (!empty($_POST['buscar'])) {
                 //guardamos en las siguientes variables los datos que se necesitan para hacer la conexion a la bd
-                $host = "localhost";
-                $dbname = "bdcarnitaschaperon";
-                $username = "root";
-                $password = "";
 
                 try {
                     if (!empty($_POST['inicio']) && !empty($_POST['fin'])) //si si se recibieron se muestra la tabla con los puros encabezados
@@ -79,7 +82,6 @@
                         $fecha_i = $_POST['inicio'];
                         $fecha_f = $_POST['fin'];
                         //con el obj $conn hacemos la conexion a la bd donde le pasamos las variables que antes establecimos
-                        $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
                         if (isset($_POST['orden'])) {
                             $tipoOrden = $_POST['orden'];
@@ -87,9 +89,9 @@
                             // Dependiendo del valor seleccionado en el select, llamamos al procedimiento almacenado correspondiente
                             switch ($tipoOrden) {
                                 case 'online':
-                                    $sql = "CALL REPORTE_DINERO_PERIODO_ONLINE('$fecha_i', '$fecha_f')";
-                                    $stmt = $conn->query($sql);
-                                    $num = $stmt->rowCount();
+                                    $sql = $pdo->prepare("CALL REPORTE_DINERO_PERIODO_ONLINE('$fecha_i', '$fecha_f')");
+                                    $sql->execute();
+                                    $num = $sql->rowCount();
 
                                     if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
                                     {
@@ -113,7 +115,7 @@
                                         $totalSegunFechaOnline = 0;
 
                                         //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
-                                        while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)) :
+                                        while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
 
                                             echo "<tr>";
                                             echo "<td>" . $registro['FECHA'] . "</td>";
@@ -144,9 +146,9 @@
 
                                     break;
                                 case 'comedor':
-                                    $sql = "CALL REPORTE_DINERO_PERIODO_COMEDOR('$fecha_i', '$fecha_f')";
-                                    $stmt = $conn->query($sql);
-                                    $num = $stmt->rowCount();
+                                    $sql = $pdo->prepare("CALL REPORTE_DINERO_PERIODO_COMEDOR('$fecha_i', '$fecha_f')");
+                                    $sql->execute();
+                                    $num = $sql->rowCount();
 
                                     if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
                                     {
@@ -170,7 +172,7 @@
                                         $totalSegunFechaComedor = 0;
 
                                         //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
-                                        while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)) :
+                                        while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
 
                                             echo "<tr>";
                                             echo "<td>" . $registro['FECHA'] . "</td>";
@@ -201,9 +203,9 @@
 
                                     break;
                                 case 'pllevar':
-                                    $sql = "CALL REPORTE_DINERO_PERIODO_PLLEVAR('$fecha_i', '$fecha_f')";
-                                    $stmt = $conn->query($sql);
-                                    $num = $stmt->rowCount();
+                                    $sql = $pdo->prepare("CALL REPORTE_DINERO_PERIODO_PLLEVAR('$fecha_i', '$fecha_f')");
+                                    $sql->execute();
+                                    $num = $sql->rowCount();
 
                                     if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
                                     {
@@ -227,7 +229,7 @@
                                         $totalSegunFechaPllevar = 0;
 
                                         //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
-                                        while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)) :
+                                        while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
 
                                             echo "<tr>";
                                             echo "<td>" . $registro['FECHA'] . "</td>";
@@ -258,9 +260,9 @@
 
                                     break;
                                 case 'todas':
-                                    $sql = "CALL REPORTE_DINERO_PERIODO_TODOS('$fecha_i', '$fecha_f')";
-                                    $stmt = $conn->query($sql);
-                                    $num = $stmt->rowCount();
+                                    $sql = $pdo->prepare("CALL REPORTE_DINERO_PERIODO_TODOS('$fecha_i', '$fecha_f')");
+                                    $sql->execute();
+                                    $num = $sql->rowCount();
 
                                     if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
                                     {
@@ -282,7 +284,7 @@
                                         $totalSegunFechaTodos = 0;
 
                                         //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
-                                        while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)) :
+                                        while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
 
                                             echo "<tr>";
                                             echo "<td>" . $registro['FECHA'] . "</td>";
@@ -321,6 +323,8 @@
                     echo ("Error occurred:" . $e->getMessage());
                 }
             }
+            
+            $db->desconectarDB();
 
             ?>
 
@@ -362,4 +366,5 @@
 
     <?php include "../footeradmin.php"; ?>
 </body>
+
 </html>

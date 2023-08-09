@@ -1,5 +1,13 @@
+<?PHP
+require '../../class/config.php';
+include '../../class/database.php';
+$db = new database();
+$db->conectarDB();
+$pdo = $db->getConexion();
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,21 +22,22 @@
     <?php include "../headadmin.php"; ?>
     <title>Reportes según tipo de comida en un periodo</title>
 </head>
+
 <body>
     <!--BARRA DE NAV-->
     <?php include "../sidebaradmin.php"; ?>
 
     <!--CONTENIDO-->
     <div class="content-wrapper" style="background-color: white;">
-    <div class="container contenido p-4">
-        <h1>POR TIPO DE COMIDA POR PERIODO</h1>
-        <br>
+        <div class="container contenido p-4">
+            <h1>POR TIPO DE COMIDA POR PERIODO</h1>
+            <br>
 
             <!--FORMULARIO-->
             <div class="container">
                 <form class="row mb-3" method="post" id="reporteForm">
-                        <h4>Ingresa los datos</h4>
-                        <br>
+                    <h4>Ingresa los datos</h4>
+                    <br>
                     <div class="col-6 col-md-6 col-lg-6 mb-3">
                         <label for="inicio" class="form-label">Fecha inicial:</label>
                         <input type="date" name="inicio" class="form-control" id="inicio" value="<?php echo isset($_POST['inicio']) ? $_POST['inicio'] : ''; ?>" required>
@@ -38,19 +47,19 @@
                         <label for="fin" class="form-label">Fecha final:</label>
                         <input type="date" name="fin" class="form-control" id="fin" value="<?php echo isset($_POST['fin']) ? $_POST['fin'] : ''; ?>" required>
                     </div>
-                    
+
                     <div class="col-6 col-md-6 col-lg-6">
                         <label for="tipocomida" class="form-label">Comida:</label>
                         <select class="form-select" name="tipocomida" id="tipocomida" required>
                             <option disabled selected>Selecciona una opción</option>
-                            <option value="Carnes" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Carnes') echo 'selected'; ?> >Carnes</option>
-                            <option value="Tacos" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Tacos') echo 'selected'; ?> >Tacos</option>
-                            <option value="Lonches" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Lonches') echo 'selected'; ?> >Lonches</option>
-                            <option value="Gringas" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Gringas') echo 'selected'; ?> >Gringas</option>
-                            <option value="Chicharrones" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Chicharrones') echo 'selected'; ?> >Chicharrones</option>
-                            <option value="Paquetes" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Paquetes') echo 'selected'; ?> >Paquetes</option>
-                            <option value="Bebidas" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Bebidas') echo 'selected'; ?> >Bebidas</option>
-                            <option value="Complementos" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Complementos') echo 'selected'; ?> >Complementos</option>
+                            <option value="Carnes" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Carnes') echo 'selected'; ?>>Carnes</option>
+                            <option value="Tacos" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Tacos') echo 'selected'; ?>>Tacos</option>
+                            <option value="Lonches" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Lonches') echo 'selected'; ?>>Lonches</option>
+                            <option value="Gringas" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Gringas') echo 'selected'; ?>>Gringas</option>
+                            <option value="Chicharrones" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Chicharrones') echo 'selected'; ?>>Chicharrones</option>
+                            <option value="Paquetes" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Paquetes') echo 'selected'; ?>>Paquetes</option>
+                            <option value="Bebidas" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Bebidas') echo 'selected'; ?>>Bebidas</option>
+                            <option value="Complementos" <?php if (isset($_POST['tipocomida']) && $_POST['tipocomida'] == 'Complementos') echo 'selected'; ?>>Complementos</option>
                         </select>
                     </div>
 
@@ -58,10 +67,10 @@
                         <label for="orden" class="form-label">Orden:</label>
                         <select class="form-select" name="orden" id="orden" required>
                             <option disabled selected>Selecciona una opción</option>
-                            <option value="online" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'online') echo 'selected'; ?> >Online</option>
-                            <option value="comedor" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'comedor') echo 'selected'; ?> >Comedor</option>
-                            <option value="pllevar" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'pllevar') echo 'selected'; ?> >Para llevar</option>
-                            <option value="todas" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'todas') echo 'selected'; ?> >Todas</option>
+                            <option value="online" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'online') echo 'selected'; ?>>Online</option>
+                            <option value="comedor" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'comedor') echo 'selected'; ?>>Comedor</option>
+                            <option value="pllevar" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'pllevar') echo 'selected'; ?>>Para llevar</option>
+                            <option value="todas" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'todas') echo 'selected'; ?>>Todas</option>
                         </select>
                     </div>
 
@@ -78,48 +87,38 @@
 
             <!--MOSTRAR LOS RESULTADOS DEL REPORTE-->
             <?php
-                //condicionamos que si ya se hizo post con el botón de buscar me muestre todo lo demas, en caso contrario, no se mostrará la tabla
-                if (!empty($_POST['buscar']))
-                {
-                    //guardamos en las siguientes variables los datos que se necesitan para hacer la conexion a la bd
-                    $host="localhost";
-                    $dbname="bdcarnitaschaperon";
-                    $username="root";
-                    $password="";
-                    
-                        
-                    try
+            //condicionamos que si ya se hizo post con el botón de buscar me muestre todo lo demas, en caso contrario, no se mostrará la tabla
+            if (!empty($_POST['buscar'])) {
+                //guardamos en las siguientes variables los datos que se necesitan para hacer la conexion a la bd                    
+
+                try {
+                    if (!empty($_POST['inicio']) && !empty($_POST['fin']) && !empty($_POST['tipocomida'])) //si si se recibieron se muestra la tabla con los puros encabezados
                     {
-                        if(!empty($_POST['inicio']) && !empty($_POST['fin']) && !empty($_POST['tipocomida'])) //si si se recibieron se muestra la tabla con los puros encabezados
-                        {
 
-                            //en las siguientes variables guardamos lo
-                            $fecha_i = $_POST['inicio'];
-                            $fecha_f = $_POST['fin'];
-                            $tipoComida = $_POST['tipocomida'];
+                        //en las siguientes variables guardamos lo
+                        $fecha_i = $_POST['inicio'];
+                        $fecha_f = $_POST['fin'];
+                        $tipoComida = $_POST['tipocomida'];
 
-                            //con el obj $conn hacemos la conexion a la bd donde le pasamos las variables que antes establecimos
-                            $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+                        //con el obj $conn hacemos la conexion a la bd donde le pasamos las variables que antes establecimos
 
-                            if (isset($_POST['orden'])) 
-                            {
-                                $tipoOrden = $_POST['orden'];
-                            
-                                // Dependiendo del valor seleccionado en el select, llamamos al procedimiento almacenado correspondiente
-                                switch ($tipoOrden)
-                                {
-                                    case 'online':
-                                        $sql = "CALL REPORTEPERIODO_FILTRO_COMIDA_ONLINE('$fecha_i', '$fecha_f', '$tipoComida')";
-                                        $stmt = $conn->query($sql);
-                                        $num= $stmt->rowCount();
+                        if (isset($_POST['orden'])) {
+                            $tipoOrden = $_POST['orden'];
 
-                                        if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
-                                        {
-                                            echo "<div class='container' id='tablaContainer'>";
-                                            echo "<h3 class='mt-5' style='font-family: \"Lilita One\", sans-serif;'> Reporte de <u>" . $tipoComida . "</u></h3>";
-                                            
-                                            echo "<div class='table-responsive'>";
-                                                echo "<table class='table table-hover' id='tablaRegistros'>
+                            // Dependiendo del valor seleccionado en el select, llamamos al procedimiento almacenado correspondiente
+                            switch ($tipoOrden) {
+                                case 'online':
+                                    $sql = $pdo->prepare("CALL REPORTEPERIODO_FILTRO_COMIDA_ONLINE('$fecha_i', '$fecha_f', '$tipoComida')");
+                                    $sql->execute();
+                                    $num = $sql->rowCount();
+
+                                    if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
+                                    {
+                                        echo "<div class='container' id='tablaContainer'>";
+                                        echo "<h3 class='mt-5' style='font-family: \"Lilita One\", sans-serif;'> Reporte de <u>" . $tipoComida . "</u></h3>";
+
+                                        echo "<div class='table-responsive'>";
+                                        echo "<table class='table table-hover' id='tablaRegistros'>
                                                 <thead class='table-dark'>
                                                     <tr'>
                                                         <th>Fecha</th>                    
@@ -131,53 +130,49 @@
                                                 </thead>
                                                 <tbody>";
 
-                                                $totalSegunComidaOnline=0;
-                                                
-                                                    //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
-                                                    while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)):
+                                        $totalSegunComidaOnline = 0;
 
-                                                        echo "<tr>";
-                                                        echo "<td>" . $registro['FECHA'] . "</td>";
-                                                        echo "<td>" . $registro['PRODUCTO'] . "</td>";
-                                                        echo "<td>$" . $registro['PRECIO'] . "</td>";
-                                                        echo "<td>" . $registro['CANTIDAD'] . "</td>";
-                                                        echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
-                                                        echo "</tr>";
+                                        //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
+                                        while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
 
-                                                        $totalSegunComidaOnline += (float)$registro['SUBTOTAL DINERO'];
-                                                    endwhile;
+                                            echo "<tr>";
+                                            echo "<td>" . $registro['FECHA'] . "</td>";
+                                            echo "<td>" . $registro['PRODUCTO'] . "</td>";
+                                            echo "<td>$" . $registro['PRECIO'] . "</td>";
+                                            echo "<td>" . $registro['CANTIDAD'] . "</td>";
+                                            echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+                                            echo "</tr>";
 
-                                                    //imprimir el total al final de la tabla, despues de imprimir todos los registros
-                                                    echo " <tr>
+                                            $totalSegunComidaOnline += (float)$registro['SUBTOTAL DINERO'];
+                                        endwhile;
+
+                                        //imprimir el total al final de la tabla, despues de imprimir todos los registros
+                                        echo " <tr>
                                                                 <td colspan='3'></td>
                                                                 <td style='text-align:right'><b>TOTAL:</b></td>
                                                                 <td><b>$" . number_format($totalSegunComidaOnline, 2) . "</b></td>
                                                             </tr>";
-                                                    echo "</tbody>
+                                        echo "</tbody>
                                                     </table>";
-                                                echo "</div>";
-                                            echo "</div>";
-                                            
-                                            
-                                        }
-                                        else
-                                        {
-                                            echo "<div class='alert alert-secondary' id='alert1'>No se encontraron registros.</div>";
-                                        }
+                                        echo "</div>";
+                                        echo "</div>";
+                                    } else {
+                                        echo "<div class='alert alert-secondary' id='alert1'>No se encontraron registros.</div>";
+                                    }
 
-                                        break;
-                                    case 'comedor':
-                                        $sql = "CALL REPORTEPERIODO_FILTRO_COMIDA_COMEDOR('$fecha_i', '$fecha_f', '$tipoComida')";
-                                        $stmt = $conn->query($sql);
-                                        $num= $stmt->rowCount();
+                                    break;
+                                case 'comedor':
+                                    $sql = $pdo->prepare("CALL REPORTEPERIODO_FILTRO_COMIDA_COMEDOR('$fecha_i', '$fecha_f', '$tipoComida')");
+                                    $sql->execute();
+                                    $num = $sql->rowCount();
 
-                                        if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
-                                        {
-                                            echo "<div class='container' id='tablaContainer'>";
-                                            echo "<h3 class='mt-5' style='font-family: \"Lilita One\", sans-serif;'> Reporte de <u>" . $tipoComida . "</u></h3>";
-                                            
-                                            echo "<div class='table-responsive'>";
-                                                echo "<table class='table table-hover' id='tablaRegistros'>
+                                    if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
+                                    {
+                                        echo "<div class='container' id='tablaContainer'>";
+                                        echo "<h3 class='mt-5' style='font-family: \"Lilita One\", sans-serif;'> Reporte de <u>" . $tipoComida . "</u></h3>";
+
+                                        echo "<div class='table-responsive'>";
+                                        echo "<table class='table table-hover' id='tablaRegistros'>
                                                 <thead class='table-dark'>
                                                     <tr'>
                                                         <th>Fecha</th>
@@ -189,54 +184,50 @@
                                                 </thead>
                                                 <tbody>";
 
-                                                $totalSegunComidaComedor=0;
-                                                
-                                                    //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
-                                                    while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)):
+                                        $totalSegunComidaComedor = 0;
 
-                                                        echo "<tr>";
-                                                        echo "<td>" . $registro['FECHA'] . "</td>";
-                                                        echo "<td>" . $registro['PRODUCTO'] . "</td>";
-                                                        echo "<td>$" . $registro['PRECIO'] . "</td>";
-                                                        echo "<td>" . $registro['CANTIDAD'] . "</td>";
-                                                        echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
-                                                        echo "</tr>";
+                                        //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
+                                        while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
 
-                                                        $totalSegunComidaComedor += (float)$registro['SUBTOTAL DINERO'];
-                                                    endwhile;
+                                            echo "<tr>";
+                                            echo "<td>" . $registro['FECHA'] . "</td>";
+                                            echo "<td>" . $registro['PRODUCTO'] . "</td>";
+                                            echo "<td>$" . $registro['PRECIO'] . "</td>";
+                                            echo "<td>" . $registro['CANTIDAD'] . "</td>";
+                                            echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+                                            echo "</tr>";
 
-                                                    //imprimir el total al final de la tabla, despues de imprimir todos los registros
-                                                    echo " <tr>
+                                            $totalSegunComidaComedor += (float)$registro['SUBTOTAL DINERO'];
+                                        endwhile;
+
+                                        //imprimir el total al final de la tabla, despues de imprimir todos los registros
+                                        echo " <tr>
                                                                 <td colspan='3'></td>
                                                                 <td style='text-align:right'><b>TOTAL:</b></td>
                                                                 <td><b>$" . number_format($totalSegunComidaComedor, 2) . "</b></td>
                                                             </tr>";
 
-                                                    echo "</tbody>
+                                        echo "</tbody>
                                                     </table>";
-                                                echo "</div>";
-                                            echo "</div>";
-                                            
-                                            
-                                        }
-                                        else
-                                        {
-                                            echo "<div class='alert alert-secondary' id='alert1'>No se encontraron registros.</div>";
-                                        }
+                                        echo "</div>";
+                                        echo "</div>";
+                                    } else {
+                                        echo "<div class='alert alert-secondary' id='alert1'>No se encontraron registros.</div>";
+                                    }
 
-                                        break;
-                                    case 'pllevar':
-                                        $sql = "CALL REPORTEPERIODO_FILTRO_COMIDA_PLLEVAR('$fecha_i', '$fecha_f', '$tipoComida')";
-                                        $stmt = $conn->query($sql);
-                                        $num= $stmt->rowCount();
+                                    break;
+                                case 'pllevar':
+                                    $sql = $pdo->prepare("CALL REPORTEPERIODO_FILTRO_COMIDA_PLLEVAR('$fecha_i', '$fecha_f', '$tipoComida')");
+                                    $sql->execute();
+                                    $num = $sql->rowCount();
 
-                                        if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
-                                        {
-                                            echo "<div class='container' id='tablaContainer'>";
-                                            echo "<h3 class='mt-5' style='font-family: \"Lilita One\", sans-serif;'> Reporte de <u>" . $tipoComida . "</u></h3>";
-                                            
-                                            echo "<div class='table-responsive'>";
-                                                echo "<table class='table table-hover' id='tablaRegistros'>
+                                    if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
+                                    {
+                                        echo "<div class='container' id='tablaContainer'>";
+                                        echo "<h3 class='mt-5' style='font-family: \"Lilita One\", sans-serif;'> Reporte de <u>" . $tipoComida . "</u></h3>";
+
+                                        echo "<div class='table-responsive'>";
+                                        echo "<table class='table table-hover' id='tablaRegistros'>
                                                 <thead class='table-dark'>
                                                     <tr'>
                                                         <th>Fecha</th>
@@ -248,54 +239,50 @@
                                                 </thead>
                                                 <tbody>";
 
-                                                $totalSegunComidaPllevar=0;
-                                                
-                                                    //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
-                                                    while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)):
+                                        $totalSegunComidaPllevar = 0;
 
-                                                        echo "<tr>";
-                                                        echo "<td>" . $registro['FECHA'] . "</td>";
-                                                        echo "<td>" . $registro['PRODUCTO'] . "</td>";
-                                                        echo "<td>$" . $registro['PRECIO'] . "</td>";
-                                                        echo "<td>" . $registro['CANTIDAD'] . "</td>";
-                                                        echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
-                                                        echo "</tr>";
+                                        //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
+                                        while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
 
-                                                        $totalSegunComidaPllevar += (float)$registro['SUBTOTAL DINERO'];
-                                                    endwhile;
+                                            echo "<tr>";
+                                            echo "<td>" . $registro['FECHA'] . "</td>";
+                                            echo "<td>" . $registro['PRODUCTO'] . "</td>";
+                                            echo "<td>$" . $registro['PRECIO'] . "</td>";
+                                            echo "<td>" . $registro['CANTIDAD'] . "</td>";
+                                            echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+                                            echo "</tr>";
 
-                                                    //imprimir el total al final de la tabla, despues de imprimir todos los registros
-                                                    echo " <tr>
+                                            $totalSegunComidaPllevar += (float)$registro['SUBTOTAL DINERO'];
+                                        endwhile;
+
+                                        //imprimir el total al final de la tabla, despues de imprimir todos los registros
+                                        echo " <tr>
                                                                 <td colspan='3'></td>
                                                                 <td style='text-align:right'><b>TOTAL:</b></td>
                                                                 <td><b>$" . number_format($totalSegunComidaPllevar, 2) . "</b></td>
                                                             </tr>";
 
-                                                    echo "</tbody>
+                                        echo "</tbody>
                                                     </table>";
-                                                echo "</div>";
-                                            echo "</div>";
-                                            
-                                            
-                                        }
-                                        else
-                                        {
-                                            echo "<div class='alert alert-secondary' id='alert1'>No se encontraron registros.</div>";
-                                        }
+                                        echo "</div>";
+                                        echo "</div>";
+                                    } else {
+                                        echo "<div class='alert alert-secondary' id='alert1'>No se encontraron registros.</div>";
+                                    }
 
-                                        break;
-                                    case 'todas':
-                                        $sql = "CALL REPORTEPERIODO_FILTRO_COMIDA_TODAS('$fecha_i', '$fecha_f', '$tipoComida')";
-                                        $stmt = $conn->query($sql);
-                                        $num= $stmt->rowCount();
+                                    break;
+                                case 'todas':
+                                    $sql = $pdo->prepare("CALL REPORTEPERIODO_FILTRO_COMIDA_TODAS('$fecha_i', '$fecha_f', '$tipoComida')");
+                                    $sql->execute();
+                                    $num = $sql->rowCount();
 
-                                        if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
-                                        {
-                                            echo "<div class='container' id='tablaContainer'>";
-                                            echo "<h3 class='mt-5' style='font-family: \"Lilita One\", sans-serif;'> Reporte de <u>" . $tipoComida . "</u></h3>";
-                                            
-                                            echo "<div class='table-responsive'>";
-                                                echo "<table class='table table-hover' id='tablaRegistros'>
+                                    if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
+                                    {
+                                        echo "<div class='container' id='tablaContainer'>";
+                                        echo "<h3 class='mt-5' style='font-family: \"Lilita One\", sans-serif;'> Reporte de <u>" . $tipoComida . "</u></h3>";
+
+                                        echo "<div class='table-responsive'>";
+                                        echo "<table class='table table-hover' id='tablaRegistros'>
                                                 <thead class='table-dark'>
                                                     <tr'>
                                                         <th>Fecha</th>                    
@@ -305,59 +292,48 @@
                                                 </thead>
                                                 <tbody>";
 
-                                                $totalSegunComidaTodos=0;
-                                                
-                                                    //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
-                                                    while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)):
+                                        $totalSegunComidaTodos = 0;
 
-                                                        echo "<tr>";
-                                                        echo "<td>" . $registro['FECHA'] . "</td>";
-                                                        echo "<td>" . $registro['PRODUCTO'] . "</td>";
-                                                        echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
-                                                        echo "</tr>";
+                                        //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
+                                        while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
 
-                                                        $totalSegunComidaTodos += (float)$registro['SUBTOTAL DINERO'];
-                                                    endwhile;
+                                            echo "<tr>";
+                                            echo "<td>" . $registro['FECHA'] . "</td>";
+                                            echo "<td>" . $registro['PRODUCTO'] . "</td>";
+                                            echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+                                            echo "</tr>";
 
-                                                    //imprimir el total al final de la tabla, despues de imprimir todos los registros
-                                                    echo " <tr>
+                                            $totalSegunComidaTodos += (float)$registro['SUBTOTAL DINERO'];
+                                        endwhile;
+
+                                        //imprimir el total al final de la tabla, despues de imprimir todos los registros
+                                        echo " <tr>
                                                                 <td colspan='1'></td>
                                                                 <td style='text-align:right'><b>TOTAL:</b></td>
                                                                 <td><b>$" . number_format($totalSegunComidaTodos, 2) . "</b></td>
                                                             </tr>";
 
-                                                    echo "</tbody>
+                                        echo "</tbody>
                                                     </table>";
-                                                echo "</div>";
-                                            echo "</div>";
-                                            
-                                            
-                                        }
-                                        else
-                                        {
-                                            echo "<div class='alert alert-secondary' id='alert1'>No se encontraron registros.</div>";
-                                        }
-                                            break;
-                                        default:
-                                        echo "<div class='alert alert-danger' id='alert3'>Elige un tipo de orden.</div>";
-                                        break;
-                                }
-
+                                        echo "</div>";
+                                        echo "</div>";
+                                    } else {
+                                        echo "<div class='alert alert-secondary' id='alert1'>No se encontraron registros.</div>";
+                                    }
+                                    break;
+                                default:
+                                    echo "<div class='alert alert-danger' id='alert3'>Elige un tipo de orden.</div>";
+                                    break;
                             }
-                            
                         }
-
-                        else
-                        {
-                            echo "<div class='alert alert-danger' id='alert2'>Llena los campos requeridos.</div>";
-                        }
+                    } else {
+                        echo "<div class='alert alert-danger' id='alert2'>Llena los campos requeridos.</div>";
                     }
-                    
-                    catch (PDOException $e)
-                    {
-                        echo ("Error occurred:" . $e->getMessage());
-                    }
+                } catch (PDOException $e) {
+                    echo ("Error occurred:" . $e->getMessage());
                 }
+            }
+            $db->desconectarDB();
             ?>
 
             <!--SCRIPT PARA ELIMINAR LOS DATOS CUANDO SE PRESIONE BORRAR-->
@@ -376,7 +352,7 @@
                 function setDefaultOption() {
                     // Obtener el elemento select
                     var selectElement = document.getElementById('tipocomida');
-                    
+
                     // Establecer la opción predeterminada (puedes cambiar 'Carnes' por la opción que quieras)
                     selectElement.value = 'Selecciona una opción';
                 }
@@ -384,15 +360,15 @@
                 function setDefaultOption2() {
                     // Obtener el elemento select
                     var selectElement2 = document.getElementById('orden');
-                    
+
                     // Establecer la opción predeterminada (puedes cambiar 'Carnes' por la opción que quieras)
                     selectElement2.value = 'Selecciona una opción';
                 }
 
                 // Esperar a que el documento esté listo
-                $(document).ready(function () {
+                $(document).ready(function() {
                     // Asociar el evento click al botón "Borrar datos"
-                    $("input[name='borrar']").on("click", function (event) {
+                    $("input[name='borrar']").on("click", function(event) {
                         event.preventDefault(); // Prevenir que el formulario se envíe
 
                         borrarTabla();
@@ -401,9 +377,10 @@
                 });
             </script>
 
-    </div>
+        </div>
     </div>
 
     <?php include "../footeradmin.php"; ?>
 </body>
+
 </html>
