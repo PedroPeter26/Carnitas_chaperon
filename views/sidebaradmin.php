@@ -45,7 +45,7 @@
   </nav>
   <!-- /.navbar -->
 
-  <aside class="main-sidebar position-fixed" style="background-color: #ff7a00;">
+  <aside class="main-sidebar position-fixed elevation-4" style="background-color: #ff7a00;">
 
     <a href="indexadmin.php" class="brand-link">
       <img src="../../img\logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -151,7 +151,7 @@
                     </ul>
                   </li>
                   <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link" style="color: #864000;">
+                    <a href="" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes del comedor
@@ -160,7 +160,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link" style="color: #864000;">
+                    <a href="" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes para llevar
@@ -169,7 +169,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link" style="color: #864000;">
+                    <a href="" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
                       <p class="ms-auto">
                         Órdenes online

@@ -36,7 +36,7 @@
 </head>
 
 <body>
-  <!-- Preloader -->
+  <!-- Preloader
   <div class="preloader flex-column justify-content-center align-items-center" style="background-color: #864000;">
     <img class="animation__shake" src="img/logo.png" alt="AdminLTELogo" width="30%">
   </div>
@@ -122,7 +122,7 @@
               <hr class="border-1 opacity-100" style="background-color: #864000; width:auto">
 
               <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
                   <li class="nav-item">
                     <a href="#" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
@@ -195,7 +195,7 @@
                     </ul>
                   </li>
                   <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link" style="color: #864000;">
+                    <a href="" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes del comedor
@@ -204,7 +204,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link" style="color: #864000;">
+                    <a href="" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes para llevar
@@ -213,7 +213,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link" style="color: #864000;">
+                    <a href="" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
                       <p class="ms-auto">
                         Órdenes online
@@ -284,7 +284,7 @@
               <div class="inner">
                 <?php
                 $host = "localhost";
-                $dbname = "bdcarnitaschaperon";
+                $dbname = "bdcarnitaschaperon_vnueva";
                 $username = "root";
                 $password = "";
 
@@ -324,7 +324,7 @@
                 $primerDiaSemanaOficial = $primerDiaSemana->format("Y-m-d");
 
                 $host = "localhost";
-                $dbname = "bdcarnitaschaperon";
+                $dbname = "bdcarnitaschaperon_vnueva";
                 $username = "root";
                 $password = "";
 
@@ -362,7 +362,7 @@
                 $año = $fechaActual->format("Y");
 
                 $host = "localhost";
-                $dbname = "bdcarnitaschaperon";
+                $dbname = "bdcarnitaschaperon_vnueva";
                 $username = "root";
                 $password = "";
 
@@ -393,7 +393,7 @@
               <div class="inner">
                 <?php
                 $host = "localhost";
-                $dbname = "bdcarnitaschaperon";
+                $dbname = "bdcarnitaschaperon_vnueva";
                 $username = "root";
                 $password = "";
 
