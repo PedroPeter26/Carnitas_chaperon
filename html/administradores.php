@@ -187,7 +187,7 @@ $usuarios = $sentencia;
                         <td><?php echo $usuario['apellido']; ?></td>
                         <td><?php echo $usuario['correo']; ?></td>
                         <td>
-                            <a class="btn btn-info" method="POST" href="perfil_usuario.php?id=<?php echo $usuario['user_id']; ?>">
+                            <a class="btn btn-info" method="POST" href="perfilUsuario_admin.php?id=<?php echo $usuario['user_id']; ?>">
                                 Editar
                             </a>
                         </td>

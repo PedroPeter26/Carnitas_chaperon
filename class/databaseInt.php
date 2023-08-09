@@ -61,7 +61,7 @@ class database
         }
     }
 
-    function ExisteUsuario($usuario)
+    function ExisteUsuario($usuario, $contra)
     {
         try
         {
@@ -78,33 +78,35 @@ class database
             {
                 extract($_POST);
 
-                if(strlen($password) < 8)
+                if(strlen($contra) < 8)
                 {
                     echo'
                     <div class="alert alert-danger mt-3" role="alert">
-                        La contraseña nueva debe tener al menos 8 caracteres.
+                        La contraseña debe tener al menos 8 caracteres.
                     </div>';
                 }
-
-                $tipo="client";
-                $status="activo";
-
-                $hash = password_hash($contraseña, PASSWORD_DEFAULT);
-
-                $cadena = "insert into usuarios(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
-                   
-                $resultado = $this->PDOlocal->query($cadena);
-
-                if($resultado)
+                else
                 {
-                    echo "<br>";
-                    echo "<div class='alert alert-success'>¡Cliente registrado exitosamente!</div>";
-                    echo "<script>window.location.href='../html/login.php'</script>";
-                }
-                else 
-                {
-                    echo "<br>";
-                    echo "<div class='alert alert-danger'>Hubo un error al registrarse. Intente de nuevo.</div>";
+                    $tipo="client";
+                    $status="activo";
+
+                    $hash = password_hash($contra, PASSWORD_DEFAULT);
+
+                    $cadena = "INSERT INTO usuarios(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
+                    
+                    $resultado = $this->PDOlocal->query($cadena);
+
+                    if($resultado)
+                    {
+                        echo "<br>";
+                        echo "<div class='alert alert-success'>¡Cliente registrado exitosamente!</div>";
+                        echo "<script>window.location.href='../html/login.php'</script>";
+                    }
+                    else 
+                    {
+                        echo "<br>";
+                        echo "<div class='alert alert-danger'>Hubo un error al registrarse. Intente de nuevo.</div>";
+                    }
                 }
             }
         }
@@ -114,7 +116,7 @@ class database
         }
     }
 
-    function ExisteAdmin($usuario)
+    function ExisteAdmin($usuario, $contra)
     {
         try
         {
@@ -131,24 +133,34 @@ class database
             {
                 extract($_POST);
 
-                $tipo="admin";
-                $status="activo";
-
-                $hash = password_hash($contraseña, PASSWORD_DEFAULT);
-
-                $cadena = "insert into usuarios(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
-                   
-                $resultado = $this->PDOlocal->query($cadena);
-
-                if($resultado)
+                if(strlen($contra) < 8)
                 {
-                    echo "<br>";
-                    echo "<div class='alert alert-success'>¡Cliente registrado exitosamente!</div>";
+                    echo'
+                    <div class="alert alert-danger mt-3" role="alert">
+                        La contraseña debe tener al menos 8 caracteres.
+                    </div>';
                 }
-                else 
+                else
                 {
-                    echo "<br>";
-                    echo "<div class='alert alert-danger'>Hubo un error al registrarse. Intente de nuevo.</div>";
+                    $tipo="admin";
+                    $status="activo";
+
+                    $hash = password_hash($contra, PASSWORD_DEFAULT);
+
+                    $cadena = "insert into usuarios(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
+                    
+                    $resultado = $this->PDOlocal->query($cadena);
+
+                    if($resultado)
+                    {
+                        echo "<br>";
+                        echo "<div class='alert alert-success'>¡Cliente registrado exitosamente!</div>";
+                    }
+                    else 
+                    {
+                        echo "<br>";
+                        echo "<div class='alert alert-danger'>Hubo un error al registrarse. Intente de nuevo.</div>";
+                    }
                 }
             }
         }
@@ -158,20 +170,20 @@ class database
         }
     }
 
-    function verifica($usuario,$contraseña)
+    function verifica($usuario,$pass)
     {
         try
         {
             $pase = false;
-            $query = "select * from usuarios where user = '$usuario'";
+            $query = "SELECT * FROM usuarios where user = '$usuario'";
             $consulta = $this->PDOlocal->query($query);
             $renglon=$consulta->fetch(PDO::FETCH_ASSOC);
 
             if($renglon)
             {
-                if(password_verify($contraseña,$renglon['password']))
+                if(password_verify($pass, $renglon['password']))
                 {
-                    $pase=true;
+                    $pase = true;
                 }
             }
 
@@ -195,7 +207,7 @@ class database
                 echo "<div class='alert alert-success'>";
                 echo "<H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>";
                 echo "</div>";
-                header("refresh:2; ../html/validacionAdmin.php");
+                header("refresh:2; ../indexadmin.php");
                 }
             }
             else
@@ -247,7 +259,8 @@ class database
 
         if(password_verify($password,$renglon['password']))
         {
-            return true;
+            $pase = true;
+            return $pase;
         }
     }
 

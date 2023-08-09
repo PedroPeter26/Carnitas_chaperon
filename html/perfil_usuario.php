@@ -11,7 +11,7 @@ if(empty($_SESSION["idUsuario"]))
 }
 else
 {
-    $id = $_GET['id'];
+    $id = $_SESSION["idUsuario"];
     $sentencia = $pdo->prepare("SELECT * FROM usuarios WHERE user_id = '$id'");
     $sentencia->execute();
     $usuarios = $sentencia->fetch(PDO::FETCH_ASSOC);

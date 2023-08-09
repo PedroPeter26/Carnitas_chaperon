@@ -113,8 +113,8 @@
                 <input type="text" name="username" placeholder="Escribe nombre de usuario" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label class="control-label" for="password">Contraseña</label>
-                <input type="password" name="password" placeholder="Escribe la contraseña" class="form-control" required>
+                <label class="control-label" for="pass">Contraseña</label>
+                <input type="password" name="pass" placeholder="Escribe la contraseña" class="form-control" required>
             </div>
             <div class="d-grid gap-2">
                 <button class="btn btn-lg boton" type="submit" name="inicio">Iniciar sesion</button>
@@ -125,13 +125,12 @@
                 include '../class/databaseInt.php';
                 $db = new Database();
                 $db->conectarBD();
-                $pdo = $db->getConexion();
 
                 extract($_POST);
 
                 if(isset($_POST['inicio']))
                 {
-                    $db->verifica($username, $password);
+                    $db->verifica($username,$pass);
                 }
                 $db->desconectarBD();
             ?>
