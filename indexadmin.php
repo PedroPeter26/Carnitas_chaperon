@@ -122,7 +122,7 @@
               <hr class="border-1 opacity-100" style="background-color: #864000; width:auto">
 
               <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   <li class="nav-item">
                     <a href="#" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
@@ -133,7 +133,7 @@
                     </a>
                     <ul class="nav nav-treeview" style="display: none;">
                       <li class="nav-item">
-                        <a href="views\reportes\reportes_diarios.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_diarios.php" class="nav-link" style="color: #864000;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reporte diario</p>
                         </a>
@@ -171,7 +171,7 @@
                       <li class="nav-item">
                         <a href="views/reportes/reportes_segun_tipo_comida_fechas.php" class="nav-link" style="color: #864000;">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes por el tipo de comida por rango de fecha</p>
+                          <p>Reportes por tipo de comida por rango de fecha</p>
                         </a>
                       </li>
                       <li class="nav-item">
@@ -250,6 +250,7 @@
                       </li>
                     </ul>
                   </li>
+                  <li><br><br><br><br><br><br></li>
                 </ul>
               </nav>
 
