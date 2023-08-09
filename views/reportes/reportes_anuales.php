@@ -63,17 +63,16 @@
             //condicionamos que si ya se hizo post con el botón de buscar me muestre todo lo demas, en caso contrario, no se mostrará la tabla
             if (!empty($_POST['buscar'])) {
                 //guardamos en las siguientes variables los datos que se necesitan para hacer la conexion a la bd
-                $host = "localhost";
-                $dbname = "bdcarnitaschaperon";
-                $username = "root";
-                $password = "";
+                include '../../class/database.php';
+                $db = new Database();
+                $db->conectarDB();
+                $pdo = $db->getConexion();
 
                 try {
                     if (!empty($_POST['año'])) //si si se recibieron se muestra la tabla con los puros encabezados
                     {
                         $año = $_POST['año'];
                         //con el obj $conn hacemos la conexion a la bd donde le pasamos las variables que antes establecimos
-                        $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
                         if (isset($_POST['orden'])) {
                             $tipoOrden = $_POST['orden'];
@@ -247,7 +246,7 @@
                                     break;
                                 case 'todas':
                                     $sql = "CALL REPORTE_DINERO_ANUAL_TODAS('$año')";
-                                    $stmt = $conn->query($sql);
+                                    $stmt = $conn->seleccionar($sql);
                                     $num = $stmt->rowCount();
 
                                     if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla

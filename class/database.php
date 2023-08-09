@@ -42,5 +42,9 @@ class Database
             echo $e->getMessage();
         }
     }
+    function getConexion()
+    {
+        return $this->PDOLocal;
+    }
+
 }
-?>
