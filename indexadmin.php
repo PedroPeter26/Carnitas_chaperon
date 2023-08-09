@@ -36,11 +36,6 @@
 </head>
 
 <body>
-  <!-- Preloader
-  <div class="preloader flex-column justify-content-center align-items-center" style="background-color: #864000;">
-    <img class="animation__shake" src="img/logo.png" alt="AdminLTELogo" width="30%">
-  </div>
-
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark">
     <!-- Left navbar links-->
@@ -127,7 +122,7 @@
                     <a href="#" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
-                        Reportes
+                        Reportes 
                         <i class="right fas fa-angle-left"></i>
                       </p>
                     </a>
@@ -141,7 +136,7 @@
                       <li class="nav-item">
                         <a href="views/reportes/reportes_semanales.php" class="nav-link" style="color: #864000;">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes semanales</p>
+                          <p>Reporte semanal</p>
                         </a>
                       </li>
                       <li class="nav-item">
