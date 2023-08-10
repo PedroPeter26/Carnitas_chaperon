@@ -28,3 +28,29 @@
 <script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.js"></script>
+<!-- Esto va en if (isNewNotification): $('#newNotification').fadeIn().delay(3000).fadeOut();-->
+
+<script>
+    var isNewNotification = false;
+
+    function fetchNotifications() {
+        $.ajax({
+            url: '../scripts/notifications.php',
+            method: 'GET',
+            success: function(data) {
+                if (data !== $('#notifications').html()) {
+                    $('#notifications').html(data);
+                    if (isNewNotification) {
+                        $('#newNotification').fadeIn().delay(3000).fadeOut();
+                    }
+                    isNewNotification = true;
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        fetchNotifications();
+        setInterval(fetchNotifications, 5000); // Fetch notifications every 5 seconds
+    });
+</script>

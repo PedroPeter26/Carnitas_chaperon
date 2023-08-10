@@ -116,20 +116,20 @@
                     <div class="carousel-inner eslogan">
                         <div class="carousel-item active">
                         <img src="img/comida1.jpg" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
+                        <div class="carousel-caption d-none d-md-block" style="color: #FF3131;">
                             <h5>Carnitas el Chaperon</h5>
                             <p>Las carnitas más ricas de toda la ciudad</p>
                         </div>
                         </div>
                         <div class="carousel-item">
                         <img src="img/gringa.jpg" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
+                        <div class="carousel-caption d-none d-md-block" style="color: #FF3131;">
                             <h5>Haz tu pedido en línea</h5>
                         </div>
                         </div>
                         <div class="carousel-item">
                         <a href="" data-bs-toggle="modal" data-bs-target="#alta"><img src="img/fachada1.jpg" class="d-block w-100" alt="..."></a>
-                        <div class="carousel-caption d-none d-md-block">
+                        <div class="carousel-caption d-none d-md-block" style="color: #FF3131;">
                             <h5>¡TE ESPERAMOS!</h5>
                             <p>Horario de 10:00 a.m a 6:00 p.m</p>
                         </div>
@@ -160,102 +160,19 @@
                 <h1 class="tprom" style="text-align: center;">Promociones</h1>
                 <hr style="border: 1px solid #E59866; background-color: #E59866; height: 3px;">
             </div>
-            <!--PAQUETE 1-->
-            <div class="col-12 col-md-8 col-lg-8 divdecard p-3">
-                <!--CARD 1-->
-                <div class="card contenidocards" style="width: 18rem;">
-                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title">Paquete 1</h5>
-                    <p class="card-text">
-                        Incluye:
-                        <ul>
-                            <li>1 kg de carnitas</li>
-                            <li>1 kg de tortillas</li>
-                            <li>1 refresco de 2L</li>
-                            <br><br>
-                        </ul>
-                    </p>
-                    <a href="#" class="btn btn-primary botoncards">Comprar</a>
-                    </div>
-                </div>
-            </div>
-            <!--PAQUETE 2-->
-            <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
-                <!--CARD 2-->
-                <div class="card contenidocards" style="width: 18rem;">
-                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title">Paquete 2</h5>
-                    <p class="card-text">
-                        Incluye:
-                        <ul>
-                            <li>½ kg de carnitas</li>
-                            <li>¼ kg de buche</li>
-                            <li>1 kg de tortillas</li>
-                            <li>1 refresco de 2L</li>
-                            <br>
-                        </ul>
-                    </p>
-                    <a href="#" class="btn btn-primary botoncards">Comprar</a>
-                    </div>
-                </div>
-            </div>
-            <!--PAQUETE 3-->
-            <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
-                <!--CARD 3-->
-                <div class="card contenidocards justify-content: flex-end;
-                " style="width: 18rem;">
-                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title">Paquete 3</h5>
-                    <p class="card-text">
-                        Incluye:
-                        <ul>
-                            <li>1 chamorro</li>
-                            <li>½ de tortillas</li>
-                            <li>¼ chicharrón botanero</li>
-                            <br><br>
-                        </ul>
-                    </p>
-                    <a href="#" class="btn btn-primary botoncards">Comprar</a>
-                    </div>
-                </div>
-            </div>
-            <!--PAQUETE 4-->
-            <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
-                <!--CARD 4-->
-                <div class="card contenidocards" style="width: 18rem;">
-                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title">Paquete 4</h5>
-                    <p class="card-text">
-                        Incluye:
-                        <ul>
-                            <li>¼ buche</li>
-                            <li>¼ chicharrón botanero</li>
-                            <li>1 kg carnitas</li>
-                            <li>1 kg de tortillas</li>
-                            <li>1 refresco de 2L</li>
-                        </ul>
-                    </p>
-                    <a href="#" class="btn btn-primary botoncards d-flex justify-content-end">Comprar</a>
-                    </div>
-                </div>
-            </div>
             <br>
             <div class="row divdecard">
-                <div class="col-7 contenidocards">
-                    <img src="img/paquetes.jpg" style="width: 100%; padding: 25px; margin: 0;">
+                <div class="col-12 col-md-6 contenidocards">
+                    <a href=""><img src="img/1.png" style="width: 100%; padding: 25px; margin: 0;" class="rounded"></a>
                 </div>
-                <div class="col-5 contenidocards">
-                    <img src="img/paquetes.jpg" style="width: 100%; padding: 25px; margin: 0;">
+                <div class="col-12 col-md-6 contenidocards">
+                    <a href=""><img src="img/2.png" style="width: 100%; padding: 25px; margin: 0;" class="rounded"></a>
                 </div>
-                <div class="col-12 contenidocards">
-                    <img src="img/paquetes.jpg" style="width: 100%; padding: 25px; margin: 0;">
+                <div class="col-12 col-md-6 contenidocards">
+                    <a href=""><img src="img/3.png" style="width: 100%; padding: 25px; margin: 0;" class="rounded"></a>
                 </div>
-                <div class="col-12 contenidocards">
-                    <img src="img/paquetes.jpg" style="width: 100%; padding: 25px; margin: 0;">
+                <div class="col-12 col-md-6 contenidocards">
+                    <a href=""><img src="img/4.png" style="width: 100%; padding: 25px; margin: 0;" class="rounded"></a>
                 </div>
             </div>
         </div>

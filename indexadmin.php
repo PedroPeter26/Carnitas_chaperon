@@ -79,6 +79,17 @@
         </div>
       </li>
     </ul>
+    <!-- notis y cerrar sesión-->
+    <div class="dropdown m-1">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Notificaciones
+      </button>
+      <div class="dropdown-menu" aria-labelledby="notificationDropdown" id="notifications">
+      </div>
+    </div>
+    <div id="newNotification" class="alert alert-success m-3 p-3 position-fixed" style="display: none; top: 70; right: 0;">
+      ¡Recibiste un pedido!
+    </div>
     <button type="button" class="btn btn-block col-2 btn-dark">Cerrar sesión</button>
   </nav>
   <!-- /.navbar -->
@@ -122,7 +133,7 @@
                     <a href="#" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
-                        Reportes 
+                        Reportes
                         <i class="right fas fa-angle-left"></i>
                       </p>
                     </a>
@@ -208,7 +219,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="" class="nav-link" style="color: #864000;">
+                    <a href="views/ordenes/ordenes_online.php" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
                       <p class="ms-auto">
                         Órdenes online
@@ -450,6 +461,31 @@
       <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
       <!-- AdminLTE App -->
       <script src="dist/js/adminlte.js"></script>
+
+      <script>
+        var isNewNotification = false;
+
+        function fetchNotifications() {
+          $.ajax({
+            url: 'scripts/notifications.php',
+            method: 'GET',
+            success: function(data) {
+              if (data !== $('#notifications').html()) {
+                $('#notifications').html(data);
+                if (isNewNotification) {
+                  //$('#newNotification').fadeIn().delay(3000).fadeOut();
+                }
+                isNewNotification = true;
+              }
+            }
+          });
+        }
+
+        $(document).ready(function() {
+          fetchNotifications();
+          setInterval(fetchNotifications, 5000); // Fetch notifications every 5 seconds
+        });
+      </script>
 
 </body>
 
