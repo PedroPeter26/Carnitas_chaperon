@@ -167,7 +167,7 @@ $pdo = $db->getConexion();
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-8" style="color: white;">
                     <li class="nav-item">
-                    <a class="nav-link" style="color: white;" href="menusinordenar.php">Menú</a>
+                    <a class="nav-link" style="color: white;" href="menuSinOrdenar.php">Menú</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" style="color: white;" href="" data-bs-toggle="modal" data-bs-target="#ubi">Ubicación</a>
