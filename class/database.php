@@ -1,38 +1,39 @@
-<?php
-class Database
+<?php 
+class database
 {
     private $PDOLocal;
-    private $user = "root";
-    private $password = "";
-    private $server = "mysql:host=localhost; dbname=bdcarnitaschaperon";
+    private $user = "doadmin";
+    private $password = "AVNS_n6A8URvjvM1RSnjp_CK";
+    private $server = "mysql:host=db-chaperon1-do-user-14423112-0.b.db.ondigitalocean.com;port=25060;dbname=ChaperonTest;sslmode=REQUIRED";
 
-    function conectarDB()
+
+    function ConectarDB()
     {
         try
         {
-            $this->PDOLocal = new PDO($this->server, $this->user, $this->password);
+            $this->PDOLocal=new PDO($this->server, $this->user, $this->password);
         }
-        catch(PDOException $e)
+        catch (PDOException $e)
         {
-            echo $e->getMessage();
-        }
-    }
-
-    function desconectarDB()
-    {
-        try
-        {
-            $this->PDOLocal = null;
-        }
-        catch(PDOException $e)
-        {
-            echo $e->getMessage();
+        echo $e->getMessage();
         }
     }
 
     function getConexion()
     {
         return $this->PDOLocal;
+    }
+
+    function desconectarDB() //SE PUEDE HACER EN EL CONSTRUCTOR PARA QUE SE CONECTE SOLO CADA VEZ QUE SE INSTANCIE
+    {
+        try
+        {
+            $this->PDOLocal=null;
+        }
+        catch (PDOException $e)
+        {
+        echo $e->getMessage();
+        }
     }
 
     function seleccionar($consulta)
@@ -49,7 +50,8 @@ class Database
         }
     }
 
-    function ejecutaSQL($consulta){
+    function ejecutarSQL($consulta)
+    {
         try
         {
             $this->PDOLocal->query($consulta);
@@ -60,7 +62,7 @@ class Database
         }
     }
 
-    function ExisteUsuario($usuario)
+    function ExisteUsuario($usuario, $contra)
     {
         try
         {
@@ -77,23 +79,35 @@ class Database
             {
                 extract($_POST);
 
-                $tipo="client";
-                $hash = password_hash($contraseña, PASSWORD_DEFAULT);
-
-                $cadena = "insert into usuarios(nombre, apellido, user, tipo, correo, password) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash')";
-                   
-                $resultado = $this->PDOLocal->query($cadena);
-
-                if($resultado)
+                if(strlen($contra) < 8)
                 {
-                    echo "<br>";
-                    echo "<div class='alert alert-success'>¡Cliente registrado exitosamente!</div>";
-                    echo "<script>window.location.href='../views/login.php'</script>";
+                    echo'
+                    <div class="alert alert-danger mt-3" role="alert">
+                        La contraseña debe tener al menos 8 caracteres.
+                    </div>';
                 }
-                else 
+                else
                 {
-                    echo "<br>";
-                    echo "<div class='alert alert-danger'>Hubo un error al registrarse. Intente de nuevo.</div>";
+                    $tipo="client";
+                    $status="activo";
+
+                    $hash = password_hash($contra, PASSWORD_DEFAULT);
+
+                    $cadena = "INSERT INTO USUARIOS(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
+                    
+                    $resultado = $this->PDOLocal->query($cadena);
+
+                    if($resultado)
+                    {
+                        echo "<br>";
+                        echo "<div class='alert alert-success'>¡Cliente registrado exitosamente!</div>";
+                        echo "<script>window.location.href='../html/login.php'</script>";
+                    }
+                    else 
+                    {
+                        echo "<br>";
+                        echo "<div class='alert alert-danger'>Hubo un error al registrarse. Intente de nuevo.</div>";
+                    }
                 }
             }
         }
@@ -103,21 +117,74 @@ class Database
         }
     }
 
-    function verifica($usuario,$contraseña)
+    function ExisteAdmin($usuario, $contra)
     {
         try
         {
+            $query = "SELECT * FROM USUARIOS WHERE user = '$usuario'";
+            $resultado = $this->PDOLocal->query($query);
 
+            if($resultado->fetch(PDO::FETCH_ASSOC))
+            {
+                echo "<br><div class='alert alert-danger'>";
+                echo "<H6 align='center'>Este usuario ya existe actualmente.</H6>";
+                echo "</div>";
+            }
+            else
+            {
+                extract($_POST);
+
+                if(strlen($contra) < 8)
+                {
+                    echo'
+                    <div class="alert alert-danger mt-3" role="alert">
+                        La contraseña debe tener al menos 8 caracteres.
+                    </div>';
+                }
+                else
+                {
+                    $tipo="admin";
+                    $status="activo";
+
+                    $hash = password_hash($contra, PASSWORD_DEFAULT);
+
+                    $cadena = "insert into usuarios(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
+                    
+                    $resultado = $this->PDOLocal->query($cadena);
+
+                    if($resultado)
+                    {
+                        echo "<br>";
+                        echo "<div class='alert alert-success'>¡Cliente registrado exitosamente!</div>";
+                    }
+                    else 
+                    {
+                        echo "<br>";
+                        echo "<div class='alert alert-danger'>Hubo un error al registrarse. Intente de nuevo.</div>";
+                    }
+                }
+            }
+        }
+        catch (PDOException $e)
+        {
+        echo $e->getMessage();
+        }
+    }
+
+    function verifica($usuario,$pass)
+    {
+        try
+        {
             $pase = false;
-            $query = "select * from usuarios where user = '$usuario'";
+            $query = "SELECT * FROM USUARIOS where user = '$usuario'";
             $consulta = $this->PDOLocal->query($query);
             $renglon=$consulta->fetch(PDO::FETCH_ASSOC);
 
             if($renglon)
             {
-                if(password_verify($contraseña,$renglon['password']))
+                if(password_verify($pass, $renglon['password']))
                 {
-                    $pase=true;
+                    $pase = true;
                 }
             }
 
@@ -125,28 +192,30 @@ class Database
             {
                 if($renglon['tipo']=="client")
                 {
-                    session_start();
-                    $_SESSION["usuario"]=$usuario;
-                    echo "<div class='alert alert-success'>";
-                    echo "<H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>";
-                    echo "</div>";
-                    header("refresh:2; ../index.php");
+                session_start();
+                $_SESSION["usuario"]=$usuario;
+                $_SESSION["idUsuario"]=$renglon['user_id'];
+                echo "<div class='alert alert-success'>
+                <H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>
+                </div>";
+                header("refresh:2; ../index.php");
                 }
                 else 
                 {
-                    session_start();
-                    $_SESSION["usuario"]=$usuario;
-                    echo "<div class='alert alert-success'>";
-                    echo "<H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>";
-                    echo "</div>";
-                    header("refresh:2; ../views/validacionAdmin.php");
+                session_start();
+                $_SESSION["usuario"]=$usuario;
+                $_SESSION["idUsuario"]=$renglon['user_id'];
+                echo "<div class='alert alert-success'>";
+                echo "<H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>";
+                echo "</div>";
+                header("refresh:2; ../indexadmin.php");
                 }
             }
             else
             {
-                echo "<div class='alert alert-danger'>";
-                echo "<H6 align='center'>Usuario o contraseña incorrecta.</H6>";
-                echo "</div>";
+            echo "<div class='alert alert-danger'>";
+            echo "<H6 align='center'>Usuario o contraseña incorrecta.</H6>";
+            echo "</div>";
             }
         }
         catch (PDOException $e)
@@ -160,6 +229,55 @@ class Database
         session_start();
         session_destroy();
         header("Location:../index.php");
+    }
+
+    function editarUsuario($nombre, $apellido, $usuario, $correo, $id)
+    {
+        $sentencia = "UPDATE USUARIOS SET nombre = '$nombre', apellido = '$apellido', user = '$usuario', correo = '$correo' WHERE user_id = '$id'";
+        $resultado = $this->PDOLocal->query($sentencia);
+
+        if($resultado)
+        {
+            echo "
+            <div class='alert alert-success mt-3' role='alert'>
+                Información de usuario actualizada con éxito.
+            </div>";
+        }
+        else
+        {
+            echo "
+            <div class='alert alert-danger mt-3' role='alert'>
+                Hubo un error al actualizar la informacion del usuario. Intente de nuevo más tarde.
+            </div>";
+        }
+    }
+
+    function verificarPassword($idUsuario, $password)
+    {
+        $query = "SELECT * FROM USUARIOS WHERE user_id = '$idUsuario'";
+        $consulta = $this->PDOLocal->query($query);
+        $renglon=$consulta->fetch(PDO::FETCH_ASSOC);
+
+        if(password_verify($password,$renglon['password']))
+        {
+            $pase = true;
+            return $pase;
+        }
+    }
+
+    function cambiarPassword($idUsuario, $password)
+    {
+        $nueva = password_hash($password, PASSWORD_DEFAULT);
+        $sentencia = "UPDATE USUARIOS SET password = '$nueva' WHERE user_id = '$idUsuario'";
+        $resultado = $this->PDOLocal->query($sentencia);
+
+        if($resultado)
+        {
+            echo '
+            <div class="alert alert-success mt-3" role="alert">
+                Contraseña actualizada correctamente.
+            </div>';
+        }
     }
 }
 ?>

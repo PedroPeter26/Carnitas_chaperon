@@ -10,22 +10,8 @@ html, body
 }
 .barranav
 {
-    height: 70px;
     background-image: url(../img/barranav1.jpg);
-    background-size:contain;
-    position:fixed;
-    top:0;
-    width: 100%;
-    z-index: 1200;
-    font-family: 'Lilita One', sans-serif;
-    color: white;
-}
-.barranav2
-{
-    height: 70px;
-    background-image: url(../img/barranav1.jpg);
-    background-size:contain;
-    top:0;
+    background-size: contain;
     width: 100%;
     z-index: 1200;
     font-family: 'Lilita One', sans-serif;
@@ -35,20 +21,7 @@ html, body
 {
     font-family: 'Lilita One', sans-serif;
     font-size: 30px;
-    
-}
-.navbar-brand:hover
-{
     color: white;
-}
-a.color
-{
-    color: white;
-}
-a.color:hover
-{
-    color: white;
-    font-size: 20px;
 }
 @media screen and (max-width: 576px) /*Pantalla pequeña*/
 {
@@ -57,6 +30,7 @@ a.color:hover
         font-size: 26px;
     }
 }
+
 /*BOTÓN DE INICIAR SESIÓN DE LA BARRA DE NAV 1*/
 button.iniciarsesionnav
 {
@@ -84,26 +58,10 @@ button.iniciarsesionnav
     font-size: 16px;
     font-family: "Andale Mono", monospace;
 }
-.barranav2
-{
-    height: 55px;
-    background-color:white;
-    align-items: center;
-    justify-content: center;
-    font-family: fantasy;
-    font-size: 22px;
-    color: brown;
-    text-shadow: 2px 2px white;
-    position:fixed;
-    top:70px;
-    width: 100%;
-    z-index: 1200;
-}
 /*CUERPO*/
 .carousel, .carousel-inner
 {
     width: 100% !important;
-    margin-top: 70px;
 }
 
 div.principal
@@ -249,7 +207,6 @@ div.presentacion
 .contenidocards /*El card en sí*/
 {
     text-align: justify;
-    height: auto;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .contenidocards:hover /*Cuando el cursor pasa por encima de los cards*/

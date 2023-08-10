@@ -1,9 +1,9 @@
 <?php
+require 'class/config.php';
 include 'class/database.php';
 $db = new Database();
 $db->conectarDB();
 $pdo = $db->getConexion();
-require 'class/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@ require 'class/config.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="index.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
     <title>Carnitas Chaperon</title>
@@ -35,42 +35,62 @@ require 'class/config.php';
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-8" style="color: white;">
-                <!--<li class="nav-item">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-6" style="color: white;">
+                <!--
+                <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>-->
                 <?php
-                if (isset($_SESSION["usuario"])) {
-                    echo "<li class='nav-item'>
-                            <a class='btn btn-warning' href='checkout.php'>Carrito <span id='num_cart' class='badge bg-secondary'>$num_cart</span></a>
-                          </li>";
-                    echo "<li class='nav-item'>
-                            <a class='nav-link' style='color: white;' href='views/ordenar.php'>Ordenar</a>
-                          </li>";
+                if (isset($_SESSION["usuario"]))
+                {
+                echo "<li class='nav-item'>
+                        <a class='btn btn-warning' href='html/checkout_online.php'>Carrito <span id='num_cart' class='badge bg-secondary'>$num_cart</span></a>
+                        </li>";
+                echo "<li class='nav-item'>
+                        <a class='nav-link' style='color: white;' href='html/ordenar.php'>Ordenar</a>
+                        </li>";
                 }
                 ?>
                 <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="views/menusencillo.php">Menú</a>
+                <a class="nav-link" style="color: white;" href="html/menuSinOrdenar.php">Menú</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
                 </li>
                 <?php
-                    if (isset($_SESSION["usuario"])) {
-                        echo '<li class="nav-item">';
-                        echo '<a class="nav-link" style="color: white;" href="scripts/logout.php">Cerrar sesión</a>';
-                        echo '</li>';
-                    } else {
-                        echo '<li class="nav-item">';
-                        echo '<a class="nav-link" style="color: white;" href="views/login.php">Iniciar sesión</a>';
-                        echo '</li>';
+                    if (isset($_SESSION["usuario"]))
+                    {
+                    echo '<li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color: white;" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Usuario
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li>
+                            <a class="dropdown-item" href="html/perfil_usuario.php">
+                                Perfil
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="class/cerrarsesion.php">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                    </li>';
+                    }
+                    else
+                    {
+                    echo '<li class="nav-item">';
+                    echo '<a class="nav-link" style="color: white;" href="html/login.php">Iniciar sesión</a>';
+                    echo '</li>';
                     }
                 ?>
-
             </ul>
             </div>
         </div>
     </nav>
+
     <!--BARRA DE NAV 2
     <nav class="barranav2">
         <div class="row">

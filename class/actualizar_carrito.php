@@ -36,7 +36,7 @@ function agregar($_id, $cantidad){
             $db->conectarDB();
             $pdo = $db->getConexion();
 
-            $sentencia=$pdo->prepare("SELECT precio_app FROM productos WHERE producto_id = ? AND productos.disponibilidad = 'Ambos' OR productos.disponibilidad = 'Rapido' AND status = 'Activo' LIMIT 1");
+            $sentencia=$pdo->prepare("SELECT precio_app FROM PRODUCTOS WHERE producto_id = ? AND (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Rapido') AND status = 'Activo' LIMIT 1");
              $sentencia->execute([$_id]);
             $row = $sentencia->fetch(PDO::FETCH_ASSOC);
             $precio_app = $row['precio_app'];
