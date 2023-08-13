@@ -33,32 +33,49 @@ $pdo = $db->getConexion();
             <h1>Órdenes Online</h1>
             <?php
             try {
-                $sql = "SELECT noti, user_id, usuarios.nombre as 'n', orden_id as 'o', notification_dataadmin.description as dd, productos.nombre as p, detalle_orden.cantidad as c, productos.precio_app as precio, (productos.precio_app * detalle_orden.cantidad) as subtotal, SUM('subtotal') as total from usuarios 
-                join ordenes on usuarios.user_id = ordenes.cliente join notification_data on notification_data.orden = ordenes.orden_id join notification_dataadmin on notification_dataadmin.noti = notification_data.id join detalle_orden on detalle_orden.orden = ordenes.orden_id join productos on productos.producto_id = detalle_orden.producto 
-                where ordenes.status = 'Proceso' order by o desc";
+                $sql = "SELECT noti, user_id, USUARIOS.nombre as 'n', orden_id as 'o', notification_dataadmin.description as dd, PRODUCTOS.nombre as p, SUM(DETALLE_ORDEN.cantidad) as c, PRODUCTOS.precio_app as precio, SUM(PRODUCTOS.precio_app * DETALLE_ORDEN.cantidad) as subtotal
+                FROM USUARIOS 
+                JOIN ORDENES ON USUARIOS.user_id = ORDENES.cliente 
+                JOIN notification_data ON notification_data.orden = ORDENES.orden_id 
+                JOIN notification_dataadmin ON notification_dataadmin.noti = notification_data.id 
+                JOIN DETALLE_ORDEN ON DETALLE_ORDEN.orden = ORDENES.orden_id 
+                JOIN PRODUCTOS ON PRODUCTOS.producto_id = DETALLE_ORDEN.producto 
+                WHERE ORDENES.status = 'Proceso' GROUP BY PRODUCTOS.nombre 
+                ORDER BY o DESC";
+
                 $sql = $pdo->prepare($sql);
                 $sql->execute();
-                $detalles = $sql->fetchAll(PDO::FETCH_ASSOC);
+                $orders = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-                $sql1 = "SELECT noti, user_id, usuarios.nombre as 'n', orden_id as 'o', notification_dataadmin.description as dd, productos.nombre as p, detalle_orden.cantidad as c, productos.precio_app as precio, (productos.precio_app * detalle_orden.cantidad) as subtotal, SUM('subtotal') as total from usuarios 
-                join ordenes on usuarios.user_id = ordenes.cliente join notification_data on notification_data.orden = ordenes.orden_id join notification_dataadmin on notification_dataadmin.noti = notification_data.id join detalle_orden on detalle_orden.orden = ordenes.orden_id join productos on productos.producto_id = detalle_orden.producto 
-                where ordenes.status = 'Proceso' order by o desc";
-                $sql1 = $pdo->prepare($sql1);
-                $sql1->execute();
-                $users = $sql1->fetchAll(PDO::FETCH_ASSOC);
+                $currentOrder = null;
+                $total = 0;
 
-                if ($users) {
-                    foreach ($users as $user) {
-                        echo "<div class='border p-4' style='background-color= #CBCBCB;'>";
-                        echo "<h2>Orden " . $user['o'] . "</h2>";
-                        echo "<h3>Cliente: " . $user['n'] . "</h3>";
-                        foreach ($detalles as $order) {
-                            echo '<hr class="dropdown-divider"></hr>';
-                            echo '<a class="dropdown-item">' . $order['p'] . ' ---------------- ' . $order['c'] . ' ---------------- ' . $order['subtotal'] . '</a>';
+                if ($orders) {
+                    foreach ($orders as $order) {
+                        if ($currentOrder !== $order['o']) {
+                            if ($currentOrder !== null) {
+                                echo '<p>Total de la Orden: $' . number_format($total,2) . '</p>'; // Muestro el total de la orden
+                                echo '<hr class="dropdown-divider"></hr>';
+                                echo "</div>";
+                                $total = 0; // Se reinicia el total para la que sigue
+                            }
+
+                            $currentOrder = $order['o'];
+
+                            echo "<div class='border p-4' style='background-color: red;'";
+                            echo "<h2>Orden " . $order['o'] . "</h2>";
+                            echo "<h3>Cliente: " . $order['n'] . "</h3>";
                             echo '<hr class="dropdown-divider"></hr>';
                         }
-                        echo "</div>";
+
+                        echo '<a class="dropdown-item">' . $order['p'] . ' ---------------- ' . $order['c'] . ' ---------------- ' . $order['subtotal'] . '</a>';
+                        $total += $order['subtotal'];
                     }
+
+                    echo '<p>Total de la Orden: ' . $total . '</p>'; // Muestro el total de la última orden
+                    echo '<hr class="dropdown-divider"></hr><br>';
+                    echo "</div>";
+                
                 } else {
                     echo '<a class="dropdown-item">No hay órdenes pendientes.</a>';
                 }
@@ -66,6 +83,7 @@ $pdo = $db->getConexion();
                 echo '<a class="dropdown-item text-danger">Error: ' . $e->getMessage() . '</a>';
             }
             ?>
+
         </div>
     </div>
 

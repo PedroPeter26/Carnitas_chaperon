@@ -85,10 +85,8 @@ $pdo = $db->getConexion();
                         <h2 class="mb-4" id="Carnitas">Carnitas</h2>
                         <!--CARD-->
                         <?php
-                        $consulta = "SELECT * FROM productos where tipo='TIPO1'";
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO1'";
                         $resultados = $db->seleccionar2($consulta);
-                        $resultados->execute();
-                        $listaproductos = $resultados->fetchAll(PDO::FETCH_ASSOC);
                         ?>
                         <?php
                         foreach ($listaproductos as $producto) {
@@ -119,7 +117,7 @@ $pdo = $db->getConexion();
                         <h2 class="mb-4">Tacos</h2>
                         <!--CARD-->
                         <?php
-                        $consulta = "SELECT * FROM productos where tipo='TIPO2'";
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO2'";
                         $resultados = $db->seleccionar2($consulta);
                         $resultados->execute();
                         $listaproductos = $resultados->fetchAll(PDO::FETCH_ASSOC);
@@ -153,7 +151,7 @@ $pdo = $db->getConexion();
                         <h2 class="mb-4">Lonches</h2>
                         <!--CARD-->
                         <?php
-                        $consulta = "SELECT * FROM productos where tipo='TIPO3'";
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO3'";
                         $resultados = $db->seleccionar2($consulta);
                         $resultados->execute();
                         $listaproductos = $resultados->fetchAll(PDO::FETCH_ASSOC);
@@ -187,7 +185,7 @@ $pdo = $db->getConexion();
                         <h2 class="mb-4">Gringas</h2>
                         <!--CARD-->
                         <?php
-                        $consulta = "SELECT * FROM productos where tipo='TIPO4'";
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO4'";
                         $resultados = $db->seleccionar2($consulta);
                         $resultados->execute();
                         $listaproductos = $resultados->fetchAll(PDO::FETCH_ASSOC);
@@ -221,7 +219,7 @@ $pdo = $db->getConexion();
                         <h2 class="mb-4">Chicharrones</h2>
                         <!--CARD-->
                         <?php
-                        $consulta = "SELECT * FROM productos where tipo='TIPO5'";
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO5'";
                         $resultados = $db->seleccionar2($consulta);
                         $resultados->execute();
                         $listaproductos = $resultados->fetchAll(PDO::FETCH_ASSOC);
@@ -255,7 +253,7 @@ $pdo = $db->getConexion();
                         <h2 class="mb-4">Paquetes</h2>
                         <!--CARD-->
                         <?php
-                        $consulta = "SELECT * FROM productos where tipo='TIPO6'";
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO6'";
                         $resultados = $db->seleccionar2($consulta);
                         $resultados->execute();
                         $listaproductos = $resultados->fetchAll(PDO::FETCH_ASSOC);
@@ -290,7 +288,7 @@ $pdo = $db->getConexion();
                         <!--CARD-->
                         <!--CARD-->
                         <?php
-                        $consulta = "SELECT * FROM productos where tipo='TIPO7'";
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO7'";
                         $resultados = $db->seleccionar2($consulta);
                         $resultados->execute();
                         $listaproductos = $resultados->fetchAll(PDO::FETCH_ASSOC);
@@ -324,7 +322,7 @@ $pdo = $db->getConexion();
                         <h2 class="mb-4">Complementos</h2>
                         <!--CARD-->
                         <?php
-                        $consulta = "SELECT * FROM productos where tipo='TIPO8'";
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO8'";
                         $resultados = $db->seleccionar2($consulta);
                         $resultados->execute();
                         $listaproductos = $resultados->fetchAll(PDO::FETCH_ASSOC);

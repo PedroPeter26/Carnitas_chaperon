@@ -1,5 +1,5 @@
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-dark">
+  <nav class="main-header navbar navbar-expand navbar-dark sticky-top">
     <!-- Left navbar links-->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -115,7 +115,7 @@
 
   <aside class="main-sidebar position-fixed elevation-4" style="background-color: #ff7a00;">
 
-    <a href="indexadmin.php" class="brand-link">
+    <a href="../../indexadmin.php" class="brand-link">
       <img src="../../img\logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light" style="color: #864000;">Carnitas&nbsp;el&nbsp;Chaperon</span>
     </a>
@@ -157,61 +157,61 @@
                     </a>
                     <ul class="nav nav-treeview" style="display: none;">
                       <li class="nav-item">
-                        <a href="reportes_diarios.php" class="nav-link" style="color: #864000;">
+                        <a href="../../views/reportes/reportes_diarios.php" class="nav-link" style="color: #864000;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reporte diario</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="reportes_semanales.php" class="nav-link" style="color: #864000;">
+                        <a href="../../views/reportes/reportes_semanales.php" class="nav-link" style="color: #864000;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes semanales</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="reportes_mensuales.php" class="nav-link" style="color: #864000;">
+                        <a href="../../views/reportes/reportes_mensuales.php" class="nav-link" style="color: #864000;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes mensuales</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="reportes_anuales.php" class="nav-link" style="color: #864000;">
+                        <a href="../../views/reportes/reportes_anuales.php" class="nav-link" style="color: #864000;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes anuales</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="reportes_segun_fecha.php" class="nav-link" style="color: #864000;">
+                        <a href="../../views/reportes/reportes_segun_fecha.php" class="nav-link" style="color: #864000;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes por rango de fechas</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="reportes_segun_tipo_comida.php" class="nav-link" style="color: #864000;">
+                        <a href="../../views/reportes/reportes_segun_tipo_comida.php" class="nav-link" style="color: #864000;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes por el tipo de comida</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="reportes_segun_tipo_comida_fechas.php" class="nav-link" style="color: #864000;">
+                        <a href="../../views/reportes/reportes_segun_tipo_comida_fechas.php" class="nav-link" style="color: #864000;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes por tipo de comida por rango de fecha</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="reportes_segun_producto.php" class="nav-link" style="color: #864000;">
+                        <a href="../../views/reportes/reportes_segun_producto.php" class="nav-link" style="color: #864000;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes según producto</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="reportes_metodo_pago.php" class="nav-link" style="color: #864000;">
+                        <a href="../../views/reportes/reportes_metodo_pago.php" class="nav-link" style="color: #864000;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes por método de pago</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="reportes_cantidad_productos.php" class="nav-link" style="color: #864000;">
+                        <a href="../../views/reportes/reportes_cantidad_productos.php" class="nav-link" style="color: #864000;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes de cantidad de productos</p>
                         </a>
@@ -237,7 +237,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="../ordenes/ordenes_online.php" class="nav-link" style="color: #864000;">
+                    <a href="../../views/ordenes/ordenes_online.php" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
                       <p class="ms-auto">
                         Órdenes online

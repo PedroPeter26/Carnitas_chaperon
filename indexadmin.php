@@ -31,6 +31,38 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  <!-- jQuery -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <!-- Bootstrap 4 -->
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- ChartJS -->
+  <script src="plugins/chart.js/Chart.min.js"></script>
+  <!-- Sparkline -->
+  <script src="plugins/sparklines/sparkline.js"></script>
+  <!-- JQVMap -->
+  <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+  <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <!-- jQuery Knob Chart -->
+  <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+  <!-- daterangepicker -->
+  <script src="plugins/moment/moment.min.js"></script>
+  <script src="plugins/daterangepicker/daterangepicker.js"></script>
+  <!-- Tempusdominus Bootstrap 4 -->
+  <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  <!-- Summernote -->
+  <script src="plugins/summernote/summernote-bs4.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/adminlte.js"></script>
+  <!-- Incluye los scripts de AdminLTE -->
+  <script src="https://cdn.jsdelivr.net/npm/adminlte@3.1.0/dist/js/adminlte.min.js"></script>
 
   <title>Administración</title>
 </head>
@@ -79,23 +111,12 @@
         </div>
       </li>
     </ul>
-    <!-- notis y cerrar sesión-->
-    <div class="dropdown m-1">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Notificaciones
-      </button>
-      <div class="dropdown-menu" aria-labelledby="notificationDropdown" id="notifications">
-      </div>
-    </div>
-    <div id="newNotification" class="alert alert-success m-3 p-3 position-fixed" style="display: none; top: 70; right: 0;">
-      ¡Recibiste un pedido!
-    </div>
     <button type="button" class="btn btn-block col-2 btn-dark">Cerrar sesión</button>
   </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container-->
-  <aside class="main-sidebar elevation-4" style="background-color: #ff7a00;">
+  <aside class="main-sidebar elevation-4 position-fixed" style="background-color: #ff7a00;">
 
     <a href="indexadmin.php" class="brand-link">
       <img src="img/logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -219,7 +240,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="views/ordenes/ordenes_online.php" class="nav-link" style="color: #864000;">
+                    <a href="" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
                       <p class="ms-auto">
                         Órdenes online
@@ -302,8 +323,11 @@
                 $stmt->closeCursor();
                 $r = $conn->query("SELECT @TotalDiario as 'Total Diario';")->fetch(PDO::FETCH_ASSOC);
                 $totalDiario = $r['Total Diario'];
-
-                echo "<h3>$ " . $totalDiario . "</h3>";
+                if ($totalDiario == null) {
+                  echo "<h3>$0.00</h3>";
+                } else {
+                  echo "<h3>$ " . $totalDiario . "</h3>";
+                }
                 $conn = null; //Termina la conexión con la bd
                 ?>
                 <p>Ventas diarias</p>
@@ -311,7 +335,7 @@
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="VIEWS/generaladmin/diario.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -320,16 +344,6 @@
             <div class="small-box bg-success">
               <div class="inner">
                 <?php
-                $fechaActual = new DateTime(); // Obtenemos la fecha actual
-
-                // Obtenemos el número del día de la semana (0 para domingo, 6 para sábado)
-                $diaSemana = $fechaActual->format("w");
-
-                // Calculamos la fecha de inicio de la semana (restamos los días correspondientes al día de la semana)
-                $primerDiaSemana = clone $fechaActual;
-                $primerDiaSemana->sub(new DateInterval('P' . $diaSemana . 'D'));
-                $primerDiaSemanaOficial = $primerDiaSemana->format("Y-m-d");
-
                 $host = "localhost";
                 $dbname = "BDCarnitasChaperon";
                 $username = "root";
@@ -337,13 +351,16 @@
 
                 $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
-                $cadena = "CALL DINERO_SEMANAL('$primerDiaSemanaOficial', @TotalSemanal);";
+                $cadena = "CALL DINERO_SEMANAL(@TotalSemanal);";
                 $stmt = $conn->query($cadena);
                 $stmt->closeCursor();
                 $r = $conn->query("SELECT @TotalSemanal as 'Total Semanal';")->fetch(PDO::FETCH_ASSOC);
                 $totalSemanal = $r['Total Semanal'];
-
-                echo "<h3>$ " . $totalSemanal . "</h3>";
+                if ($totalSemanal == null) {
+                  echo "<h3>$0.00</h3>";
+                } else {
+                  echo "<h3>$ " . $totalSemanal . "</h3>";
+                }
                 $conn = null; //Termina la conexión con la bd
                 ?>
                 <p>Venta semanal</p>
@@ -351,7 +368,7 @@
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="views/generaladmin/semanal.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -360,14 +377,6 @@
             <div class="small-box bg-danger">
               <div class="inner">
                 <?php
-                $fechaActual = new DateTime(); // Obtenemos la fecha actual
-
-                // Obtenemos el mes actual
-                $mes = $fechaActual->format("m");
-
-                // Obtenemos el año actual
-                $año = $fechaActual->format("Y");
-
                 $host = "localhost";
                 $dbname = "BDCarnitasChaperon";
                 $username = "root";
@@ -375,13 +384,16 @@
 
                 $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
-                $cadena = "CALL DINERO_MENSUAL('$mes', '$año', @TotalMensual);";
+                $cadena = "CALL DINERO_MENSUAL(@TotalMensual);";
                 $stmt = $conn->query($cadena);
                 $stmt->closeCursor();
                 $r = $conn->query("SELECT @TotalMensual as 'Total Mensual';")->fetch(PDO::FETCH_ASSOC);
                 $totalMensual = $r['Total Mensual'];
-
-                echo "<h3>$ " . $totalMensual . "</h3>";
+                if ($totalMensual == null) {
+                  echo "<h3>$0.00</h3>";
+                } else {
+                  echo "<h3>$ " . $totalMensual . "</h3>";
+                }
                 $conn = null; //Termina la conexión con la bd
                 ?>
 
@@ -390,7 +402,7 @@
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="views/generaladmin/mensual.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -414,7 +426,12 @@
                 $resultado = $conn->query($consulta)->fetchColumn();
 
                 // Imprimir el resultado
-                echo "<h3> " . $resultado . "</h3>";
+                if ($resultado == null) {
+                  echo "<h3>No hay usuarios registrados.</h3>";
+                } else {
+                  echo "<h3> " . $resultado . "</h3>";
+                }
+
                 $conn = null; //Termina la conexión con la bd
                 ?>
 
@@ -423,67 +440,90 @@
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="views/generaladmin/usuarios.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
+
+          <!-- Prueba gráfica horas-->
+          <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Gráfica de órdenes finalizadas por hora</h3>
+              </div>
+              <div class="card-body">
+                <div class="col-12">
+                  <canvas id="horaPicoChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <?php
+          $horas = range(10, 18); // Todas las horas de 10:00 a.m. a 6:00 p.m.
+
+          $servername = "localhost";
+          $username = "root";
+          $password = "";
+          $dbname = "BDCarnitasChaperon";
+
+          try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $sql = "SELECT HOUR(hora_inicio) AS hora, COUNT(*) AS cantidad_ordenes
+                    FROM ORDENES
+                    WHERE TIME(hora_inicio) >= '10:00:00' AND TIME(hora_inicio) <= '18:00:00'
+                    AND ORDENES.status='Finalizado'
+                    GROUP BY HOUR(hora_inicio)
+                    ORDER BY HOUR(hora_inicio)";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $cantidades = array_fill_keys($horas, 0); // Inicializar todas las horas con 0 órdenes
+            foreach ($result as $row) {
+              $hora = $row['hora'];
+              $cantidades[$hora] = $row['cantidad_ordenes'];
+            }
+          } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+          }
+          $conn = null;
+          ?>
+
+
         </div>
-        <!-- /.row -->
       </div>
 
-      <!-- jQuery -->
-      <script src="plugins/jquery/jquery.min.js"></script>
-      <!-- jQuery UI 1.11.4 -->
-      <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-      <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+      
       <script>
-        $.widget.bridge('uibutton', $.ui.button)
-      </script>
-      <!-- Bootstrap 4 -->
-      <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <!-- ChartJS -->
-      <script src="plugins/chart.js/Chart.min.js"></script>
-      <!-- Sparkline -->
-      <script src="plugins/sparklines/sparkline.js"></script>
-      <!-- JQVMap -->
-      <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-      <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-      <!-- jQuery Knob Chart -->
-      <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-      <!-- daterangepicker -->
-      <script src="plugins/moment/moment.min.js"></script>
-      <script src="plugins/daterangepicker/daterangepicker.js"></script>
-      <!-- Tempusdominus Bootstrap 4 -->
-      <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-      <!-- Summernote -->
-      <script src="plugins/summernote/summernote-bs4.min.js"></script>
-      <!-- overlayScrollbars -->
-      <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-      <!-- AdminLTE App -->
-      <script src="dist/js/adminlte.js"></script>
+        // Configurar el contexto del gráfico
+        var ctx = document.getElementById('horaPicoChart').getContext('2d');
 
-      <script>
-        var isNewNotification = false;
-
-        function fetchNotifications() {
-          $.ajax({
-            url: 'scripts/notifications.php',
-            method: 'GET',
-            success: function(data) {
-              if (data !== $('#notifications').html()) {
-                $('#notifications').html(data);
-                if (isNewNotification) {
-                  //$('#newNotification').fadeIn().delay(3000).fadeOut();
-                }
-                isNewNotification = true;
+        // Crear el gráfico de líneas
+        var horaPicoChart = new Chart(ctx, {
+          type: 'line', // Cambio de tipo de gráfico
+          data: {
+            labels: <?php echo json_encode($horas); ?>,
+            datasets: [{
+              label: 'Cantidad de Órdenes',
+              data: <?php echo json_encode(array_values($cantidades)); ?>,
+              borderColor: 'rgba(75, 192, 192, 1)', // Cambio de color del borde
+              backgroundColor: 'rgba(75, 192, 192, 0.2)', // Cambio de color de fondo
+              borderWidth: 1,
+              pointRadius: 4, // Tamaño de los puntos en el gráfico de líneas
+              pointBackgroundColor: 'rgba(75, 192, 192, 1)', // Color de los puntos
+              fill: true // Rellenar el área bajo la línea
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
               }
             }
-          });
-        }
-
-        $(document).ready(function() {
-          fetchNotifications();
-          setInterval(fetchNotifications, 5000); // Fetch notifications every 5 seconds
+          }
         });
       </script>
 

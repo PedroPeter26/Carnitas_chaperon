@@ -28,7 +28,6 @@
 <script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.js"></script>
-<!-- Esto va en if (isNewNotification): $('#newNotification').fadeIn().delay(3000).fadeOut();-->
 
 <script>
     var isNewNotification = false;
