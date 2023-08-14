@@ -100,7 +100,7 @@ class database
                     {
                         echo "<br>";
                         echo "<div class='alert alert-success'>¡Cliente registrado exitosamente!</div>";
-                        echo "<script>window.location.href='../html/login.php'</script>";
+                        echo "<script>window.location.href='../views/login.php'</script>";
                     }
                     else 
                     {
@@ -175,7 +175,7 @@ class database
         try
         {
             $pase = false;
-            $query = "SELECT * FROM usuarios where user = '$usuario'";
+            $query = "SELECT * FROM usuarios where user = '$usuario' AND status = 'activo'";
             $consulta = $this->PDOlocal->query($query);
             $renglon=$consulta->fetch(PDO::FETCH_ASSOC);
 

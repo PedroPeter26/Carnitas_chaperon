@@ -51,7 +51,7 @@ $pdo = $db->getConexion();
         {
             .navbar-brand
             {
-                font-size: 26px;
+                font-size: 100%;
             }
         }
         /*BOTÓN DE INICIAR SESIÓN DE LA BARRA DE NAV 1*/
@@ -167,31 +167,13 @@ $pdo = $db->getConexion();
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-8" style="color: white;">
                     <li class="nav-item">
-                    <a class="nav-link" style="color: white;" href="menusinordenar.php">Menú</a>
+                    <a class="nav-link" style="color: white;" href="menuSinOrdenar.php">Menú</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" style="color: white;" href="" data-bs-toggle="modal" data-bs-target="#ubi">Ubicación</a>
                     </li>
                     <li class="nav-item">
-                        <?php
-                            echo "
-                            <li class='nav-item dropdown'>
-                                <button class='btn dropdown-toggle' style='color: white;' href='#' id='navbarScrollingDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
-                                Usuario
-                                </button>
-                                <ul class='dropdown-menu' aria-labelledby='navbarScrollingDropdown'>
-                                    <li>
-                                        <a class='dropdown-item' href='perfil_usuario.php'>Perfil</a>
-                                    </li>
-                                    <li>
-                                        <hr class='dropdown-divider'>
-                                    </li>
-                                    <li>
-                                        <a class='dropdown-item' href='../class/cerrarsesion.php'>Cerrar sesión</a>
-                                    </li>
-                                </ul>
-                            </li>";
-                        ?>
+                    <a class="nav-link" style="color: white;" href="login.php">Iniciar sesión</a>
                     </li>
                 </ul>
             </div>

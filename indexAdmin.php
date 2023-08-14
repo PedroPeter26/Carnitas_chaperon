@@ -1,8 +1,14 @@
-
+<?php
+require 'class/config.php';
+include 'class/databaseInt.php';
+$db = new Database();
+$db->conectarBD();
+$pdo = $db->getConexion();
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -206,7 +212,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="html/productos_pllevar.php" class="nav-link" style="color: #864000;">
+                    <a href="views/productos_pllevar.php" class="nav-link" style="color: #864000;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes para llevar

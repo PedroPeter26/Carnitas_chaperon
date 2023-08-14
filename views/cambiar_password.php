@@ -1,22 +1,16 @@
-<?php 
+<?php
 session_start();
 include '../class/databaseInt.php';
 $db=new Database();
 $db->ConectarBD();
 $pdo = $db->getConexion();
 
-if(empty($_SESSION["idUsuario"]))
+if(empty($_SESSION['usuario']))
 {
-    header("location:login.php");
-}
-else
-{
-    $id = $_GET['id'];
-    $sentencia = $pdo->prepare("SELECT * FROM usuarios WHERE user_id = '$id'");
-    $sentencia->execute();
-    $usuarios = $sentencia->fetch(PDO::FETCH_ASSOC);
+ header("location: login.php");
 }
 
+$idUsuario = $_SESSION['idUsuario'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,23 +37,25 @@ else
             width: 40%;
             margin: auto;
         }
-
         .formulario
         {
-            margin-top: 10%;
+            margin-top: 30%;
             margin-bottom: 5%;
             padding: 2em;
             font-family: 'Lilita One', sans-serif;
             background-color: whitesmoke;
             border-radius: 20px;
         }
-
         .formulario input
         {
             background-color: whitesmoke;
         }
-
         .boton
+        {
+            background-color: #D44000;
+            font-family: 'Lilita One', sans-serif;
+        }
+        #cambios
         {
             background-color: #D44000;
             font-family: 'Lilita One', sans-serif;
@@ -80,18 +76,19 @@ else
         {
             font-family: 'Lilita One', sans-serif;
             font-size: 30px;
+            color: white;
             
         }
         @media screen and (max-width: 576px) /*Pantalla pequeña*/
         {
             .navbar-brand
             {
-                font-size: 26px;
+                font-size: 100%;
             }
 
             #contenedor
             {
-                width: 80%;
+                width: 90%;
                 margin: auto;
             }
         }
@@ -107,8 +104,8 @@ else
         {
             #contenedor
             {
-                width: 80%;
-                margin-left: 5%;
+                width: 60%;
+                margin: auto;
             }
         }
     </style>
@@ -139,7 +136,7 @@ else
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>-->
                 <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="../index.php">Regresar</a>
+                <a class="nav-link" style="color: white;" href="perfil_usuario.php">Regresar</a>
                 </li>
                 <?php
                     if (isset($_SESSION["usuario"])) 
@@ -170,34 +167,64 @@ else
 
     <div class="container" id="contenedor">
     <div class="formulario">
-        <h2 align="center">DATOS DEL USUARIO</h2>
+        <h2 align="center">CAMBIO DE CONTRASEÑA</h2>
         <hr>
-        <form action="" method="POST">
-            <div class="mb-3">
-                <label class="control-label" for="nombre">Nombre</label>
-                <input type="text" name="nombre" class="form-control" value="<?php echo $usuarios['nombre'];?>" id="nombre">
-            </div>
-            <div class="mb-3">
-                <label class="control-label" for="apellido">Apellido</label>
-                <input type="text" name="apellido" class="form-control" value="<?php echo $usuarios['apellido'];?>" id="apellido">
-            </div>
-            <div class="mb-3">
-                <label class="control-label" for="user">Nombre de usuario</label>
-                <input type="text" name="user" class="form-control" value="<?php echo $usuarios['user'];?>" id="user">
-            </div>
-            <div class="mb-3">
-                <label class="control-label" for="correo">Correo</label>
-                <input type="mail" name="correo" class="form-control" value="<?php echo $usuarios['correo'];?>" id="correo">
-            </div>
-            <div class="mb-3">
-                <label class="control-label" for="pass">Contraseña</label>
-                <input type="password" name="pass" class="form-control" value="<?php echo $usuarios['password'];?>" id="pass"><br>
-            </div>
-            <div class="d-grid gap-2">
-                <a class="btn btn-lg boton" type="submit" name="editar" href="editarUsuario.php?id=<?php echo $usuarios['user_id']; ?>">Editar datos de la cuenta</a>
-                <a href="cambiar_password.php" class="btn btn-lg boton">Cambiar contraseña</a>
-            </div>
-        </form> 
+        <form action="" method="post">
+		<div class="mb-3">
+            <label for="actual" class="form-label">Contraseña actual</label>
+            <input type="password" name="actual" class="form-control" id="actual" placeholder="Escribe tu contraseña actual" required>
+        </div>
+        <div class="mb-3">
+            <label for="nueva" class="form-label">Contraseña nueva</label>
+            <input type="password" name="nueva" class="form-control" id="nueva" placeholder="Escribe tu contraseña nueva" required>
+        </div>
+        <div class="mb-3">
+            <label for="repite" class="form-label">Repite la nueva contraseña</label>
+            <input type="password" name="repite" class="form-control" id="repite" placeholder="Retipe la contraseña nueva" required>
+        </div>
+        <div class="d-grid gap-2">
+        	<input type="submit" name="cambiar" class="btn btn-lg" id="cambios" value="Cambiar contraseña">
+        </div>
+        <?php
+            if(isset($_POST['cambiar']))
+            {
+                $actual = $_POST['actual'];
+                $nueva = $_POST['nueva'];
+                $repite = $_POST['repite'];
+
+                if(strlen($nueva) < 8)
+                {
+                    echo'
+                    <div class="alert alert-danger mt-3" role="alert">
+                        La contraseña nueva debe tener al menos 8 caracteres.
+                    </div>';
+                    return;
+                }
+
+                if($nueva !== $repite) 
+                {
+                    echo'
+                    <div class="alert alert-danger mt-3" role="alert">
+                        La contraseña repetida debe coincidir con la nueva.
+                    </div>';
+                    return;
+                }
+
+                $passwordVerificada = $db->verificarPassword($idUsuario, $actual);
+                
+                if(!$passwordVerificada)
+                {
+                    echo'
+                    <div class="alert alert-danger mt-3" role="alert">
+                        La contraseña actual es incorrecta.
+                    </div>';
+                    return;
+                }
+
+                $db->cambiarPassword($idUsuario, $repite);
+            }
+            ?>
+	    </form>
     </div>
 </div>
 

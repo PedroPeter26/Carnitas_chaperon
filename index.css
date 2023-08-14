@@ -38,13 +38,12 @@ a.color
 a.color:hover
 {
     color: white;
-    font-size: 20px;
 }
 @media screen and (max-width: 576px) /*Pantalla pequeña*/
 {
     .navbar-brand
     {
-        font-size: 26px;
+        font-size: 100%;
     }
 }
 /*BOTÓN DE INICIAR SESIÓN DE LA BARRA DE NAV 1*/

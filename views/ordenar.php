@@ -62,10 +62,7 @@ $pdo = $db->getConexion();
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>-->
                 <li class="nav-item">
-                <a class="btn btn-warning" href="checkout_online.php">Carrito <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span></a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="menuSinOrdenar.php">Menú</a>
+                <a class="btn btn-danger" style="color: white;" href="checkout_online.php">Carrito <span id="num_cart" class="badge"><?php echo $num_cart; ?></span></a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
@@ -109,26 +106,26 @@ $pdo = $db->getConexion();
          $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
         ?>
         <div class="row">
-            <?php foreach($listaProductos as $producto){ ?>
-                <div class="col-3">
+            <div class="col-12 col-md-12 col-lg-6">
+                <?php foreach($listaProductos as $producto){ ?>
                     <?php $id = $producto['producto_id'];?>
-                    <div class="card">
-                        <img
-                        title="Titulo producto"
-                        alt="Título"
-                        class="card-img-top"
-                        src="<?php echo $producto['img'];?>"
-                        >
-                        <div class="card-body">
-                            <span><?php echo $producto['nombre'];?></span>
-                            <h5 class="card-title">$<?php echo $producto['precio_app']?></h5>
-                            <button class="btn btn-outline-primary" type="button"
-                            onclick="addProducto(<?php echo $producto['producto_id']; ?>)">Agregar al carrito</button>
+                        <div class="card">
+                            <img
+                            title="Titulo producto"
+                            alt="Título"
+                            class="card-img-top"
+                            src="<?php echo $producto['img'];?>"
+                            >
+                            <div class="card-body">
+                                <span><?php echo $producto['nombre'];?></span>
+                                <h5 class="card-title">$<?php echo $producto['precio_app']?></h5>
+                                <button class="btn btn-outline-primary" type="button"
+                                onclick="addProducto(<?php echo $producto['producto_id']; ?>)">Agregar al carrito</button>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            <?php } ?>
-
+                        <br>
+                <?php } ?>
+            </div>
         </div>
     </div>
 

@@ -1,4 +1,5 @@
 <?php
+session_start();
 $id = $_GET['id'];
 include 'databaseInt.php';
 $db = new Database();
@@ -21,5 +22,6 @@ if(!$resultado)
     return;
 }
 
-header("Location: ../html/administradores.php");
+session_destroy();
+header("Location: ../index.php");
 ?>

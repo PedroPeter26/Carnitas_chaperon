@@ -44,16 +44,13 @@ $pdo = $db->getConexion();
                 if (isset($_SESSION["usuario"]))
                 {
                 echo "<li class='nav-item'>
-                        <a class='btn btn-warning' href='html/checkout_online.php'>Carrito <span id='num_cart' class='badge bg-secondary'>$num_cart</span></a>
+                        <a class='btn btn-danger' style='color: white;' href='views/checkout_online.php'>Carrito <span id='num_cart' class='badge'>$num_cart</span></a>
                         </li>";
                 echo "<li class='nav-item'>
-                        <a class='nav-link' style='color: white;' href='html/ordenar.php'>Ordenar</a>
+                        <a class='nav-link' style='color: white;' href='views/ordenar.php'>Ordenar</a>
                         </li>";
                 }
                 ?>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="html/menuSinOrdenar.php">Menú</a>
-                </li>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
                 </li>
@@ -66,8 +63,16 @@ $pdo = $db->getConexion();
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                         <li>
-                            <a class="dropdown-item" href="html/perfil_usuario.php">
+                            <a class="dropdown-item" href="views/perfil_usuario.php">
                                 Perfil
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="views/historial_de_compras.php">
+                                Historial
                             </a>
                         </li>
                         <li>
@@ -81,9 +86,12 @@ $pdo = $db->getConexion();
                     }
                     else
                     {
-                    echo '<li class="nav-item">';
-                    echo '<a class="nav-link" style="color: white;" href="html/login.php">Iniciar sesión</a>';
-                    echo '</li>';
+                    echo '<li class="nav-item">
+                    <a class="nav-link" style="color: white;" href="views/menuSinOrdenar.php">Menú</a>
+                    </li>';
+                    echo '<li class="nav-item">
+                    <a class="nav-link" style="color: white;" href="views/login.php">Iniciar sesión</a>
+                    </li>';
                     }
                 ?>
             </ul>
