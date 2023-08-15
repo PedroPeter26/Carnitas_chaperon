@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:html/reportes/productos.php
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -443,4 +444,379 @@
     </div>
 
 </body>
+=======
+<?PHP
+include '../../class/database.php';
+$db = new database();
+$db->conectarDB();
+$pdo = $db->getConexion();
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Lilita+One&display=swap" rel="stylesheet">
+    <?php include "../headadmin.php"; ?>
+    <?php include "../footeradmin.php"; ?>
+    <title>Productos</title>
+    <style>
+        /*COLOR DE LOS TABS NO ACTIVOS*/
+        .nav-link:not(.active) {
+            color: brown;
+        }
+
+        .cardtacos {
+            border: none;
+            height: 80px;
+        }
+
+        .cardcarnes {
+            border: none;
+            height: 65px;
+        }
+
+        @media screen and (max-width: 576px)
+
+        /*Pantalla pequeña*/
+            {
+            .cardtacos {
+                border: none;
+                height: 90px;
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!--BARRA DE NAV-->
+    <?php include "../sidebaradmin.php"; ?>
+
+    <div class="content-wrapper p-4" style="background-color: white;">
+        <!--TABS: PRODUCTOS-->
+        <nav class="navbar sticky-top" id="navbarToggle" style="width: 100%; background-color: white;">
+            <div class="d-flex justify-content-between ms-3 me-3">
+                
+                <!-- Mostrar pestañas en pantallas grandes -->
+                <ul class="nav nav-underline nav-fill d-none d-md-flex">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#Carnitas" data-bs-toggle="tab">Carnitas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Tacos" data-bs-toggle="tab">Tacos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Lonches" data-bs-toggle="tab">Lonches</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Gringas" data-bs-toggle="tab">Gringas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Chicharrones" data-bs-toggle="tab">Chicharrones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Paquetes" data-bs-toggle="tab">Paquetes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Bebidas" data-bs-toggle="tab">Bebidas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Extras" data-bs-toggle="tab">Extras</a>
+                    </li>
+
+                </ul>
+
+                <!-- Menú desplegable en pantallas pequeñas -->
+                <div class="d-md-none">
+                    <div class="row">
+                        <div class="col-6 col-md-6 col-lg-6">
+                            <label class="form-label">Categoría:</label>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-6">
+                            <select class="form-select" id="categoriaSelect">
+                                <option value="#Carnitas">Carnitas</option>
+                                <option value="#Tacos">Tacos</option>
+                                <option value="#Lonches">Lonches</option>
+                                <option value="#Gringas">Gringas</option>
+                                <option value="#Chicharrones">Chicharrones</option>
+                                <option value="#Paquetes">Paquetes</option>
+                                <option value="#Bebidas">Bebidas</option>
+                                <option value="#Extras">Extras</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+        <!--CONTENIDO-->
+        <div class="container tab-content contenido mt-4">
+
+            <!--CARNITAS-->
+            <div class="tab-pane fade show active" id="Carnitas" style="text-align: justify;">
+                <div class="container principal">
+                    <!--CARNITAS-->
+                    <div class="row mb-5">
+                        <h2 class="mb-4" id="Carnitas">Carnitas</h2>
+                        <!--CARD-->
+                        <?php
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO1'";
+                        $resultados = $db->seleccionar2($consulta);
+                        foreach ($resultados as $producto) {
+                        ?>
+                            <div class="col-6 col-md-6 col-lg-3">
+                                <div class="card mb-3 cardcarnes" style="max-width: 540px;">
+                                    <div class="row g-0 rounded">
+                                        <div class="col-12 col-md-12 col-lg-12">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+
+            <!--TACOS-->
+            <div class="tab-pane fade" id="Tacos" style="text-align: justify;">
+                <div class="container principal">
+                    <!--TACOS-->
+                    <div class="row mb-5">
+                        <h2 class="mb-4" id="Tacos">Tacos</h2>
+                        <!--CARD-->
+                        <?php
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO2'";
+                        $resultados = $db->seleccionar2($consulta);
+                        foreach ($resultados as $producto) {
+                        ?>
+                            <div class="col-6 col-md-6 col-lg-3">
+                                <div class="card mb-3 cardtacos" style="max-width: 540px;">
+                                    <div class="row g-0 rounded">
+                                        <div class="col-12 col-md-12 col-lg-12">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+
+            <!--LONCHES-->
+            <div class="tab-pane fade" id="Lonches" style="text-align: justify;">
+                <div class="container principal">
+                    <!--LONCHES-->
+                    <div class="row mb-5">
+                        <h2 class="mb-4" id="Lonches">Lonches</h2>
+                        <!--CARD-->
+                        <?php
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO3'";
+                        $resultados = $db->seleccionar2($consulta);
+                        foreach ($resultados as $producto) {
+                        ?>
+                            <div class="col-6 col-md-6 col-lg-3">
+                                <div class="card mb-3 carcarnes" style="max-width: 540px;">
+                                    <div class="row g-0 rounded">
+                                        <div class="col-12 col-md-12 col-lg-12">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+
+            <!--GRINGAS-->
+            <div class="tab-pane fade" id="Gringas" style="text-align: justify;">
+                <div class="container principal">
+                    <!--LONCHES-->
+                    <div class="row mb-5">
+                        <h2 class="mb-4" id="Gringas">Gringas</h2>
+                        <!--CARD-->
+                        <?php
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO4'";
+                        $resultados = $db->seleccionar2($consulta);
+                        foreach ($resultados as $producto) {
+                        ?>
+                            <div class="col-6 col-md-6 col-lg-3">
+                                <div class="card mb-3 cardcarnes" style="max-width: 540px;">
+                                    <div class="row g-0 rounded">
+                                        <div class="col-12 col-md-12 col-lg-12">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+
+            <!--CHICHARRONES-->
+            <div class="tab-pane fade" id="Chicharrones" style="text-align: justify;">
+                <div class="container principal">
+                    <!--CHICHARRONES-->
+                    <div class="row mb-5">
+                        <h2 class="mb-4" id="Chicharrones">Chicharrones</h2>
+                        <!--CARD-->
+                        <?php
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO5'";
+                        $resultados = $db->seleccionar2($consulta);
+                        foreach ($resultados as $producto) {
+                        ?>
+                            <div class="col-6 col-md-6 col-lg-3">
+                                <div class="card mb-3 cardcarnes" style="max-width: 540px;">
+                                    <div class="row g-0 rounded">
+                                        <div class="col-12 col-md-12 col-lg-12">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+
+            <!--PAQUETES-->
+            <div class="tab-pane fade" id="Paquetes" style="text-align: justify;">
+                <div class="container principal">
+                    <!--PAQUETES-->
+                    <div class="row mb-5">
+                        <h2 class="mb-4" id="Paquetes">Paquetes</h2>
+                        <!--CARD-->
+                        <?php
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO6'";
+                        $resultados = $db->seleccionar2($consulta);
+                        foreach ($resultados as $producto) {
+                        ?>
+                            <div class="col-6 col-md-6 col-lg-3">
+                                <div class="card mb-3 cardcarnes" style="max-width: 540px;">
+                                    <div class="row g-0 rounded">
+                                        <div class="col-12 col-md-12 col-lg-12">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+
+            <!--BEBIDAS-->
+            <div class="tab-pane fade" id="Bebidas" style="text-align: justify;">
+                <div class="container principal">
+                    <!--BEBIDAS-->
+                    <div class="row mb-5">
+                        <h2 class="mb-4" id="Bebidas">Bebidas</h2>
+                        <!--CARD-->
+                        <?php
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO7'";
+                        $resultados = $db->seleccionar2($consulta);
+                        foreach ($resultados as $producto) {
+                        ?>
+                            <div class="col-6 col-md-6 col-lg-3">
+                                <div class="card mb-3 cardcarnes" style="max-width: 540px;">
+                                    <div class="row g-0 rounded">
+                                        <div class="col-12 col-md-12 col-lg-12">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+
+            <!--COMPLEMENTOS-->
+            <div class="tab-pane fade" id="Extras" style="text-align: justify;">
+                <div class="container principal">
+                    <!--COMPLEMENTOS-->
+                    <div class="row mb-5">
+                        <h2 class="mb-4" id="Extras">Extras</h2>
+                        <!--CARD-->
+                        <?php
+                        $consulta = "SELECT * FROM PRODUCTOS where TIPO='TIPO8'";
+                        $resultados = $db->seleccionar2($consulta);
+                        foreach ($resultados as $producto) {
+                        ?>
+                            <div class="col-6 col-md-6 col-lg-3">
+                                <div class="card mb-3 cardcarnes" style="max-width: 540px;">
+                                    <div class="row g-0 rounded">
+                                        <div class="col-12 col-md-12 col-lg-12">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--SCRIPR QUE ME REDIRIGE HACIA LA PARTE DONDE ESTA ESA CATEGORIA DE TABS-->
+    <script>
+        // Función para redirigir a la opción seleccionada del menú desplegable
+        document.getElementById('categoriaSelect').addEventListener('change', function() {
+            var selectedOption = this.value;
+            var tabID = selectedOption.substring(1); // Eliminamos el "#" del inicio
+            var tabLink = document.querySelector('a[href="' + selectedOption + '"]');
+            if (tabLink) {
+                tabLink.click(); // Simulamos un clic en el enlace del tab correspondiente
+            }
+        });
+    </script>
+
+</body>
+>>>>>>> Stashed changes:views/reportes/productos.php
 </html>
