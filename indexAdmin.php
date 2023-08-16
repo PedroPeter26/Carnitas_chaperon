@@ -85,12 +85,19 @@ $pdo = $db->getConexion();
       <li class="nav-item d-none d-sm-inline-block">
         <a href="indexadmin.php" class="nav-link">Home</a>
       </li>
+      <div class="dropdown m-1">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Notificaciones
+        </button>
+        <div class="dropdown-menu" aria-labelledby="notificationDropdown" id="table">
+        </div>
+      </div>
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
 
-      <!-- Notifications Dropdown Menu -->
+      <!-- Notifications Dropdown Menu
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
@@ -116,11 +123,28 @@ $pdo = $db->getConexion();
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
-      </li>
+      </li> -->
     </ul>
+    <!-- notis y cerrar sesión-->
+
+    <div id="newNotification" class="alert alert-success m-3 p-3 position-fixed" style="display: none; top: 0; left: 0;">
+      Nueva orden recibida!
+    </div>
     <a type="button" class="btn btn-block col-2 btn-dark" href="class/cerrarsesion.php">Cerrar sesión</a>
   </nav>
   <!-- /.navbar -->
+  <script type="text/javascript">
+    function tiempoReal() {
+      var tabla = $.ajax({
+        url: 'scripts/notifications.php',
+        dataType: 'text',
+        async: false
+      }).responseText;
+
+      document.getElementById("table").innerHTML = tabla;
+    }
+    setInterval(tiempoReal, 1000);
+  </script>
 
   <!-- Main Sidebar Container-->
   <aside class="main-sidebar elevation-4 position-fixed" style="background-color: #ff7a00;">
@@ -336,7 +360,7 @@ $pdo = $db->getConexion();
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="views/generaladmin/diario.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="VIEWS/generaladmin/diario.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -425,7 +449,7 @@ $pdo = $db->getConexion();
               <div class="inner">
                 <?php
                 $host = "localhost";
-                $dbname = "bdcarnitaschaperon";
+                $dbname = "BDCarnitasChaperon";
                 $username = "root";
                 $password = "";
 
@@ -439,7 +463,12 @@ $pdo = $db->getConexion();
                 $resultado = $conn->query($consulta)->fetchColumn();
 
                 // Imprimir el resultado
-                echo "<h3> " . $resultado . "</h3>";
+                if ($resultado == null) {
+                  echo "<h3>No hay usuarios registrados.</h3>";
+                } else {
+                  echo "<h3> " . $resultado . "</h3>";
+                }
+
                 $conn = null; //Termina la conexión con la bd
                 ?>
 
