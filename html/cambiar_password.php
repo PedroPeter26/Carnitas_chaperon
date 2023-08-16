@@ -120,45 +120,19 @@ $idUsuario = $_SESSION['idUsuario'];
         </a>
         </div>
     </nav>-->
-    <nav class="navbar navbar-expand-lg barranav">
+    <nav class="navbar navbar-expand-lg barranav sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../index.php">
-                <img src="../img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
+            <a class="navbar-brand" style="color: white;" href="index.php">
+                <img src="../img/logo.png" alt="Logo" width="35" height="50">  CARNITAS&nbsp;EL&nbsp;CHAPERON
             </a>
-            <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="true">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-9" style="color: white;">
-                <!--
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>-->
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="perfil_usuario.php">Regresar</a>
-                </li>
-                <?php
-                    if (isset($_SESSION["usuario"])) 
-                    {
-                        echo "
-                        <li class='nav-item dropdown'>
-                            <button class='btn dropdown-toggle' style='color: white;' href='#' id='navbarScrollingDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
-                            Usuario
-                            </button>
-                            <ul class='dropdown-menu' aria-labelledby='navbarScrollingDropdown'>
-                                <li>
-                                    <a class='dropdown-item' href='../class/cerrarsesion.php'>Cerrar sesión</a>
-                                </li>
-                            </ul>
-                        </li>";
-                    } 
-                    else 
-                    {
-                        echo "<li class='nav-item'>";
-                        echo "<a class='nav-link' style='color: white;' href='login.php'>Iniciar sesión</a>";
-                        echo "</li>";
-                    }
-                ?>
+            <ul class="navbar-nav dropdown-menu position-static gap-1 p-2 rounded-3 ms-auto shadow w-220px">
+                <li><a class="dropdown-item rounded-2" href="../index.php">Home</a></li>
+                <li><a class="dropdown-item rounded-2" href="perfil_usuario.php">Perfil</a></li>
+                <li><a class="dropdown-item" style="color: red;" href="../class/cerrarsesion.php">Cerrar sesión</a></li>
             </ul>
             </div>
         </div>

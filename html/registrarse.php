@@ -91,14 +91,15 @@
     <title>REGISTRARSE</title>
 </head>
 <body>
-    <!--BARRA DE NAV 1-->
-    <nav class="barranav">
+<nav class="navbar navbar-expand-lg barranav sticky-top">
         <div class="container-fluid">
-        <a class="navbar-brand " href="../index.php">
-        <img src="../img/logo.png" alt="Logo" width="35" height="50">&nbsp; &nbsp;&nbsp;CARNITAS EL CHAPERON
-        </a>
+            <a class="navbar-brand" style="color: white;" href="../index.php">
+                <img src="../img/logo.png" alt="Logo" width="35" height="50">  CARNITAS&nbsp;EL&nbsp;CHAPERON
+            </a>
+            </div>
         </div>
     </nav>
+
     <div class="container" id="contenedor">
     <div class="formulario">
         <h2 align="center">REGISTRARSE</h2>

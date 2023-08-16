@@ -6,8 +6,8 @@
 
         if(isset($_POST["registro"]))
         {
-        $db->ExisteUsuario($user);
+        $db->ExisteUsuario($user, $contra);
         }
-        $db->desconectarBD();
+        $db->desconectarDB();
 ?>
 <!--NO SE UTILIZO-->

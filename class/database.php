@@ -1,17 +1,28 @@
 <?php 
 class database
 {
+<<<<<<< Updated upstream
     private $PDOLocal;
     private $user = "doadmin";
     private $password = "AVNS_n6A8URvjvM1RSnjp_CK";
     private $server = "mysql:host=db-chaperon1-do-user-14423112-0.b.db.ondigitalocean.com;port=25060;dbname=ChaperonTest;sslmode=REQUIRED";
 
+=======
+    public $PDOlocal;
+    private $user="root";
+    private $password="";
+    private $server="mysql:host=localhost;dbname=bdcarnitaschaperon";
+>>>>>>> Stashed changes
 
     function ConectarDB()
     {
         try
         {
+<<<<<<< Updated upstream
             $this->PDOLocal=new PDO($this->server, $this->user, $this->password);
+=======
+            $this->PDOlocal=new PDO($this->server, $this->user, $this->password);
+>>>>>>> Stashed changes
         }
         catch (PDOException $e)
         {
@@ -21,14 +32,22 @@ class database
 
     function getConexion()
     {
+<<<<<<< Updated upstream
         return $this->PDOLocal;
+=======
+        return $this->PDOlocal;
+>>>>>>> Stashed changes
     }
 
     function desconectarDB() //SE PUEDE HACER EN EL CONSTRUCTOR PARA QUE SE CONECTE SOLO CADA VEZ QUE SE INSTANCIE
     {
         try
         {
+<<<<<<< Updated upstream
             $this->PDOLocal=null;
+=======
+            $this->PDOlocal=null;
+>>>>>>> Stashed changes
         }
         catch (PDOException $e)
         {
@@ -40,7 +59,11 @@ class database
     {
         try
         {
+<<<<<<< Updated upstream
             $resultado = $this->PDOLocal->query($consulta);
+=======
+            $resultado = $this->PDOlocal->query($consulta);
+>>>>>>> Stashed changes
             $fila = $resultado->fetchAll(PDO::FETCH_OBJ);
             return $fila;
         }
@@ -54,7 +77,11 @@ class database
     {
         try
         {
+<<<<<<< Updated upstream
             $this->PDOLocal->query($consulta);
+=======
+            $this->PDOlocal->query($consulta);
+>>>>>>> Stashed changes
         }
         catch(PDOException $e)
         {
@@ -67,7 +94,11 @@ class database
         try
         {
             $query = "SELECT * FROM USUARIOS WHERE user = '$usuario'";
+<<<<<<< Updated upstream
             $resultado = $this->PDOLocal->query($query);
+=======
+            $resultado = $this->PDOlocal->query($query);
+>>>>>>> Stashed changes
 
             if($resultado->fetch(PDO::FETCH_ASSOC))
             {
@@ -93,15 +124,25 @@ class database
 
                     $hash = password_hash($contra, PASSWORD_DEFAULT);
 
+<<<<<<< Updated upstream
                     $cadena = "INSERT INTO USUARIOS(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
                     
                     $resultado = $this->PDOLocal->query($cadena);
+=======
+                    $cadena = "INSERT INTO usuarios(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
+                    
+                    $resultado = $this->PDOlocal->query($cadena);
+>>>>>>> Stashed changes
 
                     if($resultado)
                     {
                         echo "<br>";
                         echo "<div class='alert alert-success'>¡Cliente registrado exitosamente!</div>";
+<<<<<<< Updated upstream
                         echo "<script>window.location.href='../html/login.php'</script>";
+=======
+                        echo "<script>window.location.href='../views/login.php'</script>";
+>>>>>>> Stashed changes
                     }
                     else 
                     {
@@ -122,7 +163,11 @@ class database
         try
         {
             $query = "SELECT * FROM USUARIOS WHERE user = '$usuario'";
+<<<<<<< Updated upstream
             $resultado = $this->PDOLocal->query($query);
+=======
+            $resultado = $this->PDOlocal->query($query);
+>>>>>>> Stashed changes
 
             if($resultado->fetch(PDO::FETCH_ASSOC))
             {
@@ -150,7 +195,11 @@ class database
 
                     $cadena = "insert into usuarios(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
                     
+<<<<<<< Updated upstream
                     $resultado = $this->PDOLocal->query($cadena);
+=======
+                    $resultado = $this->PDOlocal->query($cadena);
+>>>>>>> Stashed changes
 
                     if($resultado)
                     {
@@ -176,8 +225,13 @@ class database
         try
         {
             $pase = false;
+<<<<<<< Updated upstream
             $query = "SELECT * FROM USUARIOS where user = '$usuario'";
             $consulta = $this->PDOLocal->query($query);
+=======
+            $query = "SELECT * FROM usuarios where user = '$usuario' AND status = 'activo'";
+            $consulta = $this->PDOlocal->query($query);
+>>>>>>> Stashed changes
             $renglon=$consulta->fetch(PDO::FETCH_ASSOC);
 
             if($renglon)
@@ -233,8 +287,13 @@ class database
 
     function editarUsuario($nombre, $apellido, $usuario, $correo, $id)
     {
+<<<<<<< Updated upstream
         $sentencia = "UPDATE USUARIOS SET nombre = '$nombre', apellido = '$apellido', user = '$usuario', correo = '$correo' WHERE user_id = '$id'";
         $resultado = $this->PDOLocal->query($sentencia);
+=======
+        $sentencia = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido', user = '$usuario', correo = '$correo' WHERE user_id = '$id'";
+        $resultado = $this->PDOlocal->query($sentencia);
+>>>>>>> Stashed changes
 
         if($resultado)
         {
@@ -254,8 +313,13 @@ class database
 
     function verificarPassword($idUsuario, $password)
     {
+<<<<<<< Updated upstream
         $query = "SELECT * FROM USUARIOS WHERE user_id = '$idUsuario'";
         $consulta = $this->PDOLocal->query($query);
+=======
+        $query = "SELECT * FROM usuarios WHERE user_id = '$idUsuario'";
+        $consulta = $this->PDOlocal->query($query);
+>>>>>>> Stashed changes
         $renglon=$consulta->fetch(PDO::FETCH_ASSOC);
 
         if(password_verify($password,$renglon['password']))
@@ -268,8 +332,13 @@ class database
     function cambiarPassword($idUsuario, $password)
     {
         $nueva = password_hash($password, PASSWORD_DEFAULT);
+<<<<<<< Updated upstream
         $sentencia = "UPDATE USUARIOS SET password = '$nueva' WHERE user_id = '$idUsuario'";
         $resultado = $this->PDOLocal->query($sentencia);
+=======
+        $sentencia = "UPDATE usuarios SET password = '$nueva' WHERE user_id = '$idUsuario'";
+        $resultado = $this->PDOlocal->query($sentencia);
+>>>>>>> Stashed changes
 
         if($resultado)
         {

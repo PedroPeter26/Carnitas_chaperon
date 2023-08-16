@@ -1,6 +1,15 @@
+<<<<<<< Updated upstream
+=======
+<?php
+require '../../class/config.php';
+include '../../class/database.php';
+$db = new database();
+$db->conectarDB();
+$pdo = $db->getConexion();
+?>
+>>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Lilita+One&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <?php include '../headadmin.php'; ?>
-    <title>Reportes diarios</title>
+    <title>Reporte diario</title>
 </head>
 
 <body>
@@ -27,9 +36,9 @@
             <br>
 
             <!--FORMULARIO-->
-            <div class="container">
+            <div class="container rounded-div pt-3 pb-3 pe-4 ps-4 mb-5" style="background-color: #EFEDED;">
+                <h3>Ingresa los datos</h3>
                 <form class="row mb-3" method="post" id="reporteForm">
-                    <h4>Ingresa los datos</h4>
                     <br>
                     <div class="col-6 col-md-6 col-lg-6">
                         <label for="inicio" class="form-label">Fecha:</label>
@@ -37,7 +46,7 @@
                     </div>
 
                     <div class="col-6 col-md-6 col-lg-6">
-                        <label for="orden" class="form-label">Orden:</label>
+                        <label for="orden" class="form-label">Orden: <small>(Tipo de orden)</small> </label> 
                         <select class="form-select" name="orden" id="orden" required>
                             <option disabled selected>Selecciona una opción</option>
                             <option value="online" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'online') echo 'selected'; ?>>Online</option>
@@ -47,11 +56,11 @@
                         </select>
                     </div>
 
-                    <div class="col-12 d-grid gap-2 mt-3">
+                    <div class="col-6 d-grid gap-2 mt-3">
                         <input class="btn btn-dark" type="submit" value="Buscar" name="buscar">
                     </div>
 
-                    <div class="col-12 d-grid gap-2 mt-3">
+                    <div class="col-6 d-grid gap-2 mt-3">
                         <input class="btn btn-dark" type="submit" value="Borrar datos" name="borrar" onclick="setDefaultOption()">
                     </div>
 
@@ -60,19 +69,24 @@
 
             <!--MOSTRAR LOS RESULTADOS DEL REPORTE-->
             <?php
-            //condicionamos que si ya se hizo post con el botón de buscar me muestre todo lo demas, en caso contrario, no se mostrará la tabla
             if (!empty($_POST['buscar'])) {
+<<<<<<< Updated upstream
                 //guardamos en las siguientes variables los datos que se necesitan para hacer la conexion a la bd
                 include '../../class/database.php';
                 $db = new Database();
 
+=======
+>>>>>>> Stashed changes
                 try {
-                    if (!empty($_POST['inicio'])) //si si se recibieron se muestra la tabla con los puros encabezados
+                    if (!empty($_POST['inicio']))
                     {
                         $fecha_o = $_POST['inicio'];
+<<<<<<< Updated upstream
                         //con el obj $conn hacemos la conexion a la bd donde le pasamos las variables que antes establecimos
                         $db->conectarDB();
                         $pdo = $db->getConexion();
+=======
+>>>>>>> Stashed changes
 
                         if (isset($_POST['orden'])) {
                             $tipoOrden = $_POST['orden'];
@@ -92,12 +106,12 @@
                                         echo "<div class='table-responsive'>";
                                         echo "<table class='table table-hover' id='tablaRegistros'>
                                                 <thead class='table-dark'>
-                                                    <tr'>
-                                                        <th>Categoría</th>
-                                                        <th>Producto</th>
-                                                        <th>Precio</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Subtotal</th>
+                                                    <tr>
+                                                        <th style='width: 20%;'>Categoría</th>
+                                                        <th style='width: 20%;'>Producto</th>
+                                                        <th style='width: 20%;'>Precio</th>
+                                                        <th style='width: 20%;'>Cantidad</th>
+                                                        <th style='width: 20%;'>Subtotal</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>";
@@ -108,11 +122,11 @@
                                         while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)) :
 
                                             echo "<tr>";
-                                            echo "<td>" . $registro['CATEGORIA'] . "</td>";
-                                            echo "<td>" . $registro['PRODUCTO'] . "</td>";
-                                            echo "<td>$" . $registro['PRECIO'] . "</td>";
-                                            echo "<td>" . $registro['CANTIDAD'] . "</td>";
-                                            echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+                                            echo "<td  style='width: 20%;'>" . $registro['CATEGORIA'] . "</td>";
+                                            echo "<td style='width: 20%;'>" . $registro['PRODUCTO'] . "</td>";
+                                            echo "<td style='width: 20%;'>$" . $registro['PRECIO'] . "</td>";
+                                            echo "<td style='width: 20%;'>" . $registro['CANTIDAD'] . "</td>";
+                                            echo "<td style='width: 20%;'>$" . $registro['SUBTOTAL DINERO'] . "</td>";
                                             echo "</tr>";
 
                                             $totalDiarioOnline += (float)$registro['SUBTOTAL DINERO'];
@@ -148,11 +162,11 @@
                                         echo "<table class='table table-hover' id='tablaRegistros'>
                                                 <thead class='table-dark'>
                                                     <tr'>
-                                                        <th>Categoría</th>
-                                                        <th>Producto</th>
-                                                        <th>Precio</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Subtotal</th>
+                                                        <th style='width: 20%;'>Categoría</th>
+                                                        <th style='width: 20%;'>Producto</th>
+                                                        <th style='width: 20%;'>Precio</th>
+                                                        <th style='width: 20%;'>Cantidad</th>
+                                                        <th style='width: 20%;'>Subtotal</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>";
@@ -163,11 +177,11 @@
                                         while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)) :
 
                                             echo "<tr>";
-                                            echo "<td>" . $registro['CATEGORIA'] . "</td>";
-                                            echo "<td>" . $registro['PRODUCTO'] . "</td>";
-                                            echo "<td>$" . $registro['PRECIO'] . "</td>";
-                                            echo "<td>" . $registro['CANTIDAD'] . "</td>";
-                                            echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+                                            echo "<td style='width: 20%;'>" . $registro['CATEGORIA'] . "</td>";
+                                            echo "<td style='width: 20%;'>" . $registro['PRODUCTO'] . "</td>";
+                                            echo "<td style='width: 20%;'>$" . $registro['PRECIO'] . "</td>";
+                                            echo "<td style='width: 20%;'>" . $registro['CANTIDAD'] . "</td>";
+                                            echo "<td style='width: 20%;'>$" . $registro['SUBTOTAL DINERO'] . "</td>";
                                             echo "</tr>";
 
                                             $totalDiarioComedor += (float)$registro['SUBTOTAL DINERO'];
@@ -203,11 +217,11 @@
                                         echo "<table class='table table-hover' id='tablaRegistros'>
                                                 <thead class='table-dark'>
                                                     <tr'>
-                                                        <th>Categoría</th>
-                                                        <th>Producto</th>
-                                                        <th>Precio</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Subtotal</th>
+                                                        <th style='width: 20%;'>Categoría</th>
+                                                        <th style='width: 20%;'>Producto</th>
+                                                        <th style='width: 20%;'>Precio</th>
+                                                        <th style='width: 20%;'>Cantidad</th>
+                                                        <th style='width: 20%;'>Subtotal</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>";
@@ -218,11 +232,11 @@
                                         while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)) :
 
                                             echo "<tr>";
-                                            echo "<td>" . $registro['CATEGORIA'] . "</td>";
-                                            echo "<td>" . $registro['PRODUCTO'] . "</td>";
-                                            echo "<td>$" . $registro['PRECIO'] . "</td>";
-                                            echo "<td>" . $registro['CANTIDAD'] . "</td>";
-                                            echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+                                            echo "<td style='width: 20%;'>" . $registro['CATEGORIA'] . "</td>";
+                                            echo "<td style='width: 20%;'>" . $registro['PRODUCTO'] . "</td>";
+                                            echo "<td style='width: 20%;'>$" . $registro['PRECIO'] . "</td>";
+                                            echo "<td style='width: 20%;'>" . $registro['CANTIDAD'] . "</td>";
+                                            echo "<td style='width: 20%;'>$" . $registro['SUBTOTAL DINERO'] . "</td>";
                                             echo "</tr>";
 
                                             $totalDiarioPllevar += (float)$registro['SUBTOTAL DINERO'];
@@ -249,6 +263,7 @@
                                     $stmt = $pdo->query($sql);
                                     $num = $stmt->rowCount();
 
+
                                     if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
                                     {
                                         echo "<div class='container' id='tablaContainer'>";
@@ -257,10 +272,13 @@
                                         echo "<div class='table-responsive'>";
                                         echo "<table class='table table-hover' id='tablaRegistros'>
                                                 <thead class='table-dark'>
-                                                    <tr'>
-                                                        <th>Categoría</th>
-                                                        <th>Producto</th>
-                                                        <th>Subtotal</th>
+                                                    <tr>
+                                                        <th style='width: 20%;'>Categoría</th>
+                                                        <th style='width: 25%;'>Producto</th>
+                                                        <th style='width: 15%;'>Orden</th>
+                                                        <th style='width: 10%;'>Precio</th>
+                                                        <th style='width: 10%;'>Cantidad</th>
+                                                        <th style='width: 20%;'>Subtotal</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>";
@@ -271,9 +289,12 @@
                                         while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)) :
 
                                             echo "<tr>";
-                                            echo "<td>" . $registro['CATEGORIA'] . "</td>";
-                                            echo "<td>" . $registro['PRODUCTO'] . "</td>";
-                                            echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+                                            echo "<td style='width: 20%;'>" . $registro['CATEGORIA'] . "</td>"; 
+                                            echo "<td style='width: 25%;'>" . $registro['PRODUCTO'] . "</td>";
+                                            echo "<td style='width: 15%;'>" . $registro['ORDEN'] . "</td>";
+                                            echo "<td style='width: 10%;'>$" . $registro['PRECIO'] . "</td>";
+                                            echo "<td style='width: 10%;'>" . $registro['CANTIDAD'] . "</td>";
+                                            echo "<td style='width: 20%;'>$" . $registro['SUBTOTAL DINERO'] . "</td>";
                                             echo "</tr>";
 
                                             $totalDiarioTodos += (float)$registro['SUBTOTAL DINERO'];
@@ -281,10 +302,9 @@
 
                                         //imprimir el total al final de la tabla, despues de imprimir todos los registros
                                         echo " <tr>
-                                                                <td colspan='1'></td>
-                                                                <td style='text-align:right'><b>TOTAL:</b></td>
-                                                                <td><b>$" . number_format($totalDiarioTodos, 2) . "<b></td>
-                                                            </tr>";
+                                                    <td colspan='5' style='text-align:right'><b>TOTAL:</b></td>
+                                                    <td><b>$" . number_format($totalDiarioTodos, 2) . "<b></td>
+                                                </tr>";
 
                                         echo "</tbody>
                                                     </table>";
@@ -299,8 +319,9 @@
                                     break;
                             }
                         }
-                    } else {
-                        echo "<div class='alert alert-danger' id='alert2'>Elige un rango de fechas.</div>";
+                        else {
+                        echo "<div class='alert alert-danger' id='alert2'>Elige un tipo de orden.</div>";
+                        }
                     }
                 } catch (PDOException $e) {
                     echo ("Error occurred:" . $e->getMessage());
@@ -320,13 +341,18 @@
                     $('input[type="date"]').prop('value', null);
                 }
 
-
                 function setDefaultOption() {
                     // Obtener el elemento select
                     var selectElement = document.getElementById('orden');
 
                     // Establecer la opción predeterminada
                     selectElement.value = 'Selecciona una opción';
+                }
+
+                // Función para ocultar los divs con los IDs "alert3" y "alert2"
+                function ocultarAlertas() {
+                    $("#alert3").hide();
+                    $("#alert2").hide();
                 }
 
                 // Esperar a que el documento esté listo
@@ -337,6 +363,7 @@
 
                         borrarTabla();
                         eliminarSeleccionCamposYSelect();
+                        ocultarAlertas();
                     });
                 });
             </script>
@@ -347,5 +374,4 @@
     <?php include '../footeradmin.php'; ?>
 
 </body>
-
 </html>

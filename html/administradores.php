@@ -2,7 +2,11 @@
 session_start();
 include '../class/database.php';
 $db = new Database();
+<<<<<<< Updated upstream:html/administradores.php
 $db->conectarDB();
+=======
+$db->conectarDb();
+>>>>>>> Stashed changes:views/administradores.php
 $pdo = $db->getConexion();
 
 if(empty($_SESSION['idUsuario']))

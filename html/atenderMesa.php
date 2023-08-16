@@ -1,5 +1,9 @@
 <?php
+<<<<<<< Updated upstream:html/atenderMesa.php
 require_once '../class/Database.php';
+=======
+require_once '../class/database.php';
+>>>>>>> Stashed changes:views/atenderMesa.php
 
 // Verificar si se ha seleccionado una mesa válida
 if (isset($_GET['mesa_id']) && is_numeric($_GET['mesa_id'])) {
@@ -7,7 +11,7 @@ if (isset($_GET['mesa_id']) && is_numeric($_GET['mesa_id'])) {
 
     // Crear una instancia de la clase Database y conectar a la base de datos
     $database = new Database();
-    $database->conectarBD();
+    $database->conectarDB();
 
     // Consultar información de la mesa seleccionada desde la base de datos
     $sql = "SELECT * FROM Mesas WHERE mesa_id = :mesa_id";
@@ -30,7 +34,7 @@ if (isset($_GET['mesa_id']) && is_numeric($_GET['mesa_id'])) {
     $productos_tipos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Cerrar la conexión a la base de datos
-    $database->desconectarBD();
+    $database->desconectarDB();
 } else {
     // Si no se seleccionó una mesa válida, redireccionar a la página principal
     header("Location: comedor.php");

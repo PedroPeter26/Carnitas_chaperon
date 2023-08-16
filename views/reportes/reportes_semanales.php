@@ -35,17 +35,30 @@ $pdo = $db->getConexion();
             <br>
 
             <!--FORMULARIO-->
+<<<<<<< Updated upstream
             <div class="container">
                 <form class="row mb-3" method="post" id="reporteForm">
                     <h4>Ingresa los datos</h4>
                     <br>
                     <div class="col-6 col-md-6 col-lg-6">
                         <label for="inicio" class="form-label">Fecha inicial:</label>
+=======
+            <div class="container rounded-div pt-3 pb-3 pe-4 ps-4 mb-5" style="background-color: #EFEDED;">
+                <h3>Ingresa los datos</h3>
+                <form class="row mb-3" method="post" id="reporteForm">
+                    <br>
+                    <div class="col-6 col-md-6 col-lg-6">
+                        <label for="inicio" class="form-label">Fecha inicial: <small>(Lunes)</small> </label>
+>>>>>>> Stashed changes
                         <input type="date" name="inicio" class="form-control" id="inicio" value="<?php echo isset($_POST['inicio']) ? $_POST['inicio'] : ''; ?>" required>
                     </div>
 
                     <div class="col-6 col-md-6 col-lg-6">
+<<<<<<< Updated upstream
                         <label for="orden" class="form-label">Orden:</label>
+=======
+                        <label for="orden" class="form-label">Orden: <small>(Tipo de orden)</small> </label>
+>>>>>>> Stashed changes
                         <select class="form-select" name="orden" id="orden" required>
                             <option disabled selected>Selecciona una opción</option>
                             <option value="online" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'online') echo 'selected'; ?>>Online</option>
@@ -55,12 +68,21 @@ $pdo = $db->getConexion();
                         </select>
                     </div>
 
+<<<<<<< Updated upstream
                     <div class="col-12 d-grid gap-2 mt-3">
                         <input class="btn btn-dark" type="submit" value="Buscar" name="buscar">
                     </div>
 
                     <div class="col-12 d-grid gap-2 mt-3">
                         <input class="btn btn-dark" type="submit" value="Borrar datos" name="borrar" onclick="setDefaultOption()">
+=======
+                    <div class="col-6 d-grid gap-2 mt-3">
+                        <input class="btn btn-dark" type="submit" value="Buscar" name="buscar">
+                    </div>
+
+                    <div class="col-6 d-grid gap-2 mt-3">
+                        <input class="btn btn-dark" type="submit" value="Borrar datos" name="borrar" id="borrar" onclick="setDefaultOption()">
+>>>>>>> Stashed changes
                     </div>
 
                 </form>
@@ -96,12 +118,21 @@ $pdo = $db->getConexion();
                                         echo "<table class='table table-hover' id='tablaRegistros'>
                                             <thead class='table-dark'>
                                                 <tr'>
+<<<<<<< Updated upstream
                                                     <th>Fecha</th>
                                                     <th>Categoría</th>
                                                     <th>Producto</th>
                                                     <th>Precio</th>
                                                     <th>Cantidad</th>
                                                     <th>Subtotal</th>
+=======
+                                                    <th style='width: 15%;'>Fecha</th>
+                                                    <th style='width: 15%;'>Categoría</th>
+                                                    <th style='width: 25%;'>Producto</th>
+                                                    <th style='width: 15%;'>Precio</th>
+                                                    <th style='width: 15%;'>Cantidad</th>
+                                                    <th style='width: 15%;'>Subtotal</th>
+>>>>>>> Stashed changes
                                                 </tr>
                                             </thead>
                                             <tbody>";
@@ -112,12 +143,21 @@ $pdo = $db->getConexion();
                                         while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
 
                                             echo "<tr>";
+<<<<<<< Updated upstream
                                             echo "<td>" . $registro['FECHA'] . "</td>";
                                             echo "<td>" . $registro['CATEGORIA'] . "</td>";
                                             echo "<td>" . $registro['PRODUCTO'] . "</td>";
                                             echo "<td>$" . $registro['PRECIO'] . "</td>";
                                             echo "<td>" . $registro['CANTIDAD'] . "</td>";
                                             echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+=======
+                                            echo "<td style='width: 15%;'>" . $registro['FECHA'] . "</td>";
+                                            echo "<td style='width: 15%;'>" . $registro['CATEGORIA'] . "</td>";
+                                            echo "<td style='width: 25%;'>" . $registro['PRODUCTO'] . "</td>";
+                                            echo "<td style='width: 15%;'>$" . $registro['PRECIO'] . "</td>";
+                                            echo "<td style='width: 15%;' >" . $registro['CANTIDAD'] . "</td>";
+                                            echo "<td style='width: 15%;'>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+>>>>>>> Stashed changes
                                             echo "</tr>";
 
                                             $totalSegunFechaOnline += (float)$registro['SUBTOTAL DINERO'];
@@ -152,12 +192,21 @@ $pdo = $db->getConexion();
                                         echo "<table class='table table-hover' id='tablaRegistros'>
                                             <thead class='table-dark'>
                                                 <tr'>
+<<<<<<< Updated upstream
                                                     <th>Fecha</th>
                                                     <th>Categoría</th>
                                                     <th>Producto</th>
                                                     <th>Precio</th>
                                                     <th>Cantidad</th>
                                                     <th>Subtotal</th>
+=======
+                                                    <th style='width: 15%;'>Fecha</th>
+                                                    <th style='width: 15%;'>Categoría</th>
+                                                    <th style='width: 25%;'>Producto</th>
+                                                    <th style='width: 15%;'>Precio</th>
+                                                    <th style='width: 15%;'>Cantidad</th>
+                                                    <th style='width: 15%;'>Subtotal</th>
+>>>>>>> Stashed changes
                                                 </tr>
                                             </thead>
                                             <tbody>";
@@ -168,12 +217,21 @@ $pdo = $db->getConexion();
                                         while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
 
                                             echo "<tr>";
+<<<<<<< Updated upstream
                                             echo "<td>" . $registro['FECHA'] . "</td>";
                                             echo "<td>" . $registro['CATEGORIA'] . "</td>";
                                             echo "<td>" . $registro['PRODUCTO'] . "</td>";
                                             echo "<td>$" . $registro['PRECIO'] . "</td>";
                                             echo "<td>" . $registro['CANTIDAD'] . "</td>";
                                             echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+=======
+                                            echo "<td style='width: 15%;'>" . $registro['FECHA'] . "</td>";
+                                            echo "<td style='width: 15%;'>" . $registro['CATEGORIA'] . "</td>";
+                                            echo "<td style='width: 25%;'>" . $registro['PRODUCTO'] . "</td>";
+                                            echo "<td style='width: 15%;'>$" . $registro['PRECIO'] . "</td>";
+                                            echo "<td style='width: 15%;'>" . $registro['CANTIDAD'] . "</td>";
+                                            echo "<td style='width: 15%;'>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+>>>>>>> Stashed changes
                                             echo "</tr>";
 
                                             $totalSegunFechaComedor += (float)$registro['SUBTOTAL DINERO'];
@@ -209,12 +267,21 @@ $pdo = $db->getConexion();
                                         echo "<table class='table table-hover' id='tablaRegistros'>
                                             <thead class='table-dark'>
                                                 <tr'>
+<<<<<<< Updated upstream
                                                     <th>Fecha</th>
                                                     <th>Categoría</th>
                                                     <th>Producto</th>
                                                     <th>Precio</th>
                                                     <th>Cantidad</th>
                                                     <th>Subtotal</th>
+=======
+                                                    <th style='width: 15%;'>Fecha</th>
+                                                    <th style='width: 15%;'>Categoría</th>
+                                                    <th style='width: 25%;'>Producto</th>
+                                                    <th style='width: 15%;'>Precio</th>
+                                                    <th style='width: 15%;'>Cantidad</th>
+                                                    <th style='width: 15%;'>Subtotal</th>
+>>>>>>> Stashed changes
                                                 </tr>
                                             </thead>
                                             <tbody>";
@@ -266,10 +333,20 @@ $pdo = $db->getConexion();
                                         echo "<table class='table table-hover' id='tablaRegistros'>
                                             <thead class='table-dark'>
                                                 <tr'>
+<<<<<<< Updated upstream
                                                     <th>Fecha</th>
                                                     <th>Categoría</th>
                                                     <th>Producto</th>
                                                     <th>Subtotal</th>
+=======
+                                                    <th style='width: 15%;'>Fecha</th>
+                                                    <th style='width: 15%;'>Categoría</th>
+                                                    <th style='width: 20%;'>Producto</th>
+                                                    <th style='width: 15%;'>Orden</th>
+                                                    <th style='width: 10%;'>Precio</th>
+                                                    <th style='width: 10%;'>Cantidad</th>
+                                                    <th style='width: 15%;'>Subtotal</th>
+>>>>>>> Stashed changes
                                                 </tr>
                                             </thead>
                                             <tbody>";
@@ -280,10 +357,20 @@ $pdo = $db->getConexion();
                                         while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
 
                                             echo "<tr>";
+<<<<<<< Updated upstream
                                             echo "<td>" . $registro['FECHA'] . "</td>";
                                             echo "<td>" . $registro['CATEGORIA'] . "</td>";
                                             echo "<td>" . $registro['PRODUCTO'] . "</td>";
                                             echo "<td>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+=======
+                                            echo "<td style='width: 15%;'>" . $registro['FECHA'] . "</td>";
+                                            echo "<td style='width: 15%;'>" . $registro['CATEGORIA'] . "</td>";
+                                            echo "<td style='width: 20%;'>" . $registro['PRODUCTO'] . "</td>";
+                                            echo "<td style='width: 15%;'>" . $registro['ORDEN'] . "</td>";
+                                            echo "<td style='width: 10%;'>$" . $registro['PRECIO'] . "</td>";
+                                            echo "<td style='width: 10%;'>" . $registro['CANTIDAD'] . "</td>";
+                                            echo "<td style='width: 15%;'>$" . $registro['SUBTOTAL DINERO'] . "</td>";
+>>>>>>> Stashed changes
                                             echo "</tr>";
 
                                             $totalSegunFechaTodos += (float)$registro['SUBTOTAL DINERO'];
@@ -291,10 +378,16 @@ $pdo = $db->getConexion();
 
                                         //imprimir el total al final de la tabla, despues de imprimir todos los registros
                                         echo " <tr>
+<<<<<<< Updated upstream
                                                             <td colspan='2'></td>
                                                             <td style='text-align:right'><b>TOTAL:</b></td>
                                                             <td><b>$" . number_format($totalSegunFechaTodos, 2) . "</b></td>
                                                         </tr>";
+=======
+                                                <td colspan='6' style='text-align:right'><b>TOTAL:</b></td>
+                                                <td><b>$" . number_format($totalSegunFechaTodos, 2) . "</b></td>
+                                            </tr>";
+>>>>>>> Stashed changes
 
                                         echo "</tbody>
                                                 </table>";
@@ -308,9 +401,15 @@ $pdo = $db->getConexion();
                                     echo "<div class='alert alert-danger' id='alert3'>Elige un tipo de orden.</div>";
                                     break;
                             }
+<<<<<<< Updated upstream
                         }
                     } else {
                         echo "<div class='alert alert-danger' id='alert2'>Elige un rango de fechas.</div>";
+=======
+                        } else {
+                            echo "<div class='alert alert-danger' id='alert2'>Elige un tipo de orden.</div>";
+                        }
+>>>>>>> Stashed changes
                     }
                 } catch (PDOException $e) {
                     echo ("Error occurred:" . $e->getMessage());
@@ -339,6 +438,15 @@ $pdo = $db->getConexion();
                     selectElement.value = 'Selecciona una opción';
                 }
 
+<<<<<<< Updated upstream
+=======
+                // Función para ocultar los divs con los IDs "alert3" y "alert2"
+                function ocultarAlertas() {
+                    $("#alert3").hide();
+                    $("#alert2").hide();
+                }
+
+>>>>>>> Stashed changes
                 // Esperar a que el documento esté listo
                 $(document).ready(function() {
                     // Asociar el evento click al botón "Borrar datos"
@@ -347,6 +455,10 @@ $pdo = $db->getConexion();
 
                         borrarTabla();
                         eliminarSeleccionCamposYSelect();
+<<<<<<< Updated upstream
+=======
+                        ocultarAlertas();
+>>>>>>> Stashed changes
                     });
                 });
             </script>

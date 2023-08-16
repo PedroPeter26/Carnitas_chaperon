@@ -27,4 +27,33 @@
 <!-- overlayScrollbars -->
 <script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
+<<<<<<< Updated upstream
 <script src="../../dist/js/adminlte.js"></script>
+=======
+<script src="../../dist/js/adminlte.js"></script>
+
+<script>
+    var isNewNotification = false;
+
+    function fetchNotifications() {
+        $.ajax({
+            url: '../scripts/notifications.php',
+            method: 'GET',
+            success: function(data) {
+                if (data !== $('#notifications').html()) {
+                    $('#notifications').html(data);
+                    if (isNewNotification) {
+                        $('#newNotification').fadeIn().delay(3000).fadeOut();
+                    }
+                    isNewNotification = true;
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        fetchNotifications();
+        setInterval(fetchNotifications, 5000); // Fetch notifications every 5 seconds
+    });
+</script>
+>>>>>>> Stashed changes

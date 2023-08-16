@@ -1,3 +1,13 @@
+<<<<<<< Updated upstream
+=======
+<?PHP
+require '../../class/config.php';
+include '../../class/database.php';
+$db = new database();
+$db->conectarDB();
+$pdo = $db->getConexion();
+?>
+>>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,9 +35,15 @@
         <br>
 
             <!--FORMULARIO-->
+<<<<<<< Updated upstream
             <div class="container">
                 <form class="row mb-3" method="post" id="reporteForm">
                     <h4>Ingresa los datos</h4>
+=======
+            <div class="container rounded-div pt-3 pb-3 pe-4 ps-4 mb-5" style="background-color: #EFEDED;">
+            <h3>Ingresa los datos</h3>
+                <form class="row mb-3" method="post" id="reporteForm">
+>>>>>>> Stashed changes
                     <br>
                     <div class="col-6 col-md-6 col-lg-6 mb-3">
                         <label for="inicio" class="form-label">Fecha inicial:</label>
@@ -52,6 +68,7 @@
                         <label for="orden" class="form-label">Orden:</label>
                         <select class="form-select" name="orden" id="orden" required>
                             <option disabled selected>Selecciona una opción</option>
+<<<<<<< Updated upstream
                             <option value="online" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'online') echo 'selected'; ?> >Online</option>
                             <option value="comedor" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'comedor') echo 'selected'; ?> >Comedor</option>
                             <option value="pllevar" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'pllevar') echo 'selected'; ?> >Para llevar</option>
@@ -64,20 +81,45 @@
                     </div>
 
                     <div class="col-12 d-grid gap-2 mt-3">
+=======
+                            <option value="online" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'online') echo 'selected'; ?>>Online</option>
+                            <option value="comedor" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'comedor') echo 'selected'; ?>>Comedor</option>
+                            <option value="pllevar" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'pllevar') echo 'selected'; ?>>Para llevar</option>
+                            <option value="todas" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'todas') echo 'selected'; ?>>Todas</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6 d-grid gap-2 mt-3">
+                        <input class="btn btn-dark" type="submit" value="Buscar" name="buscar">
+                    </div>
+
+                    <div class="col-6 d-grid gap-2 mt-3">
+>>>>>>> Stashed changes
                         <input class="btn btn-dark" type="submit" value="Borrar datos" name="borrar" onclick="setDefaultOption(); setDefaultOption2()">
                     </div>
 
                 </form>
             </div>
+<<<<<<< Updated upstream
 
+=======
+            
+>>>>>>> Stashed changes
             <!--MOSTRAR LOS RESULTADOS DEL REPORTE-->
             <?php
                 //condicionamos que si ya se hizo post con el botón de buscar me muestre todo lo demas, en caso contrario, no se mostrará la tabla
                 if (!empty($_POST['buscar']))
                 {
                     //guardamos en las siguientes variables los datos que se necesitan para hacer la conexion a la bd
+<<<<<<< Updated upstream
                     include '../../class/database.php';
                     $db = new Database();
+=======
+                    $host="localhost";
+                    $dbname="bdcarnitaschaperon";
+                    $username="root";
+                    $password="";
+>>>>>>> Stashed changes
                         
                     try
                     {
@@ -87,8 +129,12 @@
                             $fecha_f = $_POST['fin'];
                             $pago = $_POST['pago'];
                             //con el obj $conn hacemos la conexion a la bd donde le pasamos las variables que antes establecimos
+<<<<<<< Updated upstream
                             $db->conectarDB();
                             $pdo = $db->getConexion();
+=======
+                            $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+>>>>>>> Stashed changes
 
                             if (isset($_POST['orden'])) 
                             {
@@ -99,7 +145,11 @@
                                 {
                                     case 'online':
                                         $sql = "CALL REPORTE_FILTRO_METODO_DE_PAGO_ONLINE('$fecha_i', '$fecha_f', '$pago')";
+<<<<<<< Updated upstream
                                         $stmt = $pdo->query($sql);
+=======
+                                        $stmt = $conn->query($sql);
+>>>>>>> Stashed changes
                                         $num= $stmt->rowCount();
 
                                         if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
@@ -158,7 +208,11 @@
                                         break;
                                     case 'comedor':
                                         $sql = "CALL REPORTE_FILTRO_METODO_DE_PAGO_COMEDOR('$fecha_i', '$fecha_f', '$pago')";
+<<<<<<< Updated upstream
                                         $stmt = $pdo->query($sql);
+=======
+                                        $stmt = $conn->query($sql);
+>>>>>>> Stashed changes
                                         $num= $stmt->rowCount();
 
                                         if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
@@ -217,7 +271,11 @@
                                         break;
                                     case 'pllevar':
                                         $sql = "CALL REPORTE_FILTRO_METODO_DE_PAGO_PLLEVAR('$fecha_i', '$fecha_f', '$pago')";
+<<<<<<< Updated upstream
                                         $stmt = $pdo->query($sql);
+=======
+                                        $stmt = $conn->query($sql);
+>>>>>>> Stashed changes
                                         $num= $stmt->rowCount();
 
                                         if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
@@ -276,7 +334,11 @@
                                         break;
                                     case 'todas':
                                         $sql = "CALL REPORTE_FILTRO_METODO_DE_PAGO_TODAS('$fecha_i', '$fecha_f', '$pago')";
+<<<<<<< Updated upstream
                                         $stmt = $pdo->query($sql);
+=======
+                                        $stmt = $conn->query($sql);
+>>>>>>> Stashed changes
                                         $num= $stmt->rowCount();
 
                                         if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla

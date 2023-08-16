@@ -8,7 +8,7 @@ $sql = "SELECT mesa_id, numero_mesa, estado FROM Mesas";
 $stmt = $database->getConexion()->query($sql);
 $mesas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$database->desconectarBD();
+$database->desconectarDB();
 ?>
 
 <!DOCTYPE html>
