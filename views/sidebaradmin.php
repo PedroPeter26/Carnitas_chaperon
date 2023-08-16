@@ -87,7 +87,7 @@
     <div id="newNotification" class="alert alert-success m-3 p-3 position-fixed" style="display: none; top: 0; right: 0;">
       New notification received!
     </div>
-    <button type="button" class="btn btn-block col-2 btn-dark">Cerrar sesión</button>
+    <a type="button" class="btn btn-block col-2 btn-dark" href="../class/cerrarsesion.php">Cerrar sesión</a>
   </nav>
   <!-- /.navbar -->
   <!--<script type="text/javascript">

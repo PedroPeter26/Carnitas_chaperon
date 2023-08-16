@@ -247,7 +247,7 @@ $pdo = $db->getConexion();
                     </ul>
                   </li>
                   <li class="nav-item">
-                    <a href="" class="nav-link" style="color: black;">
+                    <a href="views/ordenes/comedor.php" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes del comedor
