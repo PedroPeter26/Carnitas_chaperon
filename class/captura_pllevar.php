@@ -1,8 +1,8 @@
 <?php
 require 'config.php';
-include 'databaseInt.php';
+include 'database.php';
 $db = new Database();
-$db->conectarBD();
+$db->conectarDB();
 $pdo = $db->getConexion();
 
 $json = file_get_contents('php://input');
@@ -12,27 +12,20 @@ echo '<pre>';
 print_r($datos);
 echo '</pre>';
 
-if (is_array($datos)) {
-    if (isset($_SESSION['usuario'])) {
-        $usuario = $_SESSION['usuario'];
+if (is_array($datos)) 
+{
+    if ($row = $sql->fetch(PDO::FETCH_ASSOC)) 
+    {
 
-        $sql = $pdo->prepare("SELECT user_id FROM USUARIOS WHERE user = ?");
-        $sql->execute([$usuario]);
+        $fecha = $datos['detalles']['update_time'];
+        $fecha_nueva = date('Y-m-d', strtotime($fecha));
+        $hora_actual = date("H:i:s", strtotime($fecha));
 
-        if ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
-            $user_id = $row['user_id'];
-
-            $fecha = $datos['detalles']['update_time'];
-            $fecha_nueva = date('Y-m-d', strtotime($fecha));
-            $hora_actual = date("H:i:s", strtotime($fecha));
-
-            $sql = $pdo->prepare("INSERT INTO ORDENES (cliente, mesa, forma_pago, fecha, hora_inicio, hora_fin, tipo_orden, status) VALUES (?,?,?,?,?,?,?,?)");
-            $sql->execute([$user_id, null, 'Tarjeta', $fecha_nueva, $hora_actual, $hora_actual, 1, 'Proceso']);
-            $id = $pdo->lastInsertId();
-        } else {
-            echo "El usuario en la sesión no corresponde a un user_id válido en la tabla USUARIOS.";
-        }
-    } else {
+        $sql = $pdo->prepare("CALL InsertarordenRAPIDO('Tarjeta');");
+        $sql->execute();
+    }
+    else 
+    {
         echo "La variable de sesión \$_SESSION['usuario'] no está definida.";
     }
 
@@ -42,13 +35,13 @@ if (is_array($datos)) {
         if($productos != null){
             foreach($productos as $clave => $cantidad){
         
-            $sentencia = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad AS Cantidad FROM productos WHERE producto_id = ? AND (productos.disponibilidad = 'Ambos' OR productos.disponibilidad = 'Rapido') AND status = 'Activo'");
+            $sentencia = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad AS Cantidad FROM PRODUCTOS WHERE producto_id = ? AND (productos.disponibilidad = 'Ambos' OR productos.disponibilidad = 'Rapido') AND status = 'Activo'");
             $sentencia->execute([$clave]);
             $row_prod=$sentencia->fetch(PDO::FETCH_ASSOC);
 
             $precio_app = $row_prod['precio_app'];
 
-            $sql_insert = $pdo->prepare("INSERT INTO detalle_orden (orden, producto, cantidad) VALUES (?,?,?)");
+            $sql_insert = $pdo->prepare("INSERT INTO DETALLE_ORDEN (orden, producto, cantidad) VALUES (?,?,?)");
             $sql_insert->execute([$id, $clave, $cantidad]);
             }
         }

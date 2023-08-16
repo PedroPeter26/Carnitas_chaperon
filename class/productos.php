@@ -28,7 +28,7 @@ function obtenerProducto($producto_id)
 {
     include '../class/databaseInt.php';
     $db = new Database();
-    $db->conectarBD();
+    $db->conectarDB();
     // Modifica la consulta para obtener el producto por su ID.
     $consulta = "SELECT * FROM productos WHERE id = :producto_id";
     $resultados = $db->seleccionar($consulta, array(':producto_id' => $producto_id));

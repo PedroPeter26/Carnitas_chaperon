@@ -1,8 +1,8 @@
 <?php
 require 'class/config.php';
-include 'class/databaseInt.php';
+include 'class/database.php';
 $db = new Database();
-$db->conectarBD();
+$db->conectarDB();
 $pdo = $db->getConexion();
 ?>
 <!DOCTYPE html>
@@ -11,54 +11,42 @@ $pdo = $db->getConexion();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="index.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
     <title>Carnitas Chaperon</title>
 </head>
 <body>
-    <!--BARRA DE NAV 1
-    <nav class="barranav">
+    <!--BARRA DE NAV 1-->
+    <nav class="navbar navbar-expand-lg barranav sticky-top">
         <div class="container-fluid">
-        <a class="navbar-brand " href="index.php">
-        <img src="img/logo.png" alt="Logo" width="35" height="50">CARNITAS&nbsp;EL&nbsp;CHAPERON
-        </a>
-        <button type="button" class="btn btn-outline-secondary iniciarsesionnav" data-bs-toggle="modal" data-bs-target="#iniciarsesion" style="margin-top: 5px;">Iniciar sesión</button>
-        </div>
-    </nav>-->
-    <nav class="navbar navbar-expand-lg barranav">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">
-                <img src="img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
+            <a class="navbar-brand" style="color: white;" href="index.php">
+                <img src="img/logo.png" alt="Logo" width="35" height="50">  CARNITAS&nbsp;EL&nbsp;CHAPERON
             </a>
-            <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="true">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-6" style="color: white;">
-                <!--
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>-->
-                <?php
+            <ul class="navbar-nav dropdown-menu position-static gap-1 p-2 rounded-3 ms-auto shadow w-220px">
+            <?php
                 if (isset($_SESSION["usuario"]))
                 {
-                echo "<li class='nav-item'>
-                        <a class='btn btn-danger' style='color: white;' href='views/checkout_online.php'>Carrito <span id='num_cart' class='badge'>$num_cart</span></a>
+                echo "<li>
+                        <a class='dropdown-item rounded-2' href='views/checkout_online.php'>Carrito <span id='num_cart' class='badge bg-danger'>$num_cart</span></a>
                         </li>";
-                echo "<li class='nav-item'>
-                        <a class='nav-link' style='color: white;' href='views/ordenar.php'>Ordenar</a>
-                        </li>";
+                echo '<li><hr class="dropdown-divider"></li>';
+                echo "<li><a class='dropdown-item rounded-2' href='views/ordenar.php'>Ordenar</a></li>";
                 }
                 ?>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
+                <li>
+                <a class="dropdown-item rounded-2" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
                 </li>
                 <?php
                     if (isset($_SESSION["usuario"]))
                     {
-                    echo '<li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" style="color: white;" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    echo '<li class="dropdown">
+                    <a class="dropdown-item rounded-2 dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Usuario
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
@@ -67,9 +55,7 @@ $pdo = $db->getConexion();
                                 Perfil
                             </a>
                         </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                        <li><hr class="dropdown-divider"></li>
                         <li>
                             <a class="dropdown-item" href="views/historial_de_compras.php">
                                 Historial
@@ -86,11 +72,12 @@ $pdo = $db->getConexion();
                     }
                     else
                     {
-                    echo '<li class="nav-item">
-                    <a class="nav-link" style="color: white;" href="views/menuSinOrdenar.php">Menú</a>
+                    echo '<li>
+                    <a class="dropdown-item rounded-2" href="views/menuSinOrdenar.php">Menú</a>
                     </li>';
-                    echo '<li class="nav-item">
-                    <a class="nav-link" style="color: white;" href="views/login.php">Iniciar sesión</a>
+                    echo '<li><hr class="dropdown-divider"></li>';
+                    echo '<li>
+                    <a class="dropdown-item rounded-2" href="views/login.php">Iniciar sesión</a>
                     </li>';
                     }
                 ?>
@@ -98,7 +85,6 @@ $pdo = $db->getConexion();
             </div>
         </div>
     </nav>
-
     <!--BARRA DE NAV 2
     <nav class="barranav2">
         <div class="row">
@@ -135,20 +121,20 @@ $pdo = $db->getConexion();
                     <div class="carousel-inner eslogan">
                         <div class="carousel-item active">
                         <img src="img/comida1.jpg" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
+                        <div class="carousel-caption d-none d-md-block" style="color: #FF3131;">
                             <h5>Carnitas el Chaperon</h5>
                             <p>Las carnitas más ricas de toda la ciudad</p>
                         </div>
                         </div>
                         <div class="carousel-item">
                         <img src="img/gringa.jpg" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
+                        <div class="carousel-caption d-none d-md-block" style="color: #FF3131;">
                             <h5>Haz tu pedido en línea</h5>
                         </div>
                         </div>
                         <div class="carousel-item">
                         <a href="" data-bs-toggle="modal" data-bs-target="#alta"><img src="img/fachada1.jpg" class="d-block w-100" alt="..."></a>
-                        <div class="carousel-caption d-none d-md-block">
+                        <div class="carousel-caption d-none d-md-block" style="color: #FF3131;">
                             <h5>¡TE ESPERAMOS!</h5>
                             <p>Horario de 10:00 a.m a 6:00 p.m</p>
                         </div>
@@ -179,89 +165,21 @@ $pdo = $db->getConexion();
                 <h1 class="tprom" style="text-align: center;">Promociones</h1>
                 <hr style="border: 1px solid #E59866; background-color: #E59866; height: 3px;">
             </div>
-            <!--PAQUETE 1-->
-            <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
-                <!--CARD 1-->
-                <div class="card contenidocards" style="width: 18rem;">
-                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title">Paquete 1</h5>
-                    <p class="card-text">
-                        Incluye:
-                        <ul>
-                            <li>1 kg de carnitas</li>
-                            <li>1 kg de tortillas</li>
-                            <li>1 refresco de 2L</li>
-                            <br><br>
-                        </ul>
-                    </p>
-                    <a href="#" class="btn btn-primary botoncards">Comprar</a>
-                    </div>
+            <br>
+            <div class="row divdecard">
+                <div class="col-12 col-md-6 contenidocards">
+                    <a href=""><img src="img/1.png" style="width: 100%; padding: 25px; margin: 0;" class="rounded"></a>
+                </div>
+                <div class="col-12 col-md-6 contenidocards">
+                    <a href=""><img src="img/2.png" style="width: 100%; padding: 25px; margin: 0;" class="rounded"></a>
+                </div>
+                <div class="col-12 col-md-6 contenidocards">
+                    <a href=""><img src="img/3.png" style="width: 100%; padding: 25px; margin: 0;" class="rounded"></a>
+                </div>
+                <div class="col-12 col-md-6 contenidocards">
+                    <a href=""><img src="img/4.png" style="width: 100%; padding: 25px; margin: 0;" class="rounded"></a>
                 </div>
             </div>
-            <!--PAQUETE 2-->
-            <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
-                <!--CARD 2-->
-                <div class="card contenidocards" style="width: 18rem;">
-                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title">Paquete 2</h5>
-                    <p class="card-text">
-                        Incluye:
-                        <ul>
-                            <li>½ kg de carnitas</li>
-                            <li>¼ kg de buche</li>
-                            <li>1 kg de tortillas</li>
-                            <li>1 refresco de 2L</li>
-                            <br>
-                        </ul>
-                    </p>
-                    <a href="#" class="btn btn-primary botoncards">Comprar</a>
-                    </div>
-                </div>
-            </div>
-            <!--PAQUETE 3-->
-            <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
-                <!--CARD 3-->
-                <div class="card contenidocards justify-content: flex-end;
-                " style="width: 18rem;">
-                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title">Paquete 3</h5>
-                    <p class="card-text">
-                        Incluye:
-                        <ul>
-                            <li>1 chamorro</li>
-                            <li>½ de tortillas</li>
-                            <li>¼ chicharrón botanero</li>
-                            <br><br>
-                        </ul>
-                    </p>
-                    <a href="#" class="btn btn-primary botoncards">Comprar</a>
-                    </div>
-                </div>
-            </div>
-            <!--PAQUETE 4-->
-            <div class="col-12 col-md-4 col-lg-4 divdecard p-3">
-                <!--CARD 4-->
-                <div class="card contenidocards" style="width: 18rem;">
-                    <img src="img/paquetes.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title">Paquete 4</h5>
-                    <p class="card-text">
-                        Incluye:
-                        <ul>
-                            <li>¼ buche</li>
-                            <li>¼ chicharrón botanero</li>
-                            <li>1 kg carnitas</li>
-                            <li>1 kg de tortillas</li>
-                            <li>1 refresco de 2L</li>
-                        </ul>
-                    </p>
-                    <a href="#" class="btn btn-primary botoncards d-flex justify-content-end">Comprar</a>
-                    </div>
-                </div>
-            </div><br>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

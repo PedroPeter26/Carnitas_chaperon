@@ -1,8 +1,8 @@
 <?php
 session_start();
-include '../class/databaseInt.php';
+include '../class/database.php';
 $db = new Database();
-$db->conectarBD();
+$db->conectarDB();
 $pdo = $db->getConexion();
 ?>
 <!DOCTYPE html>

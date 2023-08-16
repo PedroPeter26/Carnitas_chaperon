@@ -33,7 +33,7 @@ function agregar($id, $cantidad){
             $_SESSION['carrito']['productos'][$id] = $cantidad;
 
             $db = new Database();
-            $db->conectarBD();
+            $db->conectarDB();
             $pdo = $db->getConexion();
 
             $sentencia=$pdo->prepare("SELECT precio_app FROM productos WHERE producto_id = ? AND productos.disponibilidad = 'Ambos' OR productos.disponibilidad = 'Rapido' AND status = 'Activo' LIMIT 1");

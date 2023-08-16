@@ -1,5 +1,5 @@
 <?php
-include '../class/databaseInt.php';
+include '../class/database.php';
 $conexion = new Database();
-$conexion->conectarBD();
+$conexion->conectarDB();
 ?>

@@ -1,6 +1,6 @@
 <?php 
 require 'config.php';
-require 'databaseInt.php';
+require 'database.php';
 
 if(isset($_POST['action']))
 {
@@ -47,7 +47,7 @@ function agregar($id, $cantidad)
             $_SESSION['carrito']['productos'][$id] = $cantidad;
 
             $db = new Database();
-            $db->ConectarBD();
+            $db->ConectarDB();
             $pdo = $db->getConexion();
 
             $sql = $pdo->prepare("select precio_app from productos where producto_id=? and status='Activo' LIMIT 1");

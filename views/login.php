@@ -94,14 +94,14 @@
     <title>INICIA SESION</title>
 </head>
 <body>
-    <!--BARRA DE NAV 1-->
-    <nav class="navbar navbar-expand-lg barranav">
+    <nav class="navbar navbar-expand-lg barranav sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../index.php">
-                <img src="../img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
+            <a class="navbar-brand" style="color: white;" href="index.php">
+                <img src="../img/logo.png" alt="Logo" width="35" height="50">  CARNITAS&nbsp;EL&nbsp;CHAPERON
             </a>
         </div>
     </nav>
+
     <div class="container" id="contenedor">
     <div class="formulario">
         <br>
@@ -123,9 +123,9 @@
             <br>
             <p>¿No tienes una cuenta aun?<a href="registrarse.php" align="center" color="">Registrate</a></p>
             <?php 
-                include '../class/databaseInt.php';
+                include '../class/database.php';
                 $db = new Database();
-                $db->conectarBD();
+                $db->conectarDB();
 
                 extract($_POST);
 
@@ -133,7 +133,7 @@
                 {
                     $db->verifica($username,$pass);
                 }
-                $db->desconectarBD();
+                $db->desconectarDB();
             ?>
         </form> 
     </div>  

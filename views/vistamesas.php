@@ -1,6 +1,6 @@
 <?php
 // Asegúrate de incluir el archivo de configuración con la conexión a la base de datos (config.php)
-require_once '../class/databaseInt.php';
+require_once '../class/database.php';
 
 // Verificamos si se proporcionó un identificador de mesa válido en la URL
 if (isset($_GET['mesa_id']) && is_numeric($_GET['mesa_id'])) {

@@ -1,8 +1,8 @@
 <?php
 session_start();
-include '../class/databaseInt.php';
+include '../class/database.php';
 $db = new Database();
-$db->conectarBD();
+$db->conectarDb();
 $pdo = $db->getConexion();
 
 if(empty($_SESSION['idUsuario']))

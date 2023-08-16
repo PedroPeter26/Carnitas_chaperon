@@ -1,14 +1,14 @@
 <?php
-require_once '../class/databaseInt.php';
+require_once '../class/database.php';
 $database = new Database();
-$database->conectarBD();
+$database->conectarDB();
 
 // Consulta SQL para obtener las mesas y su estado
 $sql = "SELECT mesa_id, numero_mesa, estado FROM Mesas";
 $stmt = $database->getConexion()->query($sql);
 $mesas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$database->desconectarBD();
+$database->desconectarDB();
 ?>
 
 <!DOCTYPE html>

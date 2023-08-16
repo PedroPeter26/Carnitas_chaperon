@@ -1,7 +1,7 @@
 <?php
-include '../class/databaseInt.php';
+include '../class/database.php';
 $db = new Database();
-$db->conectarBD();
+$db->conectarDB();
 $pdo = $db->getConexion();
 require '../class/config.php';
 
@@ -64,34 +64,50 @@ if($productos != null){
 
     <header class="d-flex align-items-center justify-content-center lilita bg-header">
 
-    <nav class="navbar navbar-expand-lg barranav">
+    <nav class="navbar navbar-expand-lg barranav sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href=",,/index.php">
-                <img src="../img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
+            <a class="navbar-brand" style="color: white;" href="index.php">
+                <img src="../img/logo.png" alt="Logo" width="35" height="50">  CARNITAS&nbsp;EL&nbsp;CHAPERON
             </a>
-            <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="true">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-6" style="color: white;">
-                <!--<li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>-->
-                <li class="nav-item">
-                <a class="btn btn-warning" href="../checkout.php">Carrito <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span></a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="ordenar.php">Ordenar</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="menusencillo.php">Menú</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color: white;" href="../scripts/logout.php">Cerrar sesión</a>
-                </li>
+            <ul class="navbar-nav dropdown-menu position-static gap-1 p-2 rounded-3 ms-auto shadow w-220px">
+                <?php
+                    if (isset($_SESSION["usuario"]))
+                    {
+                    echo "<li>
+                            <a class='dropdown-item rounded-2' href='checkout_online.php'>Carrito <span id='num_cart' class='badge bg-danger'>$num_cart</span></a>
+                            </li>";
+                    echo '<li><hr class="dropdown-divider"></li>';
+                    echo "<li><a class='dropdown-item rounded-2' href='ordenar.php'>Ordenar</a></li>";
+                    echo '<li class="dropdown">
+                    <a class="dropdown-item rounded-2 dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Usuario
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li>
+                            <a class="dropdown-item" href="perfil_usuario.php">
+                                Perfil
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="historial_de_compras.php">
+                                Historial
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" style="color: red;" href="../class/cerrarsesion.php">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                    </li>';
+                    }
+                ?>
             </ul>
             </div>
         </div>
@@ -111,7 +127,7 @@ if($productos != null){
         <div class="col-12 col-lg-6">
             <div class="table-responsive">
                 <table class="table mt-5">
-                    <thead>
+                    <thead class="table-dark">
                         <tr>
                             <th>Producto</th>
                             <th>Subtotal</th>
@@ -141,8 +157,9 @@ if($productos != null){
                         <?php } ?>
 
                         <tr>
-                            <td colspan="2">
-                                <p class="h3 text-end" id="total"><?php echo 'Total: ' . MONEDA . number_format($total, 2, '.', ','); ?></p>
+                            <td></td>
+                            <td colspan="">
+                                <p class="h3" id="total"><?php echo 'Total: ' . MONEDA . number_format($total, 2, '.', ','); ?></p>
                             </td>
                         </tr>
 

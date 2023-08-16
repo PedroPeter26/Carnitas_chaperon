@@ -1,8 +1,8 @@
 <?php
     require '../class/config.php';
-    require '../class/databaseInt.php';
+    require '../class/database.php';
     $db = new Database();
-    $db->conectarBD();
+    $db->conectarDB();
     $pdo = $db->getConexion();
 
     $id = isset($_GET['producto_id']) ? $_GET['producto_id'] : '';

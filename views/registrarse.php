@@ -91,14 +91,15 @@
     <title>REGISTRARSE</title>
 </head>
 <body>
-    <!--BARRA DE NAV 1-->
-    <nav class="barranav">
+<nav class="navbar navbar-expand-lg barranav sticky-top">
         <div class="container-fluid">
-        <a class="navbar-brand " href="../index.php">
-        <img src="../img/logo.png" alt="Logo" width="35" height="50">&nbsp; &nbsp;&nbsp;CARNITAS EL CHAPERON
-        </a>
+            <a class="navbar-brand" style="color: white;" href="../index.php">
+                <img src="../img/logo.png" alt="Logo" width="35" height="50">  CARNITAS&nbsp;EL&nbsp;CHAPERON
+            </a>
+            </div>
         </div>
     </nav>
+
     <div class="container" id="contenedor">
     <div class="formulario">
         <h2 align="center">REGISTRARSE</h2>
@@ -128,9 +129,9 @@
                 <button class="btn btn-lg boton" type="submit" name="registro">Crear Cuenta</button>
             </div>
             <?php
-                include '../class/databaseInt.php';
+                include '../class/database.php';
                 $db=new Database();
-                $db->ConectarBD();
+                $db->ConectarDB();
 
                 extract($_POST);
 
@@ -138,7 +139,7 @@
                 {
                     $db->ExisteUsuario($user,$pass);
                 }
-                $db->desconectarBD();
+                $db->desconectarDB();
             ?>
         </form> 
     </div>

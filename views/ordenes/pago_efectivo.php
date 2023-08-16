@@ -1,8 +1,8 @@
 <?php
-    require '../class/config.php';
-    require '../class/databaseInt.php';
+    require '../../class/config.php';
+    require '../../class/database.php';
     $db = new Database();
-    $db->conectarBD();
+    $db->conectarDB();
     $pdo = $db->getConexion();
 
     $productos = isset($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
@@ -20,14 +20,16 @@
             $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
         }
     }
-    else
-    {
-        header("Location: ../index.php");
-        exit();
-    }
+
 
     //session_destroy();
-            
+    $sql = $pdo->prepare("select producto_id, nombre, precio_app, $cantidad as cantidad from productos where producto_id='$clave' and status='Activo'");
+    $sql->execute();
+    $orden = $sql->fetch(PDO::FETCH_ASSOC);
+
+    $total = 0;
+    $subtotal = $orden['precio_app'] * $cantidad;
+    $total += $subtotal;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,126 +37,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../index.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Lilita+One&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap');
-        body
+        #boton
         {
-            background-color: #ffefcf;
-        }
-        html, body
-        {
-            max-width: 100% !important;
-        }
-        .barranav
-        {
-            height: 70px;
-            background-image: url(../img/barranav1.jpg);
-            background-size:contain;
-            position:fixed;
-            top:0;
-            width: 100%;
-            z-index: 1200;
+            background-color: #D44000;
             font-family: 'Lilita One', sans-serif;
-            color: white;
-        }
-        .navbar-brand
-        {
-            font-family: 'Lilita One', sans-serif;
-            font-size: 30px;
-            
-        }
-        .navbar-brand:hover
-        {
-            color: white;
-        }
-        a.color
-        {
-            color: white;
-        }
-        a.color:hover
-        {
-            color: white;
-            font-size: 20px;
-        }
-        @media screen and (max-width: 576px) /*Pantalla pequeña*/
-        {
-            .navbar-brand
-            {
-                font-size: 100%;
-            }
-        }
-        .cont a
-        {
-            margin-bottom: 2em;
-            margin-right: 2em;
-        }
-        .contenedor
-        {
-            width: 100%;
-            margin-top: 65px;
-        }
-        .carrito
-        {
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: auto;
-            position: sticky !important;
-            top: 0;
-            transition: .3s;
-            /* Estilos para ocultar */
-            margin-right: -100%;
-            opacity: 0;
-        }
-        #eliminaModal
-        {
-            margin-top: 70px;
         }
     </style>
+    <?php include "../headadmin.php"; ?>
     <title>PARA LLEVAR</title>
     </script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg barranav">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">
-                <img src="../img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
-            </a>
-            <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-8" style="color: white;">
-                <!--<li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>-->
-                <li class="nav-item">
-                    <a class="nav-link" style="color: white;" href="checkout_pllevar.php">
-                        Orden<span id="num_cart" class="badge"><?php echo $num_cart; ?></span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="../class/cerrarsesion.php">Cerrar sesión</a>
-                </li>
-            </ul>
-            </div>
-        </div>
-</nav>
+
+<?php include '../sidebaradmin.php'; ?>
     
-    <div class="container contenedor">
+    <div class="content-wrapper"  style="background-color: white; margin-top: 4%; padding: 2%;">
 
+    <div class="container">
         <div class="row">
-            <div class="col-6">
-                <h4>Detalles de pago</h4>
-                <div id="paypal-button-container"></div>
+             <div class="col-12 col-md-5 col-lg-5 formulario">
+                <div id="formulario">
+                    <h4 align="center">DETALLES DE PAGO</h4>
+                    <BR>
+                    <form action="" method="POST">
+                    <div class="mb-3">
+                        <label for="monto_pagar" class="form-label">MONTO A PAGAR:</label>
+                        <input type="number" id="paga" name="monto_pagar" class="form-control" oninput="restar()" value="<?php echo number_format($total, 2, '.', ','); ?>" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="monto_dado" class="form-label">MONTO DADO:</label>
+                        <input type="number" id="recibe" name="monto_dado" class="form-control" oninput="restar()" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cambio" class="form-label">CAMBIO DEL CLIENTE:</label>
+                        <input type="number" name="cambio" id="cambio" class="form-control" disabled>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <input type="submit" name="pagar" class="btn btn-lg" id="boton" value="PAGAR">
+                    </div>
+                    <?php
+                        if(isset($_POST['pagar']))
+                        {
+                            if($_POST['monto_pagar'] > $_POST['monto_dado'])
+                            {
+                                echo '<div class="alert alert-danger mt-3" role="alert">
+                                    No se puede realizar este pago. La cantidad de dinero es menor.
+                                </div>';
+                            }
+                            else
+                            {
+                                $tipo_ord = 3;
+                                $cadena = $pdo->prepare("CALL InsertarOrdenRAPIDO ('Efectivo');");
+                                $cadena->execute();
+                                $id = $pdo->lastInsertId();
+
+                                if($productos != null)
+                                {
+                                    foreach($productos as $clave => $cantidad)
+                                    {
+                                    $sentencia = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad AS Cantidad FROM PRODUCTOS WHERE producto_id = ? AND (productos.disponibilidad = 'Ambos' OR productos.disponibilidad = 'Rapido') AND status = 'Activo'");
+                                    $sentencia->execute([$clave]);
+                                    $row_prod=$sentencia->fetch(PDO::FETCH_ASSOC);
+                        
+                                    $precio_app = $row_prod['precio_app'];
+                        
+                                    $sql_insert = $pdo->prepare("INSERT INTO DETALLE_ORDEN (orden, producto, cantidad) VALUES (?,?,?)");
+                                    $sql_insert->execute([$id, $clave, $cantidad]);
+                                    }
+                                }
+                            }
+
+                            unset($_SESSION['carrito']);
+                            echo '<div class="alert alert-success mt-3" role="alert">
+                            ¡Pago realizado exitosamente!
+                            </div>';
+                        }
+                    ?>
+                    </form>
+                </div>
             </div>
 
-            <div class="col-6">
-                <div class="table-responsive">
+            <div class="col-6 col-md-6 col-lg-6 offset-1">
+                <div class="table-responsive tabla">
                     <table class="table">
                         <thead class="table-dark">
                             <tr>
@@ -188,7 +161,7 @@
                             <tr>
                                 <td><?php echo $nombre; ?></td>
                                 <td>
-                                    <div id="subtotal_<?php echo $_id; ?>" name="subtotal[]">
+                                    <div>
                                         <?php echo MONEDA . number_format($subtotal, 2, '.', ','); ?>
                                     </div>
                                 </td>
@@ -211,6 +184,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <?php include '../footeradmin.php'; ?>
+
     </div>
 
     <script src="https://www.paypal.com/sdk/js?client-id=<?php echo CLIENT_ID; ?>&currency=<?php echo CURRENCY; ?>">
@@ -254,6 +231,18 @@
                 console.log(data);
             }
         }).render('#paypal-button-container');
+
+        function restar() 
+        {
+            try
+            {
+                var a = parseFloat(document.getElementById("recibe").value) || 0,
+                b = parseFloat(document.getElementById("paga").value) || 0;
+
+                document.getElementById("cambio").value = a-b;
+            }
+            catch(e) {}
+        }
     </script>
 
 </body>

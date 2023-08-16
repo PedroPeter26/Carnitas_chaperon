@@ -1,14 +1,14 @@
 <?php
 require 'class/config.php';
-include 'class/databaseInt.php';
+include 'class/database.php';
 $db = new Database();
-$db->conectarBD();
+$db->conectarDB();
 $pdo = $db->getConexion();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,17 +38,43 @@ $pdo = $db->getConexion();
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  <!-- jQuery -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <!-- Bootstrap 4 -->
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- ChartJS -->
+  <script src="plugins/chart.js/Chart.min.js"></script>
+  <!-- Sparkline -->
+  <script src="plugins/sparklines/sparkline.js"></script>
+  <!-- JQVMap -->
+  <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+  <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <!-- jQuery Knob Chart -->
+  <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+  <!-- daterangepicker -->
+  <script src="plugins/moment/moment.min.js"></script>
+  <script src="plugins/daterangepicker/daterangepicker.js"></script>
+  <!-- Tempusdominus Bootstrap 4 -->
+  <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  <!-- Summernote -->
+  <script src="plugins/summernote/summernote-bs4.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/adminlte.js"></script>
+  <!-- Incluye los scripts de AdminLTE -->
+  <script src="https://cdn.jsdelivr.net/npm/adminlte@3.1.0/dist/js/adminlte.min.js"></script>
 
   <title>Administración</title>
 </head>
 
 <body>
-  <!-- Preloader -->
-  <!--<div class="preloader flex-column justify-content-center align-items-center" style="background-color: #864000;">
-    <img class="animation__shake" src="img/logo.png" alt="AdminLTELogo" width="30%">
-  </div>
--->
-
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark">
     <!-- Left navbar links-->
@@ -97,11 +123,11 @@ $pdo = $db->getConexion();
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container-->
-  <aside class="main-sidebar elevation-4" style="background-color: #ff7a00;">
+  <aside class="main-sidebar elevation-4 position-fixed" style="background-color: #ff7a00;">
 
-    <a href="indexadmin.php" class="brand-link">
+    <a href="indexadmin.php" class="brand-link mt-2">
       <img src="img/logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light" style="color: #864000;">Carnitas&nbsp;el&nbsp;Chaperon</span>
+      <span class="brand-text font-weight-light" style="color: black;"> <b>Carnitas&nbsp;el&nbsp;Chaperon</b></span>
     </a>
 
     <div class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition">
@@ -118,21 +144,21 @@ $pdo = $db->getConexion();
 
             <div class="sidebar">
               <!-- Sidebar user panel (optional) -->
-              <hr class="border-1 opacity-100" style="background-color: #864000; width:auto">
+              <hr class="border-1 opacity-100" style="background-color: black; width:auto">
               <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                   <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="info">
-                  <a href="#" class="d-block" style="color: #864000;">Administrador</a>
+                  <a href="#" class="d-block" style="color: black;">Administrador</a>
                 </div>
               </div>
-              <hr class="border-1 opacity-100" style="background-color: #864000; width:auto">
+              <hr class="border-1 opacity-100" style="background-color: black; width:auto">
 
               <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   <li class="nav-item">
-                    <a href="#" class="nav-link" style="color: #864000;">
+                    <a href="#" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Reportes
@@ -141,61 +167,55 @@ $pdo = $db->getConexion();
                     </a>
                     <ul class="nav nav-treeview" style="display: none;">
                       <li class="nav-item">
-                        <a href="views\reportes\reportes_diarios.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_diarios.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reporte diario</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_semanales.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_semanales.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes semanales</p>
+                          <p>Reporte semanal</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_mensuales.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_mensuales.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes mensuales</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_anuales.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_anuales.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes anuales</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_segun_fecha.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_segun_fecha.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes por rango de fechas</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_segun_tipo_comida.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_segun_tipo_comida_fechas.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes por el tipo de comida</p>
+                          <p>Reportes por tipo de comida</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_segun_tipo_comida_fechas.php" class="nav-link" style="color: #864000;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes por el tipo de comida por rango de fecha</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="views/reportes/reportes_segun_producto.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_segun_producto.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes según producto</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_metodo_pago.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_metodo_pago.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes por método de pago</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_cantidad_productos.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_cantidad_productos.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes de cantidad de productos</p>
                         </a>
@@ -203,7 +223,7 @@ $pdo = $db->getConexion();
                     </ul>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link" style="color: #864000;">
+                    <a href="" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes del comedor
@@ -212,7 +232,7 @@ $pdo = $db->getConexion();
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="views/productos_pllevar.php" class="nav-link" style="color: #864000;">
+                    <a href="views/ordenes/productos_pllevar.php" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes para llevar
@@ -221,7 +241,7 @@ $pdo = $db->getConexion();
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link" style="color: #864000;">
+                    <a href="views/ordenes/ordenes_online.php" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-th"></i>
                       <p class="ms-auto">
                         Órdenes online
@@ -230,7 +250,7 @@ $pdo = $db->getConexion();
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link" style="color: #864000;">
+                    <a href="#" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-circle"></i>
                       <p>
                         Productos
@@ -239,25 +259,26 @@ $pdo = $db->getConexion();
                     </a>
                     <ul class="nav nav-treeview" style="display: none;">
                       <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: #864000;">
+                        <a href="#" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Añadir productos</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: #864000;">
+                        <a href="#" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Editar productos</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: #864000;">
+                        <a href="#" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Eliminar productos</p>
                         </a>
                       </li>
                     </ul>
                   </li>
+                  <li><br><br><br><br><br><br></li>
                 </ul>
               </nav>
 
@@ -292,7 +313,7 @@ $pdo = $db->getConexion();
               <div class="inner">
                 <?php
                 $host = "localhost";
-                $dbname = "bdcarnitaschaperon";
+                $dbname = "BDCarnitasChaperon";
                 $username = "root";
                 $password = "";
 
@@ -303,8 +324,11 @@ $pdo = $db->getConexion();
                 $stmt->closeCursor();
                 $r = $conn->query("SELECT @TotalDiario as 'Total Diario';")->fetch(PDO::FETCH_ASSOC);
                 $totalDiario = $r['Total Diario'];
-
-                echo "<h3>$ " . $totalDiario . "</h3>";
+                if ($totalDiario == null) {
+                  echo "<h3>$0.00</h3>";
+                } else {
+                  echo "<h3>$ " . $totalDiario . "</h3>";
+                }
                 $conn = null; //Termina la conexión con la bd
                 ?>
                 <p>Ventas diarias</p>
@@ -312,7 +336,7 @@ $pdo = $db->getConexion();
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="views/generaladmin/diario.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -332,7 +356,7 @@ $pdo = $db->getConexion();
                 $primerDiaSemanaOficial = $primerDiaSemana->format("Y-m-d");
 
                 $host = "localhost";
-                $dbname = "bdcarnitaschaperon";
+                $dbname = "BDCarnitasChaperon";
                 $username = "root";
                 $password = "";
 
@@ -352,7 +376,7 @@ $pdo = $db->getConexion();
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="views/generaladmin/semanal.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -391,7 +415,7 @@ $pdo = $db->getConexion();
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="views/generaladmin/mensual.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -424,44 +448,100 @@ $pdo = $db->getConexion();
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="views/generaladmin/usuarios.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
+
+          <!-- Prueba gráfica horas-->
+          <div class="col-12 col-md-12 col-lg-12 mt-4 mb-4">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Gráfica de órdenes finalizadas por hora (mensual)</h3>
+              </div>
+              <div class="card-body">
+                <div class="col-12">
+                  <canvas id="horaPicoChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <?php
+          $horas = range(10, 18); // Hours from 10:00 a.m. to 6:00 p.m.
+
+          $labels = array_map(function ($hora) {
+            return sprintf('%02d:00', $hora); // Formatear la hora en formato HH:00
+          }, $horas);
+
+
+          $servername = "localhost";
+          $username = "root";
+          $password = "";
+          $dbname = "BDCarnitasChaperon";
+
+          try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $currentMonth = date('Y-m'); // Get the current year and month (e.g., 2023-08)
+
+            $sql = "SELECT HOUR(hora_inicio) AS hora, COUNT(*) AS cantidad_ordenes
+            FROM ORDENES
+            WHERE TIME(hora_inicio) >= '10:00:00' AND TIME(hora_inicio) <= '18:00:00'
+              AND ORDENES.status = 'Finalizado' AND MONTH(ORDENES.fecha) = MONTH(CURRENT_DATE())
+            GROUP BY HOUR(hora_inicio)
+            ORDER BY HOUR(hora_inicio);";
+
+            $stmt = $conn->prepare($sql);
+            //$stmt->bindParam(':currentMonth', $currentMonth); // No es necesario enlazar este parámetro
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $cantidades = array_fill_keys($horas, 0);
+            foreach ($result as $row) {
+              $hora = $row['hora'];
+              $cantidades[$hora] = $row['cantidad_ordenes'];
+            }
+          } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+          }
+          $conn = null;
+          ?>
+
+
         </div>
-        <!-- /.row -->
       </div>
 
-      <!-- jQuery -->
-      <script src="plugins/jquery/jquery.min.js"></script>
-      <!-- jQuery UI 1.11.4 -->
-      <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-      <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
       <script>
-        $.widget.bridge('uibutton', $.ui.button)
+        // Configure the chart context
+        var ctx = document.getElementById('horaPicoChart').getContext('2d');
+
+        var horaPicoChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: <?php echo json_encode($labels); ?>, // Usar el nuevo array de etiquetas
+            datasets: [{
+              label: 'Cantidad de Órdenes',
+              data: <?php echo json_encode(array_values($cantidades)); ?>,
+              borderColor: 'rgba(75, 192, 192, 1)',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderWidth: 1,
+              pointRadius: 4,
+              pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+              fill: true
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
       </script>
-      <!-- Bootstrap 4 -->
-      <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <!-- ChartJS -->
-      <script src="plugins/chart.js/Chart.min.js"></script>
-      <!-- Sparkline -->
-      <script src="plugins/sparklines/sparkline.js"></script>
-      <!-- JQVMap -->
-      <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-      <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-      <!-- jQuery Knob Chart -->
-      <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-      <!-- daterangepicker -->
-      <script src="plugins/moment/moment.min.js"></script>
-      <script src="plugins/daterangepicker/daterangepicker.js"></script>
-      <!-- Tempusdominus Bootstrap 4 -->
-      <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-      <!-- Summernote -->
-      <script src="plugins/summernote/summernote-bs4.min.js"></script>
-      <!-- overlayScrollbars -->
-      <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-      <!-- AdminLTE App -->
-      <script src="dist/js/adminlte.js"></script>
 
 </body>
 

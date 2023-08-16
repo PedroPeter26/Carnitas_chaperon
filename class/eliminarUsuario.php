@@ -1,9 +1,9 @@
 <?php
 session_start();
 $id = $_GET['id'];
-include 'databaseInt.php';
+include 'database.php';
 $db = new Database();
-$db->conectarBD();
+$db->conectarDB();
 $pdo = $db->getConexion();
 
 if (!$id)
