@@ -88,6 +88,15 @@ require '../class/config.php';
     <!-- Contenido principal -->
   <div class="container mt-5">
     <div class="content-section">
+        <select class="form-control" name="tipo">
+            <?php
+                $querytipos = "SELECT * FROM TIPOS";
+                $tiposprod = $db->seleccionar($querytipos);
+                foreach ($tiposprod as $tipo) {
+                    echo "<option value='$tipo->id_tipo'>$tipo->nombre</option>";
+                }
+            ?>
+        </select>
         <?php
          $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Rapido') AND status = 'Activo'");
          $sentencia->execute();

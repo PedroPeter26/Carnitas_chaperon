@@ -1,18 +1,25 @@
 <?php
-include 'class/database.php';
+include '../class/database.php';
 $db = new Database();
 $db->conectarDB();
 $pdo = $db->getConexion();
-require 'class/config.php';
+require '../class/configcom.php';
 
-$productos = isset($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
+$mesa_id = isset($_GET['mesa_id']) ? $_GET['mesa_id'] : null;
+if ($mesa_id === null) {
+    echo "Error: No se proporcionó el parámetro mesa_id en la URL.";
+    exit;
+}
+
+$pagina_anterior = "atender_mesa.php?mesa_id=" . $mesa_id;
+$productos = isset($_SESSION['carrito'][$mesa_id]['productos']) ? $_SESSION['carrito'][$mesa_id]['productos'] : null;
 $lista_carrito = array();
 
 if($productos != null){
     foreach($productos as $clave => $cantidad){
 
-    $sentencia = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad AS Cantidad FROM PRODUCTOS WHERE producto_id = ? AND (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Rapido') AND status = 'Activo'");
-    $sentencia->execute([$clave]);
+    $sentencia = $pdo->prepare("SELECT producto_id, nombre, precio_com, $cantidad AS Cantidad FROM PRODUCTOS WHERE producto_id = ? AND (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Comedor') AND status = 'Activo' AND $mesa_id = ?");
+    $sentencia->execute([$clave, $mesa_id]);
     $lista_carrito[]=$sentencia->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -56,51 +63,14 @@ if($productos != null){
 
     </style>
 
-    <title>Checkout</title>
+    <title>Checkout comedor</title>
 </head>
 <body>
-
-    <header class="d-flex align-items-center justify-content-center lilita bg-header">
-
-    <nav class="navbar navbar-expand-lg barranav">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="../index.php">
-                <img src="img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
-            </a>
-            <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-8" style="color: white;">
-                <!--<li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>-->
-                <li class="nav-item">
-                <a class="btn btn-warning" href="checkout.php">Carrito <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span></a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="views/ordenar.php">Ordenar</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="views/menu1.php">Menú</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color: white;" href="scripts/logout.php">Cerrar sesión</a>
-                </li>
-            </ul>
-            </div>
-        </div>
-    </nav>
-
-    </header>
-
     <!-- Contenido principal -->
-  <div class="container mt-5">
+  <div class="container">
+  <?php echo '<a href="' . $pagina_anterior . '" class="btn btn-success">Volver</a>'; ?>
     <div class="table-responsive">
-        <table class="table mt-5">
+        <table class="table mt-2">
             <thead>
                 <tr>
                     <th>Producto</th>
@@ -112,20 +82,27 @@ if($productos != null){
             </thead>
             <tbody>
                 <?php if($lista_carrito == null) {
-                    echo '<tr><td colspan="5" class="text-center"><b>Lista vacía</b></td></tr>';
+                    echo '<tr><td colspan="5" class="text-center"><b>Orden vacía</b></td></tr>';
+                    $estado = 'Disponible';
+            
+                    $sqlActualizarEstado = "UPDATE MESAS SET estado = :estado WHERE mesa_id = :mesa_id";
+                    $stmtActualizarEstado = $pdo->prepare($sqlActualizarEstado);
+                    $stmtActualizarEstado->bindParam(':estado', $estado, PDO::PARAM_STR);
+                    $stmtActualizarEstado->bindParam(':mesa_id', $mesa_id, PDO::PARAM_INT);
+                    $stmtActualizarEstado->execute();
                 } else {
                     $total = 0;
                     foreach($lista_carrito as $producto){
                         $_id = $producto['producto_id'];
                         $nombre = $producto['nombre'];
-                        $precio_app = $producto['precio_app'];
+                        $precio_com = $producto['precio_com'];
                         $cantidad = $producto['Cantidad'];
-                        $subtotal = $cantidad * $precio_app;
+                        $subtotal = $cantidad * $precio_com;
                         $total += $subtotal;
                     ?>
                 <tr>
                     <td><?php echo $nombre; ?></td>
-                    <td><?php echo MONEDA . $precio_app; ?></td>
+                    <td><?php echo MONEDA . $precio_com; ?></td>
                     <td>
                         <input type="number" min="1" max="30" step="1" value="<?php echo $cantidad ?>" size="5" id="cantidad_<?php echo $_id; ?>" onkeydown="return limitarInput(event)" onchange="actualizaCantidad(this.value, <?php echo $_id; ?>)">
                     </td>
@@ -135,7 +112,7 @@ if($productos != null){
                         </div>
                     </td>
                     <td>
-                        <a id="eliminar" class="btn btn-danger btn-sm" data-bs-id="<?php echo $_id; ?>" data-bs-toggle="modal" data-bs-target="#eliminaModal">Eliminar</a>
+                        <a id="eliminar" class="btn btn-danger btn-sm" data-bs-id="<?php echo $_id; ?>" data-bs-toggle="modal" data-bs-target="#eliminaModal" href="?mesa_id=<?php echo $mesa_id; ?>">Eliminar</a>
                     </td>
                 </tr>
                 <?php } ?>
@@ -155,7 +132,7 @@ if($productos != null){
     <?php if($lista_carrito != null) { ?>
         <div class="row">
             <div class="col-md-5 offset-md-7 d-grid gap-2">
-                <a href="views/pago1.php" class="btn btn-warning btn-lg">Realizar pago</a>
+                <a href="pagocomedor.php?mesa_id=<?php echo $mesa_id; ?>" class="btn btn-warning btn-lg">Realizar pago</a>
             </div>
         </div>
     <?php } ?>
@@ -173,11 +150,14 @@ if($productos != null){
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            ¿Desea eliminar el producto del carrito?
+            ¿Desea eliminar el producto de la orden?
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button id="btn-elimina" type="button" class="btn btn-danger" onclick="eliminar()">Eliminar</button>
+            <!--<button id="btn-elimina" type="button" class="btn btn-danger" onclick="eliminar()">Eliminar</button> -->
+            <button id="btn-elimina" type="button" class="btn btn-danger" onclick="eliminar(<?php echo $mesa_id; ?>)">Eliminar</button>
+
+
         </div>
         </div>
     </div>
@@ -198,11 +178,12 @@ if($productos != null){
         console.log('Cantidad:', cantidad);
         console.log('ID:', _id);
         
-        let url = 'class/actualizar_carrito.php'
+        let url = '../class/actualizarordencom.php'
         let formData = new FormData()
         formData.append('action', 'agregar')
         formData.append('_id', _id)
         formData.append('cantidad', cantidad)
+        formData.append('mesa_id', <?php echo $mesa_id; ?>);
 
         fetch(url, {
             method: 'POST',
@@ -232,15 +213,16 @@ if($productos != null){
         })
     }
 
-    function eliminar() {
+    function eliminar(mesa_id) {
 
         let botonElimina = document.getElementById('btn-elimina')
         let _id = botonElimina.value
 
-        let url = 'class/actualizar_carrito.php'
+        let url = '../class/actualizarordencom.php'
         let formData = new FormData()
         formData.append('action', 'eliminar')
         formData.append('_id', _id)
+        formData.append('mesa_id', mesa_id)
 
         fetch(url, {
             method: 'POST',

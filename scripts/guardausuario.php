@@ -15,7 +15,7 @@
 
         extract($_POST);
         $hash = password_hash($passw, PASSWORD_DEFAULT);
-        $cadena = "INSERT INTO usuarios(usuario, password) VALUES ('$usuario', '$hash')";
+        $cadena = "INSERT INTO USUARIOS(usuario, password) VALUES ('$usuario', '$hash')";
 
         $db->ejecutaSQL($cadena);
         $db->desconectarDB();

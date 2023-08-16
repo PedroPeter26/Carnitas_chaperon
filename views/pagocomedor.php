@@ -3,21 +3,22 @@ include '../class/database.php';
 $db = new Database();
 $db->conectarDB();
 $pdo = $db->getConexion();
-require '../class/config.php';
+require '../class/configcom.php';
 
-$productos = isset($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
+$mesa_id = isset($_GET['mesa_id']) ? $_GET['mesa_id'] : null;
+$productos = isset($_SESSION['carrito'][$mesa_id]['productos']) ? $_SESSION['carrito'][$mesa_id]['productos'] : null;
 $lista_carrito = array();
 
 if($productos != null){
     foreach($productos as $clave => $cantidad){
 
-    $sentencia = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad AS Cantidad FROM PRODUCTOS WHERE producto_id = ? AND (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Rapido') AND status = 'Activo'");
+    $sentencia = $pdo->prepare("SELECT producto_id, nombre, precio_com, $cantidad AS Cantidad FROM PRODUCTOS WHERE producto_id = ? AND (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Comedor') AND status = 'Activo'");
     $sentencia->execute([$clave]);
     $lista_carrito[]=$sentencia->fetch(PDO::FETCH_ASSOC);
     }
 } else {
-    header("Location: ordenar.php");
-    exit;
+    echo "Productos nulos. Mesa ID: " . $mesa_id;
+    
 }
 
 ?>
@@ -58,57 +59,17 @@ if($productos != null){
 
     </style>
 
-    <title>Checkout</title>
+    <title>Checkout com</title>
 </head>
 <body>
-
-    <header class="d-flex align-items-center justify-content-center lilita bg-header">
-
-    <nav class="navbar navbar-expand-lg barranav">
-        <div class="container-fluid">
-            <a class="navbar-brand" href=",,/index.php">
-                <img src="../img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
-            </a>
-            <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-8" style="color: white;">
-                <!--<li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>-->
-                <li class="nav-item">
-                <a class="btn btn-warning" href="../checkout.php">Carrito <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span></a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="ordenar.php">Ordenar</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="menu1.php">Menú</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color: white;" href="../scripts/logout.php">Cerrar sesión</a>
-                </li>
-            </ul>
-            </div>
-        </div>
-    </nav>
-
-    </header>
 
     <!-- Contenido principal -->
   <div class="container mt-5">
 
     <div class="row">
-        <div class="col-12 col-lg-6 mt-5">
-            <h4 class="lilita">Detalles de pago:</h4>
-            <div id="paypal-button-container"></div>
-        </div>
 
         <div class="col-12 col-lg-6">
+        <a href="checkout_comedor.php?mesa_id=<?php echo $mesa_id; ?>" class="btn btn-warning">Regresar al Checkout</a>
             <div class="table-responsive">
                 <table class="table mt-5">
                     <thead>
@@ -126,9 +87,9 @@ if($productos != null){
                             foreach($lista_carrito as $producto){
                                 $_id = $producto['producto_id'];
                                 $nombre = $producto['nombre'];
-                                $precio_app = $producto['precio_app'];
+                                $precio_com = $producto['precio_com'];
                                 $cantidad = $producto['Cantidad'];
-                                $subtotal = $cantidad * $precio_app;
+                                $subtotal = $cantidad * $precio_com;
                                 $total += $subtotal;
                             ?>
                         <tr>
@@ -139,7 +100,7 @@ if($productos != null){
                                 </div>
                             </td>
                         </tr>
-                        <?php } ?>
+                        <?php } $_SESSION['carrito'][$mesa_id]['total'] = $total;?>
 
                         <tr>
                             <td colspan="2">
@@ -152,12 +113,59 @@ if($productos != null){
                 </table>
             </div>
         </div>
+
+        <div class="col-12 col-lg-6 mt-5">
+            <h4 class="lilita">Detalles de pago:</h4>
+            <div id="paypal-button-container"></div>
+
+            <h4 class="lilita">Pago en efectivo:</h4>
+            <form id="efectivoForm" action="../class/procesar_efectivo.php" method="POST">
+                <input type="hidden" name="mesa_id" value="<?php echo $mesa_id; ?>">
+                <input type="hidden" name="total" value="<?php echo $total; ?>">
+                <?php
+                foreach ($_SESSION['carrito'][$mesa_id]['productos'] as $producto_id => $cantidad) {
+                    echo '<input type="hidden" name="productos[' . $producto_id . ']" value="' . $cantidad . '">';
+                }
+                ?>
+                <div class="mb-3">
+                    <label for="monto_efectivo" class="form-label">Monto en efectivo:</label>
+                    <input type="number" class="form-control" name="monto_efectivo" min="<?php echo $total; ?>" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Pagar</button>
+            </form>
+        </div>
+
     </div>
   </div>
 
   </div>
     <script src="https://www.paypal.com/sdk/js?client-id=<?php echo CLIENT_ID; ?>&currency=<?php echo CURRENCY; ?>">
     </script>
+
+<script>
+    document.getElementById('efectivoForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        let formData = new FormData(this);
+
+        fetch('../class/procesar_efectivo.php', {
+            method: 'POST',
+            body: formData,
+            mode: 'cors'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                let cambio = data.cambio;
+                alert(`Pago exitoso! Cambio a entregar: ${cambio}`);
+                window.location.href = `ticketcomefectivo.php?orden_id=${data.orden_id}`;
+            } else {
+                alert('Error al procesar el pago');
+            }
+        });
+    });
+</script>
+
 
 <script>
         paypal.Buttons({
@@ -177,16 +185,17 @@ if($productos != null){
             },
 
             onApprove: function (data, actions) {
-                let URL = '../class/captura1.php'
+                let URL = '../class/capturacomedor.php'
                 actions.order.capture().then(function (detalles){
                     console.log(detalles);
 
-                    let url = '../class/captura1.php'
+                    let url = '../class/capturacomedor.php'
                     return fetch(url, {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
                         body : JSON.stringify({
-                            detalles: detalles
+                            detalles: detalles,
+                            mesa_id: '<?php echo $mesa_id; ?>'
                         })
                     }).then(function () {
                     // Mostrar el mensaje de "Compra exitosa!"
@@ -197,7 +206,7 @@ if($productos != null){
 
                     // Redireccionar a ordenar.php después de 2 segundos
                     setTimeout(function () {
-                        window.location.href = 'ordenar.php';
+                        window.location.href = 'comedor.php';
                     }, 2000);
                 });
                 });

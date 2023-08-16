@@ -88,6 +88,7 @@
     </nav>
     <br><br><br>
         <div class='alert alert-warning'><h2>Bienvenido Admin</h2></div>
+        <a href="comedor.php" class="btn btn-primary">Comedor</a>
     </div>
 </body>
 </html>

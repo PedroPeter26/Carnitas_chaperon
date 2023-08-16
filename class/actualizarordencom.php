@@ -1,6 +1,6 @@
 <?php
 require 'database.php';
-require 'config.php';
+require 'configcom.php';
 
 if(isset($_POST['action'])){
     $action = $_POST['action'];
@@ -8,7 +8,8 @@ if(isset($_POST['action'])){
 
     if($action == 'agregar'){
         $cantidad = isset( $_POST['cantidad']) ? $_POST['cantidad'] : 0;
-        $respuesta = agregar($id, $cantidad);
+        $mesa_id = isset( $_POST['mesa_id']) ? $_POST['mesa_id'] : 0;
+        $respuesta = agregar($id, $cantidad, $mesa_id);
         if ($respuesta > 0) {
             $datos['ok'] = true;
         } else {
@@ -16,7 +17,8 @@ if(isset($_POST['action'])){
         }
         $datos['sub'] = MONEDA . number_format($respuesta, 2, '.', ',');
     } else if($action == 'eliminar') {
-        $datos['ok'] = eliminar($id);
+        $mesa_id = isset( $_POST['mesa_id']) ? $_POST['mesa_id'] : 0;
+        $datos['ok'] = eliminar($id, $mesa_id);
     } else {
         $datos['ok'] = false;
     }
@@ -26,21 +28,21 @@ if(isset($_POST['action'])){
 
 echo json_encode($datos);
 
-function agregar($_id, $cantidad){
+function agregar($_id, $cantidad, $mesa_id){
     $res = 0;
     if($_id > 0 && $cantidad > 0 && is_numeric(($cantidad))){
-        if(isset($_SESSION['carrito']['productos'][$_id])){
-            $_SESSION['carrito']['productos'][$_id] = $cantidad;
+        if(isset($_SESSION['carrito'][$mesa_id]['productos'][$_id])){
+            $_SESSION['carrito'][$mesa_id]['productos'][$_id] = $cantidad;
 
             $db = new Database();
             $db->conectarDB();
             $pdo = $db->getConexion();
 
-            $sentencia=$pdo->prepare("SELECT precio_app FROM PRODUCTOS WHERE producto_id = ? AND (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Rapido') AND status = 'Activo' LIMIT 1");
+            $sentencia=$pdo->prepare("SELECT precio_com FROM PRODUCTOS WHERE producto_id = ? AND (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Comedor') AND status = 'Activo' LIMIT 1");
              $sentencia->execute([$_id]);
             $row = $sentencia->fetch(PDO::FETCH_ASSOC);
-            $precio_app = $row['precio_app'];
-            $res = $cantidad * $precio_app;
+            $precio_com = $row['precio_com'];
+            $res = $cantidad * $precio_com;
 
             return $res;
         } else {
@@ -49,10 +51,10 @@ function agregar($_id, $cantidad){
     }
 }
 
-function eliminar($_id){
-    if($_id > 0){
-        if(isset($_SESSION['carrito']['productos'][$_id])){
-            unset($_SESSION['carrito']['productos'][$_id]);
+function eliminar($_id, $mesa_id){
+    if($_id > 0 && $mesa_id > 0){
+        if(isset($_SESSION['carrito'][$mesa_id]['productos'][$_id])){
+            unset($_SESSION['carrito'][$mesa_id]['productos'][$_id]);
             return true;
         }
     }

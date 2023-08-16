@@ -81,7 +81,7 @@ class Database
                 $tipo="client";
                 $hash = password_hash($contraseña, PASSWORD_DEFAULT);
 
-                $cadena = "insert into usuarios(nombre, apellido, user, tipo, correo, password) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash')";
+                $cadena = "INSERT INTO USUARIOS(nombre, apellido, user, tipo, correo, password) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash')";
                    
                 $resultado = $this->PDOLocal->query($cadena);
 
@@ -110,7 +110,7 @@ class Database
         {
 
             $pase = false;
-            $query = "select * from usuarios where user = '$usuario'";
+            $query = "SELECT * FROM USUARIOS WHERE user = '$usuario'";
             $consulta = $this->PDOLocal->query($query);
             $renglon=$consulta->fetch(PDO::FETCH_ASSOC);
 
