@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +56,6 @@
         {
             font-family: 'Lilita One', sans-serif;
             font-size: 30px;
-            color: white;
             
         }
         @media screen and (max-width: 576px) /*Pantalla pequeña*/
@@ -89,55 +87,74 @@
                 margin: auto;
             }
         }
-        
     </style>
-    <title>INICIA SESION</title>
+    <title>REGISTRARSE</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg barranav sticky-top">
+    <!--BARRA DE NAV 1-->
+    <nav class="navbar navbar-expand-lg barranav">
         <div class="container-fluid">
-            <a class="navbar-brand" style="color: white;" href="index.php">
-                <img src="../img/logo.png" alt="Logo" width="35" height="50">  CARNITAS&nbsp;EL&nbsp;CHAPERON
+            <a class="navbar-brand" href="validacionAdmin.php">
+                <img src="../img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
             </a>
+            <button class="navbar-toggler iniciarsesionnav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-10" style="color: white;">
+                <!--<li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>-->
+                <li class="nav-item">
+                <a class="nav-link" style="color: white;" href="administradores.php">Regresar</a>
+                </li>
+            </ul>
+            </div>
         </div>
     </nav>
-
     <div class="container" id="contenedor">
     <div class="formulario">
-        <br>
-        <h2 align="center">INICIAR SESION</h2>
-        <br>
+        <h2 align="center">REGISTRARSE</h2>
         <hr>
         <form action="" method="POST">
             <div class="mb-3">
-                <label class="control-label" for="username">Usuario</label>
-                <input type="text" name="username" placeholder="Escribe nombre de usuario" class="form-control" required>
+                <label class="control-label" for="nombre">Nombre</label>
+                <input type="text" name="nombre" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label class="control-label" for="pass">Contraseña</label>
-                <input type="password" name="pass" placeholder="Escribe la contraseña" class="form-control" required>
+                <label class="control-label" for="apellido">Apellido</label>
+                <input type="text" name="apellido" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="control-label" for="user">Nombre de usuario</label>
+                <input type="text" name="user" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="control-label" for="correo">Correo</label>
+                <input type="mail" name="correo" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="control-label" for="contras">Contraseña</label>
+                <input type="password" name="contras" class="form-control" required>
             </div>
             <div class="d-grid gap-2">
-                <button class="btn btn-lg boton" type="submit" name="inicio">Iniciar sesion</button>
+                <button class="btn btn-lg boton" type="submit" name="registro">Crear Cuenta</button>
             </div>
-            <br>
-            <p>¿No tienes una cuenta aun?<a href="registrarse.php" align="center" color="">Registrate</a></p>
-            <?php 
+            <?php
                 include '../class/database.php';
-                $db = new Database();
-                $db->conectarDB();
+                $db=new Database();
+                $db->ConectarDB();
 
                 extract($_POST);
 
-                if(isset($_POST['inicio']))
+                if(isset($_POST['registro']))
                 {
-                    $db->verifica($username,$pass);
+                    $db->ExisteAdmin($user,$contras);
                 }
                 $db->desconectarDB();
             ?>
         </form> 
-    </div>  
-    <br><br> 
+    </div>
     </div>
 </body>
 </html>

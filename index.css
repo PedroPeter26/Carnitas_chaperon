@@ -38,13 +38,20 @@ a.color
 a.color:hover
 {
     color: white;
+<<<<<<< Updated upstream
     font-size: 20px;
+=======
+>>>>>>> Stashed changes
 }
 @media screen and (max-width: 576px) /*Pantalla pequeña*/
 {
     .navbar-brand
     {
+<<<<<<< Updated upstream
         font-size: 26px;
+=======
+        font-size: 100%;
+>>>>>>> Stashed changes
     }
 }
 /*BOTÓN DE INICIAR SESIÓN DE LA BARRA DE NAV 1*/

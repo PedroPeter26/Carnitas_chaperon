@@ -34,6 +34,10 @@ $pdo = $db->getConexion();
             font-size: 16px;
         }
     </style>
+<<<<<<< Updated upstream
+=======
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-ZqK5f5JSMVRg8M8Ax3n3MCIyJTQUh4nCf2a0X+Hp6z1LyLvJ5m9h5n2mwVU6BvLE" crossorigin="anonymous"></script>
+>>>>>>> Stashed changes
     <?php include '../headadmin.php'; ?>
     <?php include '../footeradmin.php'; ?>
 </head>
@@ -44,6 +48,7 @@ $pdo = $db->getConexion();
     <div class="content-wrapper">
 
         <h2 class="p-4">Órdenes Online</h2>
+<<<<<<< Updated upstream
         <div class="container">
     <div class="row">
         <div class="col-4">
@@ -51,10 +56,48 @@ $pdo = $db->getConexion();
                 <div class="icon bg-warning"></div>
                 <div class="message">
                     Órdenes pendientes
+=======
+
+        <!--ACCORDION PARA LOS FILTROS-->
+        <div class="accordion accordion-flush mb-3 ms-3 me-3" id=" accordionFlushExample">
+            <!--ITEM 1-->
+            <div class="accordion-item">
+                <!--ENCABEZADO DEL PRIMER ITEM-->
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <span style="font-size: 18px;"> Buscar ordenes por usuario </span>
+                    </button>
+                </h2>
+                <!--CONTENIDO DEL PRIMER ITEM (FILTRO POR PRECIO)-->
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body" style="padding: 20px;">
+                        <!--FORM PARA BUSCAR USUARIOS POR USER-->
+                        <div class="container rounded-div pt-3 pb-3 pe-4 ps-4" style="background-color: #EFEDED;">
+                            <h3>Buscar órdenes </h3>
+                            <form action="ordenes_online.php" method="POST">
+                                <div class="row">
+                                    <div class="col-4 col-md-6 col-lg-6">
+                                        <label for="user" class="form-label">User: <small>(Solo se busca por user)</small> </label>
+                                        <input type="text" id="user" name="user" class="form-control" placeholder="Escribe el user del usuario...">
+                                    </div>
+                                    <div class="d-grid gap-2 col-4 col-md-3 col-lg-3 mt-auto" >
+                                        <input class="btn btn-dark col-12" type="submit" name="buscar" value="Buscar">
+                                    </div>
+                                    <div class="d-grid gap-2 col-4 col-md-3 col-lg-3 mt-auto">
+                                        <a href="usuarios.php">
+                                            <input type="submit" class="btn btn-dark col-12" name="borrar" id="borrar" value="Limpiar" onclick="setDefaultOption2()">
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+>>>>>>> Stashed changes
                 </div>
             </div>
         </div>
 
+<<<<<<< Updated upstream
         <div class="col-4">
             <div class="box ps-2 pb-4">
                 <div class="icon bg-info"></div>
@@ -74,12 +117,48 @@ $pdo = $db->getConexion();
         </div>
     </div>
 </div>
+=======
+
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="box ps-2 pb-4">
+                        <div class="icon bg-warning"></div>
+                        <div class="message">
+                            Órdenes pendientes
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="box ps-2 pb-4">
+                        <div class="icon bg-info"></div>
+                        <div class="message">
+                            Órdenes en proceso
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="box ps-2 pb-4">
+                        <div class="icon bg-success"></div>
+                        <div class="message">
+                            Órdenes finalizadas
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+>>>>>>> Stashed changes
 
 
         <div class="row mb-5">
 
             <!--CONSULTA A LA BD DE LOS CARDS-->
             <?php
+<<<<<<< Updated upstream
             $sql = $pdo->prepare("SELECT
                         ORDENES.orden_id AS ORDEN_ID,
                         USUARIOS.user AS CLIENTE,
@@ -92,6 +171,40 @@ $pdo = $db->getConexion();
                         GROUP BY ORDENES.orden_id
                         ORDER BY ORDENES.orden_id DESC;
                         ");
+=======
+            if (!empty($_POST['buscar'])) {
+                $userToSearch = $_POST['user'];
+
+                $sql = $pdo->prepare("SELECT
+                ORDENES.orden_id AS ORDEN_ID,
+                USUARIOS.user AS CLIENTE,
+                ORDENES.hora_inicio AS HORA_INICIO,
+                ORDENES.fecha AS FECHA, 
+                ORDENES.status as ESTADO /*Hasta aquí son datos del card*/
+                FROM ORDENES
+                INNER JOIN USUARIOS ON ORDENES.cliente = USUARIOS.user_id
+                WHERE ORDENES.tipo_orden = 1
+                AND user = :userToSearch
+                GROUP BY ORDENES.orden_id
+                ORDER BY ORDENES.orden_id DESC;
+                ");
+                $sql->bindParam(':userToSearch', $userToSearch);
+            } else {
+                $sql = $pdo->prepare("SELECT
+                ORDENES.orden_id AS ORDEN_ID,
+                USUARIOS.user AS CLIENTE,
+                ORDENES.hora_inicio AS HORA_INICIO,
+                ORDENES.fecha AS FECHA, 
+                ORDENES.status as ESTADO /*Hasta aquí son datos del card*/
+                FROM ORDENES
+                INNER JOIN USUARIOS ON ORDENES.cliente = USUARIOS.user_id
+                WHERE ORDENES.tipo_orden = 1
+                GROUP BY ORDENES.orden_id
+                ORDER BY ORDENES.orden_id DESC;
+                ");
+            }
+
+>>>>>>> Stashed changes
             $sql->execute();
             $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 

@@ -1,8 +1,13 @@
+<<<<<<< Updated upstream
   <!-- Navbar -->
 <<<<<<< Updated upstream
   <nav class="main-header navbar navbar-expand navbar-dark">
 =======
   <nav class="main-header navbar navbar-expand navbar-dark sticky-top">
+>>>>>>> Stashed changes
+=======
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand navbar-dark sticky-top">
 >>>>>>> Stashed changes
     <!-- Left navbar links-->
     <ul class="navbar-nav">
@@ -12,12 +17,61 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="../../indexadmin.php" class="nav-link">Home</a>
       </li>
+<<<<<<< Updated upstream
+=======
+      <div class="dropdown m-1">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Notificaciones
+        </button>
+        <div class="dropdown-menu" aria-labelledby="notificationDropdown" id="table">
+          <?php
+          // Configuración de la base de datos
+          $db = new database();
+          $db->conectarDB();
+          $pdo = $db->getConexion();
+          // Configuración de la base de datos
+          try {
+            $sql = "SELECT notification_dataadmin.description as dd FROM notification_dataadmin join notification_data on notification_dataadmin.noti = notification_data.id where notification_data.status = 'Proceso' ORDER BY noti desc limit 1";
+            $sql = $pdo->prepare($sql);
+            $sql->execute();
+            $notifications = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+            $sql1 = "SELECT noti, user_id, nombre as 'n', orden_id as 'o' from usuarios join ordenes on usuarios.user_id = ordenes.cliente 
+    join notification_data on notification_data.orden = ordenes.orden_id join notification_dataadmin on notification_dataadmin.noti = notification_data.id
+    where notification_data.status = 'Proceso' order by noti desc limit 3";
+            $sql1 = $pdo->prepare($sql1);
+            $sql1->execute();
+            $users = $sql1->fetchAll(PDO::FETCH_ASSOC);
+
+            if ($notifications) {
+              foreach ($notifications as $notification) {
+                foreach ($users as $user) {
+                  echo '<a class="dropdown-item">' . $notification['dd'] . ' Usuario: ' . $user['n'] . '. Orden: ' . $user['o'] . '</a>';
+                }
+              }
+            } else {
+              echo '<a class="dropdown-item">No hay nuevas notificaciones.</a>';
+            }
+          } catch (PDOException $e) {
+            echo '<a class="dropdown-item text-danger">Error: ' . $e->getMessage() . '</a>';
+          }
+
+          $db->desconectarDB();
+          ?>
+        </div>
+      </div>
+
+>>>>>>> Stashed changes
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
 
+<<<<<<< Updated upstream
       <!-- Notifications Dropdown Menu -->
+=======
+      <!-- Notifications Dropdown Menu 
+>>>>>>> Stashed changes
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
@@ -43,6 +97,7 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
+<<<<<<< Updated upstream
       </li>
     </ul>
 <<<<<<< Updated upstream
@@ -131,6 +186,36 @@
 >>>>>>> Stashed changes
       <img src="../../img\logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light" style="color: #864000;">Carnitas&nbsp;el&nbsp;Chaperon</span>
+=======
+      </li> -->
+    </ul>
+    <!-- notis y cerrar sesión-->
+    <div id="newNotification" class="alert alert-success m-3 p-3 position-fixed" style="display: none; top: 0; right: 0;">
+      New notification received!
+    </div>
+    <a type="button" class="btn btn-block col-2 btn-dark" href="../class/cerrarsesion.php">Cerrar sesión</a>
+  </nav>
+  <!-- /.navbar -->
+  <!--<script type="text/javascript">
+    function tiempoReal() {
+      var tabla = $.ajax({
+        url: '../scripts/notifications.php',
+        dataType: 'text',
+        async: false
+      }).responseText;
+
+      document.getElementById("table").innerHTML = tabla;
+    }
+    setInterval(tiempoReal, 1000);
+  </script>-->
+
+
+  <aside class="main-sidebar position-fixed elevation-4" style="background-color: #ff7a00;">
+
+    <a href="../../indexadmin.php" class="brand-link">
+      <img src="../../img\logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light" style="color: black;">Carnitas&nbsp;el&nbsp;Chaperon</span>
+>>>>>>> Stashed changes
     </a>
 
     <div class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition">
@@ -147,21 +232,36 @@
 
             <div class="sidebar">
               <!-- Sidebar user panel (optional) -->
+<<<<<<< Updated upstream
               <hr class="border-1 opacity-100" style="background-color: #864000; width:auto">
+=======
+              <hr class="border-1 opacity-100" style="background-color: black; width:auto">
+>>>>>>> Stashed changes
               <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                   <img src="../../dist\img\user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="info">
+<<<<<<< Updated upstream
                   <a href="#" class="d-block" style="color: #864000;">Administrador</a>
                 </div>
               </div>
               <hr class="border-1 opacity-100" style="background-color: #864000; width:auto">
+=======
+                  <a href="#" class="d-block" style="color: black;">Administrador</a>
+                </div>
+              </div>
+              <hr class="border-1 opacity-100" style="background-color: black; width:auto">
+>>>>>>> Stashed changes
 
               <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   <li class="nav-item">
+<<<<<<< Updated upstream
                     <a href="#" class="nav-link" style="color: #864000;">
+=======
+                    <a href="#" class="nav-link" style="color: black;">
+>>>>>>> Stashed changes
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Reportes
@@ -171,9 +271,13 @@
                     <ul class="nav nav-treeview" style="display: none;">
                       <li class="nav-item">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <a href="reportes_diarios.php" class="nav-link" style="color: #864000;">
 =======
                         <a href="../../views/reportes/reportes_diarios.php" class="nav-link" style="color: #864000;">
+>>>>>>> Stashed changes
+=======
+                        <a href="../../views/reportes/reportes_diarios.php" class="nav-link" style="color: black;">
 >>>>>>> Stashed changes
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reporte diario</p>
@@ -181,9 +285,13 @@
                       </li>
                       <li class="nav-item">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <a href="reportes_semanales.php" class="nav-link" style="color: #864000;">
 =======
                         <a href="../../views/reportes/reportes_semanales.php" class="nav-link" style="color: #864000;">
+>>>>>>> Stashed changes
+=======
+                        <a href="../../views/reportes/reportes_semanales.php" class="nav-link" style="color: black;">
 >>>>>>> Stashed changes
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes semanales</p>
@@ -191,9 +299,13 @@
                       </li>
                       <li class="nav-item">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <a href="reportes_mensuales.php" class="nav-link" style="color: #864000;">
 =======
                         <a href="../../views/reportes/reportes_mensuales.php" class="nav-link" style="color: #864000;">
+>>>>>>> Stashed changes
+=======
+                        <a href="../../views/reportes/reportes_mensuales.php" class="nav-link" style="color: black;">
 >>>>>>> Stashed changes
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes mensuales</p>
@@ -201,9 +313,13 @@
                       </li>
                       <li class="nav-item">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <a href="reportes_anuales.php" class="nav-link" style="color: #864000;">
 =======
                         <a href="../../views/reportes/reportes_anuales.php" class="nav-link" style="color: #864000;">
+>>>>>>> Stashed changes
+=======
+                        <a href="../../views/reportes/reportes_anuales.php" class="nav-link" style="color: black;">
 >>>>>>> Stashed changes
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes anuales</p>
@@ -211,9 +327,13 @@
                       </li>
                       <li class="nav-item">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <a href="reportes_segun_fecha.php" class="nav-link" style="color: #864000;">
 =======
                         <a href="../../views/reportes/reportes_segun_fecha.php" class="nav-link" style="color: #864000;">
+>>>>>>> Stashed changes
+=======
+                        <a href="../../views/reportes/reportes_segun_fecha.php" class="nav-link" style="color: black;">
 >>>>>>> Stashed changes
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes por rango de fechas</p>
@@ -221,9 +341,13 @@
                       </li>
                       <li class="nav-item">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <a href="reportes_segun_tipo_comida.php" class="nav-link" style="color: #864000;">
 =======
                         <a href="../../views/reportes/reportes_segun_tipo_comida.php" class="nav-link" style="color: #864000;">
+>>>>>>> Stashed changes
+=======
+                        <a href="../../views/reportes/reportes_segun_tipo_comida.php" class="nav-link" style="color: black;">
 >>>>>>> Stashed changes
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes por el tipo de comida</p>
@@ -231,9 +355,13 @@
                       </li>
                       <li class="nav-item">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <a href="reportes_segun_tipo_comida_fechas.php" class="nav-link" style="color: #864000;">
 =======
                         <a href="../../views/reportes/reportes_segun_tipo_comida_fechas.php" class="nav-link" style="color: #864000;">
+>>>>>>> Stashed changes
+=======
+                        <a href="../../views/reportes/reportes_segun_tipo_comida_fechas.php" class="nav-link" style="color: black;">
 >>>>>>> Stashed changes
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes por tipo de comida por rango de fecha</p>
@@ -241,9 +369,13 @@
                       </li>
                       <li class="nav-item">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <a href="reportes_segun_producto.php" class="nav-link" style="color: #864000;">
 =======
                         <a href="../../views/reportes/reportes_segun_producto.php" class="nav-link" style="color: #864000;">
+>>>>>>> Stashed changes
+=======
+                        <a href="../../views/reportes/reportes_segun_producto.php" class="nav-link" style="color: black;">
 >>>>>>> Stashed changes
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes según producto</p>
@@ -251,9 +383,13 @@
                       </li>
                       <li class="nav-item">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <a href="reportes_metodo_pago.php" class="nav-link" style="color: #864000;">
 =======
                         <a href="../../views/reportes/reportes_metodo_pago.php" class="nav-link" style="color: #864000;">
+>>>>>>> Stashed changes
+=======
+                        <a href="../../views/reportes/reportes_metodo_pago.php" class="nav-link" style="color: black;">
 >>>>>>> Stashed changes
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes por método de pago</p>
@@ -261,9 +397,13 @@
                       </li>
                       <li class="nav-item">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <a href="reportes_cantidad_productos.php" class="nav-link" style="color: #864000;">
 =======
                         <a href="../../views/reportes/reportes_cantidad_productos.php" class="nav-link" style="color: #864000;">
+>>>>>>> Stashed changes
+=======
+                        <a href="../../views/reportes/reportes_cantidad_productos.php" class="nav-link" style="color: black;">
 >>>>>>> Stashed changes
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes de cantidad de productos</p>
@@ -273,9 +413,13 @@
                   </li>
                   <li class="nav-item">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     <a href="#" class="nav-link" style="color: #864000;">
 =======
                     <a href="" class="nav-link" style="color: #864000;">
+>>>>>>> Stashed changes
+=======
+                    <a href="" class="nav-link" style="color: black;">
 >>>>>>> Stashed changes
                       <i class="nav-icon fas fa-th"></i>
                       <p>
@@ -286,9 +430,13 @@
                   </li>
                   <li class="nav-item">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     <a href="../../html/productos_pllevar.php" class="nav-link" style="color: #864000;">
 =======
                     <a href="" class="nav-link" style="color: #864000;">
+>>>>>>> Stashed changes
+=======
+                    <a href="" class="nav-link" style="color: black;">
 >>>>>>> Stashed changes
                       <i class="nav-icon fas fa-th"></i>
                       <p>
@@ -299,9 +447,13 @@
                   </li>
                   <li class="nav-item">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     <a href="#" class="nav-link" style="color: #864000;">
 =======
                     <a href="../../views/ordenes/ordenes_online.php" class="nav-link" style="color: #864000;">
+>>>>>>> Stashed changes
+=======
+                    <a href="../../views/ordenes/ordenes_online.php" class="nav-link" style="color: black;">
 >>>>>>> Stashed changes
                       <i class="nav-icon fas fa-th"></i>
                       <p class="ms-auto">
@@ -311,7 +463,11 @@
                     </a>
                   </li>
                   <li class="nav-item">
+<<<<<<< Updated upstream
                     <a href="#" class="nav-link" style="color: #864000;">
+=======
+                    <a href="#" class="nav-link" style="color: black;">
+>>>>>>> Stashed changes
                       <i class="nav-icon fas fa-circle"></i>
                       <p>
                         Productos
@@ -320,19 +476,31 @@
                     </a>
                     <ul class="nav nav-treeview" style="display: none;">
                       <li class="nav-item">
+<<<<<<< Updated upstream
                         <a href="#" class="nav-link" style="color: #864000;">
+=======
+                        <a href="#" class="nav-link" style="color: black;">
+>>>>>>> Stashed changes
                           <i class="far fa-circle nav-icon"></i>
                           <p>Añadir productos</p>
                         </a>
                       </li>
                       <li class="nav-item">
+<<<<<<< Updated upstream
                         <a href="#" class="nav-link" style="color: #864000;">
+=======
+                        <a href="#" class="nav-link" style="color: black;">
+>>>>>>> Stashed changes
                           <i class="far fa-circle nav-icon"></i>
                           <p>Editar productos</p>
                         </a>
                       </li>
                       <li class="nav-item">
+<<<<<<< Updated upstream
                         <a href="#" class="nav-link" style="color: #864000;">
+=======
+                        <a href="#" class="nav-link" style="color: black;">
+>>>>>>> Stashed changes
                           <i class="far fa-circle nav-icon"></i>
                           <p>Eliminar productos</p>
                         </a>

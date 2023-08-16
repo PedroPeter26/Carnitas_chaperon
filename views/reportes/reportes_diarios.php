@@ -1,5 +1,8 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 <?php
 require '../../class/config.php';
 include '../../class/database.php';
@@ -7,6 +10,9 @@ $db = new database();
 $db->conectarDB();
 $pdo = $db->getConexion();
 ?>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
@@ -71,10 +77,13 @@ $pdo = $db->getConexion();
             <?php
             if (!empty($_POST['buscar'])) {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 //guardamos en las siguientes variables los datos que se necesitan para hacer la conexion a la bd
                 include '../../class/database.php';
                 $db = new Database();
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
                 try {
@@ -82,9 +91,12 @@ $pdo = $db->getConexion();
                     {
                         $fecha_o = $_POST['inicio'];
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         //con el obj $conn hacemos la conexion a la bd donde le pasamos las variables que antes establecimos
                         $db->conectarDB();
                         $pdo = $db->getConexion();
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
@@ -94,9 +106,15 @@ $pdo = $db->getConexion();
                             // Dependiendo del valor seleccionado en el select, llamamos al procedimiento almacenado correspondiente
                             switch ($tipoOrden) {
                                 case 'online':
+<<<<<<< Updated upstream
                                     $sql = "CALL REPORTE_DINERO_DIARIO_ONLINE('$fecha_o')";
                                     $stmt = $pdo->query($sql);
                                     $num = $stmt->rowCount();
+=======
+                                    $sql = $pdo->prepare("CALL REPORTE_DINERO_DIARIO_ONLINE('$fecha_o')");
+                                    $sql->execute();
+                                    $num = $sql->rowCount();
+>>>>>>> Stashed changes
 
                                     if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
                                     {
@@ -119,7 +137,11 @@ $pdo = $db->getConexion();
                                         $totalDiarioOnline = 0;
 
                                         //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
+<<<<<<< Updated upstream
                                         while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)) :
+=======
+                                        while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
+>>>>>>> Stashed changes
 
                                             echo "<tr>";
                                             echo "<td  style='width: 20%;'>" . $registro['CATEGORIA'] . "</td>";
@@ -149,9 +171,15 @@ $pdo = $db->getConexion();
 
                                     break;
                                 case 'comedor':
+<<<<<<< Updated upstream
                                     $sql = "CALL REPORTE_DINERO_DIARIO_COMEDOR('$fecha_o')";
                                     $stmt = $pdo->query($sql);
                                     $num = $stmt->rowCount();
+=======
+                                    $sql = $pdo->prepare("CALL REPORTE_DINERO_DIARIO_COMEDOR('$fecha_o')");
+                                    $sql->execute();
+                                    $num = $sql->rowCount();
+>>>>>>> Stashed changes
 
                                     if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
                                     {
@@ -174,7 +202,11 @@ $pdo = $db->getConexion();
                                         $totalDiarioComedor = 0;
 
                                         //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
+<<<<<<< Updated upstream
                                         while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)) :
+=======
+                                        while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
+>>>>>>> Stashed changes
 
                                             echo "<tr>";
                                             echo "<td style='width: 20%;'>" . $registro['CATEGORIA'] . "</td>";
@@ -204,9 +236,15 @@ $pdo = $db->getConexion();
 
                                     break;
                                 case 'pllevar':
+<<<<<<< Updated upstream
                                     $sql = "CALL REPORTE_DINERO_DIARIO_PLLEVAR('$fecha_o')";
                                     $stmt = $pdo->query($sql);
                                     $num = $stmt->rowCount();
+=======
+                                    $sql = $pdo->prepare("CALL REPORTE_DINERO_DIARIO_PLLEVAR('$fecha_o')");
+                                    $sql->execute();
+                                    $num = $sql->rowCount();
+>>>>>>> Stashed changes
 
                                     if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
                                     {
@@ -229,7 +267,11 @@ $pdo = $db->getConexion();
                                         $totalDiarioPllevar = 0;
 
                                         //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
+<<<<<<< Updated upstream
                                         while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)) :
+=======
+                                        while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
+>>>>>>> Stashed changes
 
                                             echo "<tr>";
                                             echo "<td style='width: 20%;'>" . $registro['CATEGORIA'] . "</td>";
@@ -259,9 +301,15 @@ $pdo = $db->getConexion();
 
                                     break;
                                 case 'todas':
+<<<<<<< Updated upstream
                                     $sql = "CALL REPORTE_DINERO_DIARIO_TODOS('$fecha_o')";
                                     $stmt = $pdo->query($sql);
                                     $num = $stmt->rowCount();
+=======
+                                    $sql = $pdo->prepare("CALL REPORTE_DINERO_DIARIO_TODOS('$fecha_o')");
+                                    $sql->execute();
+                                    $num = $sql->rowCount();
+>>>>>>> Stashed changes
 
 
                                     if ($num > 0) //si el numero de registros es mayor a 0, entonces mostramos la tabla
@@ -286,7 +334,11 @@ $pdo = $db->getConexion();
                                         $totalDiarioTodos = 0;
 
                                         //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
+<<<<<<< Updated upstream
                                         while ($registro = $stmt->fetch(PDO::FETCH_ASSOC)) :
+=======
+                                        while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
+>>>>>>> Stashed changes
 
                                             echo "<tr>";
                                             echo "<td style='width: 20%;'>" . $registro['CATEGORIA'] . "</td>"; 

@@ -1,4 +1,5 @@
 <?php
+<<<<<<< Updated upstream
 <<<<<<<< Updated upstream:html/checkout_pllevar.php
     require '../class/config.php';
     require '../class/database.php';
@@ -6,6 +7,10 @@
     require '../../class/config.php';
     require '../../class/database.php';
 >>>>>>>> Stashed changes:views/ordenes/checkout_pllevar.php
+=======
+    require '../../class/config.php';
+    require '../../class/database.php';
+>>>>>>> Stashed changes
     $db = new Database();
     $db->conectarDB();
     $pdo = $db->getConexion();
@@ -20,7 +25,11 @@
     {
         foreach ($productos as $clave => $cantidad)
         {
+<<<<<<< Updated upstream
             $sql = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id=?  and status='Activo'");
+=======
+            $sql = $pdo->prepare("select producto_id, nombre, precio_app, $cantidad as cantidad from productos where producto_id=?  and status='Activo'");
+>>>>>>> Stashed changes
             $sql->execute([$clave]);
             $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
         }

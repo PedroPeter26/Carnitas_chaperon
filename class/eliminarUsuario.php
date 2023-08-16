@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <?php
 $id = $_GET['id'];
 include 'database.php';
@@ -24,6 +25,8 @@ if(!$resultado)
 
 header("Location: ../views/administradores.php");
 =======
+=======
+>>>>>>> Stashed changes
 <?php
 session_start();
 $id = $_GET['id'];
@@ -50,5 +53,8 @@ if(!$resultado)
 
 session_destroy();
 header("Location: ../index.php");
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 ?>

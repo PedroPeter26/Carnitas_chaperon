@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <?php
 require 'config.php';
 include 'database.php';
@@ -59,6 +60,8 @@ if (is_array($datos)) {
         header("refresh: 2; ../views/ordenar.php");
     }
 =======
+=======
+>>>>>>> Stashed changes
 <?php
 require 'config.php';
 include 'database.php';
@@ -111,5 +114,8 @@ if (is_array($datos))
         echo "<div class='alert alert-success'>Compra exitosa!</div>";
         header("refresh: 2; ../views/ordenar.php");
     }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }

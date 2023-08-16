@@ -1,4 +1,5 @@
 <?php
+<<<<<<< Updated upstream
 <<<<<<<< Updated upstream:html/pago_Pllevar.php
     require '../class/config.php';
     require '../class/database.php';
@@ -6,13 +7,21 @@
     require '../../class/config.php';
     require '../../class/database.php';
 >>>>>>>> Stashed changes:views/ordenes/pago_Pllevar.php
+=======
+    require '../../class/config.php';
+    require '../../class/database.php';
+>>>>>>> Stashed changes
     $db = new Database();
     $db->conectarDB();
     $pdo = $db->getConexion();
 
     $productos = isset($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
 
+<<<<<<< Updated upstream
     print_r($_SESSION);
+=======
+    //print_r($_SESSION);
+>>>>>>> Stashed changes
 
     $lista_carrito = array();
 
@@ -20,7 +29,11 @@
     {
         foreach ($productos as $clave => $cantidad)
         {
+<<<<<<< Updated upstream
             $sql = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id=?  and status='Activo'");
+=======
+            $sql = $pdo->prepare("select producto_id, nombre, precio_app, $cantidad as cantidad from productos where producto_id=?  and status='Activo'");
+>>>>>>> Stashed changes
             $sql->execute([$clave]);
             $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
         }
@@ -54,6 +67,7 @@
         {
             background-color: #D44000;
             font-family: 'Lilita One', sans-serif;
+<<<<<<< Updated upstream
 <<<<<<<< Updated upstream:html/pago_Pllevar.php
             color: white;
         }
@@ -92,6 +106,8 @@
         {
 ========
 >>>>>>>> Stashed changes:views/ordenes/pago_Pllevar.php
+=======
+>>>>>>> Stashed changes
             width: 100%;
         }
     </style>

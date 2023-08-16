@@ -28,8 +28,11 @@
 <script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <script src="../../dist/js/adminlte.js"></script>
 =======
+=======
+>>>>>>> Stashed changes
 <script src="../../dist/js/adminlte.js"></script>
 
 <script>
@@ -55,5 +58,9 @@
         fetchNotifications();
         setInterval(fetchNotifications, 5000); // Fetch notifications every 5 seconds
     });
+<<<<<<< Updated upstream
+</script>
+>>>>>>> Stashed changes
+=======
 </script>
 >>>>>>> Stashed changes

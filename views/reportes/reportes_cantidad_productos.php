@@ -1,5 +1,8 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 <?PHP
 require '../../class/config.php';
 include '../../class/database.php';
@@ -7,6 +10,9 @@ $db = new database();
 $db->conectarDB();
 $pdo = $db->getConexion();
 ?>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +42,7 @@ $pdo = $db->getConexion();
 
             <!--FORMULARIO-->
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <div class="container">
                 <form class="row mb-3" method="post" id="reporteForm">
                         <h4>Ingresa los datos</h4>
@@ -43,12 +50,17 @@ $pdo = $db->getConexion();
                     <div class="col-6 col-md-6 col-lg-6">
                         <label for="inicio" class="form-label">Fecha:</label>
 =======
+=======
+>>>>>>> Stashed changes
             <div class="container rounded-div pt-3 pb-3 pe-4 ps-4 mb-5" style="background-color: #EFEDED;">
             <h3>Ingresa los datos</h3>
                 <form class="row mb-3" method="post" id="reporteForm">
                     <br>
                     <div class="col-6 col-md-6 col-lg-6 mb-3">
                         <label for="inicio" class="form-label">Fecha inicial:</label>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                         <input type="date" name="inicio" class="form-control" id="inicio" value="<?php echo isset($_POST['inicio']) ? $_POST['inicio'] : ''; ?>" required>
                     </div>
@@ -57,6 +69,7 @@ $pdo = $db->getConexion();
                         <label for="orden" class="form-label">Orden:</label>
                         <select class="form-select" name="orden" id="orden" required>
                             <option disabled selected>Selecciona una opción</option>
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                             <option value="online" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'online') echo 'selected'; ?> >Online</option>
                             <option value="comedor" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'comedor') echo 'selected'; ?> >Comedor</option>
@@ -72,6 +85,8 @@ $pdo = $db->getConexion();
                     <div class="col-12 d-grid gap-2 mt-3">
                         <input class="btn btn-dark" type="submit" value="Borrar datos" name="borrar" onclick="setDefaultOption()">
 =======
+=======
+>>>>>>> Stashed changes
                             <option value="online" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'online') echo 'selected'; ?>>Online</option>
                             <option value="comedor" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'comedor') echo 'selected'; ?>>Comedor</option>
                             <option value="pllevar" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'pllevar') echo 'selected'; ?>>Para llevar</option>
@@ -85,6 +100,9 @@ $pdo = $db->getConexion();
 
                     <div class="col-6 d-grid gap-2 mt-3">
                         <input class="btn btn-dark" type="submit" value="Borrar datos" name="borrar" onclick="setDefaultOption(); setDefaultOption2()">
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                     </div>
 
@@ -98,13 +116,19 @@ $pdo = $db->getConexion();
                 {
                     //guardamos en las siguientes variables los datos que se necesitan para hacer la conexion a la bd
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     include '../../class/database.php';
                     $db = new Database();
 =======
+=======
+>>>>>>> Stashed changes
                     $host="localhost";
                     $dbname="bdcarnitaschaperon";
                     $username="root";
                     $password="";
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                         
                     try
@@ -115,16 +139,22 @@ $pdo = $db->getConexion();
                             $orden = $_POST['orden'];
                             //con el obj $conn hacemos la conexion a la bd donde le pasamos las variables que antes establecimos
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                             $db->conectarDB();
                             $pdo = $db->getConexion();
 
                             $sql = "CALL PRODUCTO_VENDIDOS_DIARIO('$orden', '$fecha_o')";
                             $stmt = $pdo->query($sql);
 =======
+=======
+>>>>>>> Stashed changes
                             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
                             $sql = "CALL PRODUCTO_VENDIDOS_DIARIO('$orden', '$fecha_o')";
                             $stmt = $conn->query($sql);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                             $num= $stmt->rowCount();
 

@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <?php 
 require 'config.php';
 require 'database.php';
@@ -82,6 +83,8 @@ function eliminar($id)
     }
 }
 =======
+=======
+>>>>>>> Stashed changes
 <?php 
 require 'config.php';
 require 'database.php';
@@ -164,5 +167,8 @@ function eliminar($id)
         }
     }
 }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 ?>

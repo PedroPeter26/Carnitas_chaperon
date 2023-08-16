@@ -1,5 +1,8 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 <?PHP
 require '../../class/config.php';
 include '../../class/database.php';
@@ -7,6 +10,9 @@ $db = new database();
 $db->conectarDB();
 $pdo = $db->getConexion();
 ?>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
@@ -36,9 +42,15 @@ $pdo = $db->getConexion();
 
             <!--FORMULARIO-->
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <div class="container">
                 <form class="row mb-3" method="post" id="reporteForm">
                     <h4>Ingresa los datos</h4>
+=======
+            <div class="container rounded-div pt-3 pb-3 pe-4 ps-4 mb-5" style="background-color: #EFEDED;">
+            <h3>Ingresa los datos</h3>
+                <form class="row mb-3" method="post" id="reporteForm">
+>>>>>>> Stashed changes
 =======
             <div class="container rounded-div pt-3 pb-3 pe-4 ps-4 mb-5" style="background-color: #EFEDED;">
             <h3>Ingresa los datos</h3>
@@ -69,6 +81,7 @@ $pdo = $db->getConexion();
                         <select class="form-select" name="orden" id="orden" required>
                             <option disabled selected>Selecciona una opción</option>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                             <option value="online" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'online') echo 'selected'; ?> >Online</option>
                             <option value="comedor" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'comedor') echo 'selected'; ?> >Comedor</option>
                             <option value="pllevar" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'pllevar') echo 'selected'; ?> >Para llevar</option>
@@ -82,6 +95,8 @@ $pdo = $db->getConexion();
 
                     <div class="col-12 d-grid gap-2 mt-3">
 =======
+=======
+>>>>>>> Stashed changes
                             <option value="online" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'online') echo 'selected'; ?>>Online</option>
                             <option value="comedor" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'comedor') echo 'selected'; ?>>Comedor</option>
                             <option value="pllevar" <?php if (isset($_POST['orden']) && $_POST['orden'] == 'pllevar') echo 'selected'; ?>>Para llevar</option>
@@ -94,6 +109,9 @@ $pdo = $db->getConexion();
                     </div>
 
                     <div class="col-6 d-grid gap-2 mt-3">
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                         <input class="btn btn-dark" type="submit" value="Borrar datos" name="borrar" onclick="setDefaultOption(); setDefaultOption2()">
                     </div>
@@ -101,7 +119,11 @@ $pdo = $db->getConexion();
                 </form>
             </div>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+            
+>>>>>>> Stashed changes
 =======
             
 >>>>>>> Stashed changes
@@ -112,13 +134,19 @@ $pdo = $db->getConexion();
                 {
                     //guardamos en las siguientes variables los datos que se necesitan para hacer la conexion a la bd
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     include '../../class/database.php';
                     $db = new Database();
 =======
+=======
+>>>>>>> Stashed changes
                     $host="localhost";
                     $dbname="bdcarnitaschaperon";
                     $username="root";
                     $password="";
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                         
                     try
@@ -130,8 +158,12 @@ $pdo = $db->getConexion();
                             $pago = $_POST['pago'];
                             //con el obj $conn hacemos la conexion a la bd donde le pasamos las variables que antes establecimos
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                             $db->conectarDB();
                             $pdo = $db->getConexion();
+=======
+                            $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+>>>>>>> Stashed changes
 =======
                             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 >>>>>>> Stashed changes
@@ -146,7 +178,11 @@ $pdo = $db->getConexion();
                                     case 'online':
                                         $sql = "CALL REPORTE_FILTRO_METODO_DE_PAGO_ONLINE('$fecha_i', '$fecha_f', '$pago')";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                                         $stmt = $pdo->query($sql);
+=======
+                                        $stmt = $conn->query($sql);
+>>>>>>> Stashed changes
 =======
                                         $stmt = $conn->query($sql);
 >>>>>>> Stashed changes
@@ -209,7 +245,11 @@ $pdo = $db->getConexion();
                                     case 'comedor':
                                         $sql = "CALL REPORTE_FILTRO_METODO_DE_PAGO_COMEDOR('$fecha_i', '$fecha_f', '$pago')";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                                         $stmt = $pdo->query($sql);
+=======
+                                        $stmt = $conn->query($sql);
+>>>>>>> Stashed changes
 =======
                                         $stmt = $conn->query($sql);
 >>>>>>> Stashed changes
@@ -272,7 +312,11 @@ $pdo = $db->getConexion();
                                     case 'pllevar':
                                         $sql = "CALL REPORTE_FILTRO_METODO_DE_PAGO_PLLEVAR('$fecha_i', '$fecha_f', '$pago')";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                                         $stmt = $pdo->query($sql);
+=======
+                                        $stmt = $conn->query($sql);
+>>>>>>> Stashed changes
 =======
                                         $stmt = $conn->query($sql);
 >>>>>>> Stashed changes
@@ -335,7 +379,11 @@ $pdo = $db->getConexion();
                                     case 'todas':
                                         $sql = "CALL REPORTE_FILTRO_METODO_DE_PAGO_TODAS('$fecha_i', '$fecha_f', '$pago')";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                                         $stmt = $pdo->query($sql);
+=======
+                                        $stmt = $conn->query($sql);
+>>>>>>> Stashed changes
 =======
                                         $stmt = $conn->query($sql);
 >>>>>>> Stashed changes
