@@ -78,12 +78,19 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="indexadmin.php" class="nav-link">Home</a>
       </li>
+      <div class="dropdown m-1">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Notificaciones
+        </button>
+        <div class="dropdown-menu" aria-labelledby="notificationDropdown" id="table">
+        </div>
+      </div>
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
 
-      <!-- Notifications Dropdown Menu -->
+      <!-- Notifications Dropdown Menu
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
@@ -109,18 +116,35 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
-      </li>
+      </li> -->
     </ul>
+    <!-- notis y cerrar sesión-->
+
+    <div id="newNotification" class="alert alert-success m-3 p-3 position-fixed" style="display: none; top: 0; left: 0;">
+      Nueva orden recibida!
+    </div>
     <button type="button" class="btn btn-block col-2 btn-dark">Cerrar sesión</button>
   </nav>
   <!-- /.navbar -->
+  <script type="text/javascript">
+    function tiempoReal() {
+      var tabla = $.ajax({
+        url: 'scripts/notifications.php',
+        dataType: 'text',
+        async: false
+      }).responseText;
+
+      document.getElementById("table").innerHTML = tabla;
+    }
+    setInterval(tiempoReal, 1000);
+  </script>
 
   <!-- Main Sidebar Container-->
   <aside class="main-sidebar elevation-4 position-fixed" style="background-color: #ff7a00;">
 
-    <a href="indexadmin.php" class="brand-link">
+    <a href="indexadmin.php" class="brand-link mt-2">
       <img src="img/logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light" style="color: #864000;">Carnitas&nbsp;el&nbsp;Chaperon</span>
+      <span class="brand-text font-weight-light" style="color: black;"> <b>Carnitas&nbsp;el&nbsp;Chaperon</b></span>
     </a>
 
     <div class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition">
@@ -137,21 +161,21 @@
 
             <div class="sidebar">
               <!-- Sidebar user panel (optional) -->
-              <hr class="border-1 opacity-100" style="background-color: #864000; width:auto">
+              <hr class="border-1 opacity-100" style="background-color: black; width:auto">
               <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                   <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="info">
-                  <a href="#" class="d-block" style="color: #864000;">Administrador</a>
+                  <a href="#" class="d-block" style="color: black;">Administrador</a>
                 </div>
               </div>
-              <hr class="border-1 opacity-100" style="background-color: #864000; width:auto">
+              <hr class="border-1 opacity-100" style="background-color: black; width:auto">
 
               <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   <li class="nav-item">
-                    <a href="#" class="nav-link" style="color: #864000;">
+                    <a href="#" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Reportes
@@ -160,61 +184,55 @@
                     </a>
                     <ul class="nav nav-treeview" style="display: none;">
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_diarios.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_diarios.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reporte diario</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_semanales.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_semanales.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reporte semanal</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_mensuales.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_mensuales.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes mensuales</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_anuales.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_anuales.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes anuales</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_segun_fecha.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_segun_fecha.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes por rango de fechas</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_segun_tipo_comida.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_segun_tipo_comida_fechas.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes por el tipo de comida</p>
+                          <p>Reportes por tipo de comida</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_segun_tipo_comida_fechas.php" class="nav-link" style="color: #864000;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes por tipo de comida por rango de fecha</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="views/reportes/reportes_segun_producto.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_segun_producto.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes según producto</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_metodo_pago.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_metodo_pago.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes por método de pago</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="views/reportes/reportes_cantidad_productos.php" class="nav-link" style="color: #864000;">
+                        <a href="views/reportes/reportes_cantidad_productos.php" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Reportes de cantidad de productos</p>
                         </a>
@@ -222,7 +240,7 @@
                     </ul>
                   </li>
                   <li class="nav-item">
-                    <a href="" class="nav-link" style="color: #864000;">
+                    <a href="" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes del comedor
@@ -231,7 +249,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="" class="nav-link" style="color: #864000;">
+                    <a href="" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes para llevar
@@ -240,7 +258,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="" class="nav-link" style="color: #864000;">
+                    <a href="" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-th"></i>
                       <p class="ms-auto">
                         Órdenes online
@@ -249,7 +267,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link" style="color: #864000;">
+                    <a href="#" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-circle"></i>
                       <p>
                         Productos
@@ -258,19 +276,19 @@
                     </a>
                     <ul class="nav nav-treeview" style="display: none;">
                       <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: #864000;">
+                        <a href="#" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Añadir productos</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: #864000;">
+                        <a href="#" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Editar productos</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: #864000;">
+                        <a href="#" class="nav-link" style="color: black;">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Eliminar productos</p>
                         </a>
@@ -446,10 +464,10 @@
           <!-- ./col -->
 
           <!-- Prueba gráfica horas-->
-          <div class="col-12 col-md-12 col-lg-12">
+          <div class="col-12 col-md-12 col-lg-12 mt-4 mb-4">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Gráfica de órdenes finalizadas por hora</h3>
+                <h3 class="card-title">Gráfica de órdenes finalizadas por hora (mensual)</h3>
               </div>
               <div class="card-body">
                 <div class="col-12">
@@ -460,7 +478,12 @@
           </div>
 
           <?php
-          $horas = range(10, 18); // Todas las horas de 10:00 a.m. a 6:00 p.m.
+          $horas = range(10, 18); // Hours from 10:00 a.m. to 6:00 p.m.
+
+          $labels = array_map(function ($hora) {
+            return sprintf('%02d:00', $hora); // Formatear la hora en formato HH:00
+          }, $horas);
+
 
           $servername = "localhost";
           $username = "root";
@@ -471,17 +494,21 @@
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+            $currentMonth = date('Y-m'); // Get the current year and month (e.g., 2023-08)
+
             $sql = "SELECT HOUR(hora_inicio) AS hora, COUNT(*) AS cantidad_ordenes
-                    FROM ORDENES
-                    WHERE TIME(hora_inicio) >= '10:00:00' AND TIME(hora_inicio) <= '18:00:00'
-                    AND ORDENES.status='Finalizado'
-                    GROUP BY HOUR(hora_inicio)
-                    ORDER BY HOUR(hora_inicio)";
+            FROM ORDENES
+            WHERE TIME(hora_inicio) >= '10:00:00' AND TIME(hora_inicio) <= '18:00:00'
+              AND ORDENES.status = 'Finalizado' AND MONTH(ORDENES.fecha) = MONTH(CURRENT_DATE())
+            GROUP BY HOUR(hora_inicio)
+            ORDER BY HOUR(hora_inicio);";
+
             $stmt = $conn->prepare($sql);
+            //$stmt->bindParam(':currentMonth', $currentMonth); // No es necesario enlazar este parámetro
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            $cantidades = array_fill_keys($horas, 0); // Inicializar todas las horas con 0 órdenes
+            $cantidades = array_fill_keys($horas, 0);
             foreach ($result as $row) {
               $hora = $row['hora'];
               $cantidades[$hora] = $row['cantidad_ordenes'];
@@ -496,25 +523,24 @@
         </div>
       </div>
 
-      
+
       <script>
-        // Configurar el contexto del gráfico
+        // Configure the chart context
         var ctx = document.getElementById('horaPicoChart').getContext('2d');
 
-        // Crear el gráfico de líneas
         var horaPicoChart = new Chart(ctx, {
-          type: 'line', // Cambio de tipo de gráfico
+          type: 'line',
           data: {
-            labels: <?php echo json_encode($horas); ?>,
+            labels: <?php echo json_encode($labels); ?>, // Usar el nuevo array de etiquetas
             datasets: [{
               label: 'Cantidad de Órdenes',
               data: <?php echo json_encode(array_values($cantidades)); ?>,
-              borderColor: 'rgba(75, 192, 192, 1)', // Cambio de color del borde
-              backgroundColor: 'rgba(75, 192, 192, 0.2)', // Cambio de color de fondo
+              borderColor: 'rgba(75, 192, 192, 1)',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
               borderWidth: 1,
-              pointRadius: 4, // Tamaño de los puntos en el gráfico de líneas
-              pointBackgroundColor: 'rgba(75, 192, 192, 1)', // Color de los puntos
-              fill: true // Rellenar el área bajo la línea
+              pointRadius: 4,
+              pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+              fill: true
             }]
           },
           options: {
