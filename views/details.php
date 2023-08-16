@@ -18,11 +18,11 @@
         $token_tmp = hash_hmac('sha1', $id, KEY_TOKEN);
         if($token == $token_tmp)
         {
-            $sql = $pdo->prepare("select count(producto_id) from productos where producto_id=? and status='Activo'");
+            $sql = $pdo->prepare("select count(producto_id) from PRODUCTOS where producto_id=? and status='Activo'");
             $sql->execute([$id]);
             if($sql->fetchAll() > 0)
             {
-                $sql = $pdo->prepare("select nombre, precio_app from productos where producto_id=? and status='Activo' LIMIT 1");
+                $sql = $pdo->prepare("select nombre, precio_app from PRODUCTOS where producto_id=? and status='Activo' LIMIT 1");
                 $sql->execute([$id]);
                 $row = $sql->fetch(PDO::FETCH_ASSOC);
                 $nombre = $row['nombre'];

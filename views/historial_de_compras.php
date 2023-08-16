@@ -148,9 +148,9 @@ $sql->execute();
             <?php
             $orden = $row['orden'];
             $consulta = $pdo->prepare("SELECT PRODUCTOS.nombre, PRODUCTOS.precio_app, DETALLE_ORDEN.cantidad, (SELECT SUM(PRODUCTOS.precio_app * DETALLE_ORDEN.cantidad) FROM PRODUCTOS INNER JOIN DETALLE_ORDEN ON PRODUCTOS.producto_id = DETALLE_ORDEN.producto WHERE DETALLE_ORDEN.orden = '$orden') AS TOTAL FROM PRODUCTOS
-        INNER JOIN DETALLE_ORDEN ON PRODUCTOS.producto_id = DETALLE_ORDEN.producto
-        INNER JOIN ORDENES ON ORDENES.orden_id = DETALLE_ORDEN.orden
-        WHERE DETALLE_ORDEN.orden = '$orden'");
+            INNER JOIN DETALLE_ORDEN ON PRODUCTOS.producto_id = DETALLE_ORDEN.producto
+            INNER JOIN ORDENES ON ORDENES.orden_id = DETALLE_ORDEN.orden
+            WHERE DETALLE_ORDEN.orden = '$orden'");
             $consulta->execute();
             $assoc = $consulta->fetchAll(PDO::FETCH_ASSOC);
             ?>

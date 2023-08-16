@@ -4,7 +4,7 @@ $database = new Database();
 $database->conectarDB();
 
 // Consulta SQL para obtener las mesas y su estado
-$sql = "SELECT mesa_id, numero_mesa, estado FROM Mesas";
+$sql = "SELECT mesa_id, numero_mesa, estado FROM MESAS";
 $stmt = $database->getConexion()->query($sql);
 $mesas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

@@ -11,7 +11,7 @@ $lista_carrito = array();
 if($productos != null){
     foreach($productos as $clave => $cantidad){
 
-    $sentencia = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad AS Cantidad FROM productos WHERE producto_id = ? AND (productos.disponibilidad = 'Ambos' OR productos.disponibilidad = 'Rapido') AND status = 'Activo'");
+    $sentencia = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad AS Cantidad FROM PRODUCTOS WHERE producto_id = ? AND (productos.disponibilidad = 'Ambos' OR productos.disponibilidad = 'Rapido') AND status = 'Activo'");
     $sentencia->execute([$clave]);
     $lista_carrito[]=$sentencia->fetch(PDO::FETCH_ASSOC);
     }

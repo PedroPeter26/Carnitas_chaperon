@@ -1,20 +1,20 @@
 <?php 
 class database
 {
-    public $PDOlocal;
-    private $user="root";
-    private $password="";
-    private $server="mysql:host=localhost;dbname=bdcarnitaschaperon";
+    private $PDOlocal;
+    private $user = "doadmin";
+    private $password = "AVNS_n6A8URvjvM1RSnjp_CK";
+    private $server = "mysql:host=db-chaperon1-do-user-14423112-0.b.db.ondigitalocean.com;port=25060;dbname=ChaperonTest;sslmode=REQUIRED";
 
-    function ConectarDB()
+    function conectarDB()
     {
         try
         {
-            $this->PDOlocal=new PDO($this->server, $this->user, $this->password);
+            $this->PDOlocal = new PDO($this->server,$this->user,$this->password);
         }
-        catch (PDOException $e)
+        catch(PDOException $e)
         {
-        echo $e->getMessage();
+            echo $e->getMessage();
         }
     }
 
@@ -92,7 +92,7 @@ class database
 
                     $hash = password_hash($contra, PASSWORD_DEFAULT);
 
-                    $cadena = "INSERT INTO usuarios(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
+                    $cadena = "INSERT INTO USUARIOS(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
                     
                     $resultado = $this->PDOlocal->query($cadena);
 
@@ -147,7 +147,7 @@ class database
 
                     $hash = password_hash($contra, PASSWORD_DEFAULT);
 
-                    $cadena = "insert into usuarios(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
+                    $cadena = "insert into USUARIOS(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
                     
                     $resultado = $this->PDOlocal->query($cadena);
 
@@ -175,7 +175,7 @@ class database
         try
         {
             $pase = false;
-            $query = "SELECT * FROM usuarios where user = '$usuario' AND status = 'activo'";
+            $query = "SELECT * FROM USUARIOS where user = '$usuario' AND status = 'activo'";
             $consulta = $this->PDOlocal->query($query);
             $renglon=$consulta->fetch(PDO::FETCH_ASSOC);
 
@@ -207,7 +207,7 @@ class database
                 echo "<div class='alert alert-success'>";
                 echo "<H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>";
                 echo "</div>";
-                header("refresh:2; ../indexadmin.php");
+                header("refresh:2; ../indexAdmin.php");
                 }
             }
             else
@@ -232,7 +232,7 @@ class database
 
     function editarUsuario($nombre, $apellido, $usuario, $correo, $id)
     {
-        $sentencia = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido', user = '$usuario', correo = '$correo' WHERE user_id = '$id'";
+        $sentencia = "UPDATE USUARIOS SET nombre = '$nombre', apellido = '$apellido', user = '$usuario', correo = '$correo' WHERE user_id = '$id'";
         $resultado = $this->PDOlocal->query($sentencia);
 
         if($resultado)
@@ -253,7 +253,7 @@ class database
 
     function verificarPassword($idUsuario, $password)
     {
-        $query = "SELECT * FROM usuarios WHERE user_id = '$idUsuario'";
+        $query = "SELECT * FROM USUARIOS WHERE user_id = '$idUsuario'";
         $consulta = $this->PDOlocal->query($query);
         $renglon=$consulta->fetch(PDO::FETCH_ASSOC);
 
@@ -267,7 +267,7 @@ class database
     function cambiarPassword($idUsuario, $password)
     {
         $nueva = password_hash($password, PASSWORD_DEFAULT);
-        $sentencia = "UPDATE usuarios SET password = '$nueva' WHERE user_id = '$idUsuario'";
+        $sentencia = "UPDATE USUARIOS SET password = '$nueva' WHERE user_id = '$idUsuario'";
         $resultado = $this->PDOlocal->query($sentencia);
 
         if($resultado)

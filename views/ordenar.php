@@ -200,7 +200,7 @@ require '../class/config.php';
             <div class="container cont">
                 <div class="row">
                 <?php
-                    $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO1' and productos.disponibilidad = 'Ambos' and status='Activo'");
+                    $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO1' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                     $sentencia->execute();
                     $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     
@@ -236,7 +236,7 @@ require '../class/config.php';
             <div class="container cont">
                 <div class="row">
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO2' and productos.disponibilidad = 'Ambos' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO2' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                         $sentencia->execute();
                         $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                             
@@ -272,7 +272,7 @@ require '../class/config.php';
             <div class="container cont">
                 <div class="row">
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO3' and productos.disponibilidad = 'Ambos' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO3' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                         $sentencia->execute();
                         $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                             
@@ -308,7 +308,7 @@ require '../class/config.php';
             <div class="container cont">
                 <div class="row">
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO4' and productos.disponibilidad = 'Ambos' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO4' and V.disponibilidad = 'Ambos' and status='Activo'");
                         $sentencia->execute();
                         $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                             
@@ -344,7 +344,7 @@ require '../class/config.php';
             <div class="container cont">
                 <div class="row">
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO5' and productos.disponibilidad = 'Ambos' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO5' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                         $sentencia->execute();
                         $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                             
@@ -380,7 +380,7 @@ require '../class/config.php';
             <div class="container cont">
                 <div class="row">
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO6' and productos.disponibilidad = 'Rapido' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO6' and PRODUCTOS.disponibilidad = 'Rapido' and status='Activo'");
                         $sentencia->execute();
                         $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                             
@@ -416,7 +416,7 @@ require '../class/config.php';
             <div class="container cont">
                 <div class="row">
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO7' and productos.disponibilidad = 'Ambos' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO7' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                         $sentencia->execute();
                         $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                             
@@ -452,7 +452,7 @@ require '../class/config.php';
             <div class="container cont">
                 <div class="row">
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO8' and productos.disponibilidad = 'Rapido' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO8' and PRODUCTOS.disponibilidad = 'Rapido' and status='Activo'");
                         $sentencia->execute();
                         $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                             

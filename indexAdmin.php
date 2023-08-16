@@ -336,10 +336,10 @@ $pdo = $db->getConexion();
             <div class="small-box bg-info">
               <div class="inner">
                 <?php
-                $host = "localhost";
+                $host = "mysql:host=db-chaperon1-do-user-14423112-0.b.db.ondigitalocean.com;port=25060;dbname=ChaperonTest;sslmode=REQUIRED";
                 $dbname = "BDCarnitasChaperon";
-                $username = "root";
-                $password = "";
+                $username = "doadmin";
+                $password = "AVNS_n6A8URvjvM1RSnjp_CK";
 
                 $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
@@ -417,10 +417,10 @@ $pdo = $db->getConexion();
                 // Obtenemos el año actual
                 $año = $fechaActual->format("Y");
 
-                $host = "localhost";
-                $dbname = "bdcarnitaschaperon";
-                $username = "root";
-                $password = "";
+                $host = "mysql:host=db-chaperon1-do-user-14423112-0.b.db.ondigitalocean.com;port=25060;dbname=ChaperonTest;sslmode=REQUIRED";
+                $dbname = "BDCarnitasChaperon";
+                $username = "doadmin";
+                $password = "AVNS_n6A8URvjvM1RSnjp_CK";
 
                 $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
@@ -448,10 +448,10 @@ $pdo = $db->getConexion();
             <div class="small-box bg-warning">
               <div class="inner">
                 <?php
-                $host = "localhost";
+                $host = "mysql:host=db-chaperon1-do-user-14423112-0.b.db.ondigitalocean.com;port=25060;dbname=ChaperonTest;sslmode=REQUIRED";
                 $dbname = "BDCarnitasChaperon";
-                $username = "root";
-                $password = "";
+                $username = "doadmin";
+                $password = "AVNS_n6A8URvjvM1RSnjp_CK";
 
                 $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -504,10 +504,10 @@ $pdo = $db->getConexion();
           }, $horas);
 
 
-          $servername = "localhost";
-          $username = "root";
-          $password = "";
+          $host = "mysql:host=db-chaperon1-do-user-14423112-0.b.db.ondigitalocean.com;port=25060;dbname=ChaperonTest;sslmode=REQUIRED";
           $dbname = "BDCarnitasChaperon";
+          $username = "doadmin";
+          $password = "AVNS_n6A8URvjvM1RSnjp_CK";
 
           try {
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

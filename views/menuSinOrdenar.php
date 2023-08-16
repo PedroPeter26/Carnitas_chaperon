@@ -281,7 +281,7 @@ $pdo = $db->getConexion();
                     <h2 class="mb-4">Carnitas</h2>
                     <!--CARD-->
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO1' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS where tipo='TIPO1' and status='Activo'");
                         $sentencia->execute();
                         $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>
@@ -387,7 +387,7 @@ $pdo = $db->getConexion();
                     <h2 class="mb-4">Tacos</h2>
                     <!--CARD-->
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO2' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS where tipo='TIPO2' and status='Activo'");
                         $sentencia->execute();
                         $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>
@@ -493,7 +493,7 @@ $pdo = $db->getConexion();
                     <h2 class="mb-4">Lonches</h2>
                     <!--CARD-->
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos where disponibilidad<>'Comedor' and tipo='TIPO3' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS where disponibilidad<>'Comedor' and tipo='TIPO3' and status='Activo'");
                         $sentencia->execute();
                         $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>
@@ -599,7 +599,7 @@ $pdo = $db->getConexion();
                     <h2 class="mb-4">Gringas</h2>
                     <!--CARD-->
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO4' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS where tipo='TIPO4' and status='Activo'");
                         $sentencia->execute();
                         $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>
@@ -705,7 +705,7 @@ $pdo = $db->getConexion();
                     <h2 class="mb-4">Chicharrones</h2>
                     <!--CARD-->
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO5' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS where tipo='TIPO5' and status='Activo'");
                         $sentencia->execute();
                         $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>
@@ -811,7 +811,7 @@ $pdo = $db->getConexion();
                     <h2 class="mb-4">Paquetes</h2>
                     <!--CARD-->
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO6' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS where tipo='TIPO6' and status='Activo'");
                         $sentencia->execute();
                         $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>
@@ -917,7 +917,7 @@ $pdo = $db->getConexion();
                     <h2 class="mb-4">Bebidas</h2>
                     <!--CARD-->
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO7' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS where tipo='TIPO7' and status='Activo'");
                         $sentencia->execute();
                         $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>
@@ -1023,7 +1023,7 @@ $pdo = $db->getConexion();
                     <h2 class="mb-4">Extras</h2>
                     <!--CARD-->
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos where tipo='TIPO8' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS where tipo='TIPO8' and status='Activo'");
                         $sentencia->execute();
                         $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>

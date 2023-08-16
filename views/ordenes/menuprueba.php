@@ -29,7 +29,7 @@ $pdo = $db->getConexion();
     <h1>Hello, world!</h1>
 
     <?php
-         $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.disponibilidad = 'Ambos' OR productos.disponibilidad = 'Rapido'");
+         $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Rapido'");
          $sentencia->execute();
          $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
     ?>

@@ -5,9 +5,9 @@
     $db->conectarDB();
     $pdo = $db->getConexion();
 
-    $productos = isset($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
+    $PRODUCTOS = isset($_SESSION['carrito']['PRODUCTOS']) ? $_SESSION['carrito']['PRODUCTOS'] : null;
 
-    $sql = $pdo->prepare("select producto_id, nombre, precio_app from productos where status='Activo'");
+    $sql = $pdo->prepare("select producto_id, nombre, precio_app from PRODUCTOS where status='Activo'");
     $sql->execute();
     $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -79,18 +79,18 @@
             <!--Contenido Tabs-->
             <div class="tab-content">
 
-            <!--Productos (TAB CARNITAS)-->
+            <!--PRODUCTOS (TAB CARNITAS)-->
             <div class="tab-pane fade show active" id="Carnitas">
                 <div class="container cont">
                     <div class="row">
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO1' and productos.disponibilidad = 'Ambos' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO1' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                         $sentencia->execute();
-                        $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+                        $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                         
                     ?>
                     <?php
-                        foreach ($listaProductos as $producto)
+                        foreach ($listaPRODUCTOS as $producto)
                         {
                     ?>
                             <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-end mb-4">
@@ -115,18 +115,18 @@
                 </div>
             </div>
 
-            <!--Productos (TAB TACOS)-->
+            <!--PRODUCTOS (TAB TACOS)-->
             <div class="tab-pane fade show" id="Tacos">
                 <div class="container cont">
                     <div class="row">
                         <?php
-                            $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO2' and productos.disponibilidad = 'Ambos' and status='Activo'");
+                            $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO2' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                             $sentencia->execute();
-                            $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+                            $listaPRODUCTOS=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 
                         ?>
                         <?php
-                            foreach ($listaProductos as $producto)
+                            foreach ($listaPRODUCTOS as $producto)
                             {
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
@@ -151,18 +151,18 @@
                 </div>
             </div>
 
-            <!--Productos (TAB LONCHES)-->
+            <!--PRODUCTOS (TAB LONCHES)-->
             <div class="tab-pane fade show" id="Lonches">
                 <div class="container cont">
                     <div class="row">
                         <?php
-                            $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO3' and productos.disponibilidad = 'Ambos' and status='Activo'");
+                            $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO3' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                             $sentencia->execute();
-                            $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+                            $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 
                         ?>
                         <?php
-                            foreach ($listaProductos as $producto)
+                            foreach ($listaproductos as $producto)
                             {
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
@@ -187,18 +187,18 @@
                 </div>
             </div>
 
-            <!--Productos (TAB GRINGAS)-->
+            <!--PRODUCTOS (TAB GRINGAS)-->
             <div class="tab-pane fade show" id="Gringas">
                 <div class="container cont">
                     <div class="row">
                         <?php
-                            $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO4' and productos.disponibilidad = 'Ambos' and status='Activo'");
+                            $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO4' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                             $sentencia->execute();
-                            $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+                            $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 
                         ?>
                         <?php
-                            foreach ($listaProductos as $producto)
+                            foreach ($listaproductos as $producto)
                             {
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
@@ -223,18 +223,18 @@
                 </div>
             </div>
 
-            <!--Productos (TAB CHICHARRONES)-->
+            <!--PRODUCTOS (TAB CHICHARRONES)-->
             <div class="tab-pane fade show" id="Chicharrones">
                 <div class="container cont">
                     <div class="row">
                         <?php
-                            $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO5' and productos.disponibilidad = 'Ambos' and status='Activo'");
+                            $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO5' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                             $sentencia->execute();
-                            $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+                            $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 
                         ?>
                         <?php
-                            foreach ($listaProductos as $producto)
+                            foreach ($listaproductos as $producto)
                             {
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
@@ -259,18 +259,18 @@
                 </div>
             </div>
 
-            <!--Productos (TAB PAQUETES)-->
+            <!--PRODUCTOS (TAB PAQUETES)-->
             <div class="tab-pane fade show" id="Paquetes">
                 <div class="container cont">
                     <div class="row">
                         <?php
-                            $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO6' and productos.disponibilidad = 'Rapido' and status='Activo'");
+                            $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO6' and PRODUCTOS.disponibilidad = 'Rapido' and status='Activo'");
                             $sentencia->execute();
-                            $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+                            $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 
                         ?>
                         <?php
-                            foreach ($listaProductos as $producto)
+                            foreach ($listaproductos as $producto)
                             {
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
@@ -295,18 +295,18 @@
                 </div>
             </div>
 
-            <!--Productos (TAB BEBIDAS)-->
+            <!--PRODUCTOS (TAB BEBIDAS)-->
             <div class="tab-pane fade show" id="Bebidas">
                 <div class="container cont">
                     <div class="row">
                         <?php
-                            $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO7' and productos.disponibilidad = 'Ambos' and status='Activo'");
+                            $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO7' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                             $sentencia->execute();
-                            $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+                            $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 
                         ?>
                         <?php
-                            foreach ($listaProductos as $producto)
+                            foreach ($listaproductos as $producto)
                             {
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
@@ -331,18 +331,18 @@
                 </div>
             </div>
 
-            <!--Productos (TAB COMPLEMENTOS)-->
+            <!--PRODUCTOS (TAB COMPLEMENTOS)-->
             <div class="tab-pane fade show" id="Complementos">
                 <div class="container cont">
                     <div class="row">
                         <?php
-                            $sentencia=$pdo->prepare("SELECT * FROM productos WHERE productos.tipo = 'TIPO8' and productos.disponibilidad = 'Rapido' and status='Activo'");
+                            $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO8' and PRODUCTOS.disponibilidad = 'Rapido' and status='Activo'");
                             $sentencia->execute();
-                            $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+                            $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 
                         ?>
                         <?php
-                            foreach ($listaProductos as $producto)
+                            foreach ($listaproductos as $producto)
                             {
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">

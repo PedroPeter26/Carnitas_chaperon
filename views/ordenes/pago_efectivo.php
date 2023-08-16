@@ -15,7 +15,7 @@
     {
         foreach ($productos as $clave => $cantidad)
         {
-            $sql = $pdo->prepare("select producto_id, nombre, precio_app, $cantidad as cantidad from productos where producto_id=?  and status='Activo'");
+            $sql = $pdo->prepare("select producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id=?  and status='Activo'");
             $sql->execute([$clave]);
             $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
         }
@@ -23,7 +23,7 @@
 
 
     //session_destroy();
-    $sql = $pdo->prepare("select producto_id, nombre, precio_app, $cantidad as cantidad from productos where producto_id='$clave' and status='Activo'");
+    $sql = $pdo->prepare("select producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id='$clave' and status='Activo'");
     $sql->execute();
     $orden = $sql->fetch(PDO::FETCH_ASSOC);
 
