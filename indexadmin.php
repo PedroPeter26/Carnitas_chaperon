@@ -87,39 +87,7 @@
       </div>
     </ul>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-
-      <!-- Notifications Dropdown Menu
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li> -->
-    </ul>
     <!-- notis y cerrar sesión-->
-
     <div id="newNotification" class="alert alert-success m-3 p-3 position-fixed" style="display: none; top: 0; left: 0;">
       Nueva orden recibida!
     </div>
@@ -240,7 +208,7 @@
                     </ul>
                   </li>
                   <li class="nav-item">
-                    <a href="" class="nav-link" style="color: black;">
+                    <a href="views/ordenes/comedor.php" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes del comedor
@@ -249,7 +217,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="" class="nav-link" style="color: black;">
+                    <a href="views/ordenes/productos_pllevar.php" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes para llevar
@@ -258,7 +226,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="" class="nav-link" style="color: black;">
+                    <a href="views/ordenes/ordenes_online.php" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-th"></i>
                       <p class="ms-auto">
                         Órdenes online

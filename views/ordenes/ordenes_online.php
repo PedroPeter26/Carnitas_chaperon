@@ -39,7 +39,6 @@ $pdo = $db->getConexion();
                 INNER JOIN USUARIOS ON ORDENES.cliente = USUARIOS.user_id
                 INNER JOIN DETALLE_ORDEN ON ORDENES.orden_id = DETALLE_ORDEN.orden
                 INNER JOIN PRODUCTOS ON DETALLE_ORDEN.producto = PRODUCTOS.producto_id
-                WHERE ORDENES.status = 'Proceso'
                 GROUP BY ORDENES.orden_id, PRODUCTOS.nombre
                 ORDER BY ORDENES.orden_id DESC;");
                 $sql->execute();

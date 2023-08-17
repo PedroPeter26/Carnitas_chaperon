@@ -8,37 +8,39 @@ class Database
 
     function conectarDB()
     {
-        try
-        {
-            $this->PDOLocal = new PDO($this->server,$this->user,$this->password);
-        }
-        catch(PDOException $e)
-        {
+        try {
+            $this->PDOLocal = new PDO($this->server, $this->user, $this->password);
+        } catch (PDOException $e) {
             echo $e->getMessage();
         }
     }
     function desconectarDB()
     {
-        try
-        {
+        try {
             $this->PDOLocal = null;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
         }
-        catch(PDOException $e)
-        {
+    }
+    function seleccionar2($consulta)
+    {
+        try {
+            $resultado = $this->PDOLocal->query($consulta);
+            $fila = $resultado->fetchAll(PDO::FETCH_ASSOC);
+            /*Leer doc: configuración en tiempo de ejecucion*/
+            return $fila;
+        } catch (PDOException $e) {
             echo $e->getMessage();
         }
     }
     function seleccionar($consulta)
     {
-        try
-        {
+        try {
             $resultado = $this->PDOLocal->query($consulta);
             $fila = $resultado->fetchAll(PDO::FETCH_OBJ);
             /*Leer doc: configuración en tiempo de ejecucion*/
             return $fila;
-        }
-        catch(PDOException $e)
-        {
+        } catch (PDOException $e) {
             echo $e->getMessage();
         }
     }
@@ -46,5 +48,4 @@ class Database
     {
         return $this->PDOLocal;
     }
-
 }

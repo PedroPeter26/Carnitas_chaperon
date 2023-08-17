@@ -90,8 +90,8 @@ $db->desconectarDB();
                 $ventas[] = $row["total_ventas"];
             }
 
-            // Validar si hay datos de ventas para mostrar la gráfica
-            $showChart = count($categorias) > 0;
+            // Validar si hay datos de ventas para mostrar la gráfica de pastel
+            $showPieChart = count($categorias) > 0;
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -105,7 +105,11 @@ $db->desconectarDB();
                     <h3 class="card-title">Gráfica de porcentaje ventas por categoría</h3>
                 </div>
                 <div class="card-body">
-                    <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <?php if ($showPieChart) : ?>
+                        <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    <?php else : ?>
+                        <p>No hay datos de ventas disponibles para mostrar la gráfica.</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -163,7 +167,7 @@ $db->desconectarDB();
         </script>
 
         <!-- Script pastel -->
-        <?php if ($showChart) : ?>
+        <?php if ($showPieChart) : ?>
             <script>
                 // Calcular el total de ventas
                 var totalVentas = <?php echo array_sum($ventas); ?>;
@@ -175,8 +179,8 @@ $db->desconectarDB();
                 });
 
                 // Crear la gráfica de pastel
-                var ctx = document.getElementById('pieChart').getContext('2d');
-                var pieChart = new Chart(ctx, {
+                var ctxPie = document.getElementById('pieChart').getContext('2d');
+                var pieChart = new Chart(ctxPie, {
                     type: 'pie',
                     data: {
                         labels: <?php echo json_encode($categorias); ?>,
