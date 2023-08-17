@@ -100,62 +100,62 @@ if($productos != null){
     </header>
 
     <!-- Contenido principal -->
-  <div class="container mt-5">
+    <div class="container mt-5">
+        <div class="row">
 
-    <div class="row">
-        <div class="col-12 col-lg-6 mt-5">
-            <h4 class="lilita">Detalles de pago:</h4>
-            <div id="paypal-button-container"></div>
-        </div>
+            <div class="col-12 col-lg-6 mt-5">
+                <h4 class="lilita">Detalles de pago:</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if($lista_carrito == null){
+                                echo '<tr><td colspan="5" class="text-center"><b>Lista vacía</b></td></tr>';
+                            } else {
+                                $total = 0;
+                                foreach($lista_carrito as $producto){
+                                    $_id = $producto['producto_id'];
+                                    $nombre = $producto['nombre'];
+                                    $precio_app = $producto['precio_app'];
+                                    $cantidad = $producto['Cantidad'];
+                                    $subtotal = $cantidad * $precio_app;
+                                    $total += $subtotal;
+                                ?>
+                            <tr>
+                                <td colspan="1"><?php echo $nombre; ?></td>
+                                <td><?php echo $cantidad; ?></td>
+                                <td>
+                                    <div id="subtotal_<?php echo $_id; ?>" name="subtotal[]">
+                                    <?php echo MONEDA . number_format($subtotal, 2, '.', ','); ?>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php } ?>
 
-        <div class="col-12 col-lg-6">
-            <div class="table-responsive">
-                <table class="table mt-5">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Subtotal</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if($lista_carrito == null){
-                            echo '<tr><td colspan="5" class="text-center"><b>Lista vacía</b></td></tr>';
-                        } else {
-                            $total = 0;
-                            foreach($lista_carrito as $producto){
-                                $_id = $producto['producto_id'];
-                                $nombre = $producto['nombre'];
-                                $precio_app = $producto['precio_app'];
-                                $cantidad = $producto['Cantidad'];
-                                $subtotal = $cantidad * $precio_app;
-                                $total += $subtotal;
-                            ?>
-                        <tr>
-                            <td><?php echo $nombre; ?></td>
-                            <td>
-                                <div id="subtotal_<?php echo $_id; ?>" name="subtotal[]">
-                                <?php echo MONEDA . number_format($subtotal, 2, '.', ','); ?>
-                                </div>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <p class="h3 text-end" id="total"><?php echo 'Total: ' . MONEDA . number_format($total, 2, '.', ','); ?></p>
+                                </td>
+                            </tr>
+
+                        </tbody>
                         <?php } ?>
+                    </table>
+                </div>
+            </div>
 
-                        <tr>
-                            <td colspan="2">
-                                <p class="h3 text-end" id="total"><?php echo 'Total: ' . MONEDA . number_format($total, 2, '.', ','); ?></p>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                    <?php } ?>
-                </table>
+            <div class="col-12 col-lg-6 mt-5">
+                <div id="paypal-button-container"></div>
             </div>
         </div>
     </div>
-  </div>
 
-  </div>
     <script src="https://www.paypal.com/sdk/js?client-id=<?php echo CLIENT_ID; ?>&currency=<?php echo CURRENCY; ?>">
     </script>
 
