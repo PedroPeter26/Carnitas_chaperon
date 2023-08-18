@@ -2,15 +2,15 @@
 class Database
 {
     private $PDOLocal;
-    private $user = "root";
-    private $password = "";
-    private $server = "mysql:host=localhost; dbname=bdcarnitaschaperon";
+    private $user = "doadmin";
+    private $password = "AVNS_n6A8URvjvM1RSnjp_CK";
+    private $server = "mysql:host=db-chaperon1-do-user-14423112-0.b.db.ondigitalocean.com;port=25060;dbname=ChaperonTest;sslmode=REQUIRED";
 
     function conectarDB()
     {
         try
         {
-            $this->PDOLocal = new PDO($this->server, $this->user, $this->password);
+            $this->PDOLocal = new PDO($this->server,$this->user,$this->password);
         }
         catch(PDOException $e)
         {
