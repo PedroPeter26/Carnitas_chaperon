@@ -15,30 +15,19 @@
         {
             max-width: 100% !important;
         }
-        #contenedor
-        {
-            width: 40%;
-            margin: auto;
-        }
-
         .formulario
         {
-            margin-top: 30%;
-            padding: 2em;
             font-family: 'Lilita One', sans-serif;
-            background-color: whitesmoke;
-            border-radius: 20px;
         }
-
-        .formulario input
-        {
-            background-color: whitesmoke;
-        }
-
         .boton
         {
             background-color: #D44000;
             font-family: 'Lilita One', sans-serif;
+            width: 100%;
+        }
+        .cardi
+        {
+            margin-top: 3%;
         }
         .barranav
         {
@@ -91,6 +80,7 @@
     <title>REGISTRARSE</title>
 </head>
 <body>
+    <!--
 <nav class="navbar navbar-expand-lg barranav sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" style="color: white;" href="../index.php">
@@ -128,22 +118,79 @@
             <div class="d-grid gap-2">
                 <button class="btn btn-lg boton" type="submit" name="registro">Crear Cuenta</button>
             </div>
-            <?php
-                include '../class/database.php';
-                $db=new Database();
-                $db->ConectarDB();
-
-                extract($_POST);
-
-                if(isset($_POST['registro']))
-                {
-                    $db->ExisteUsuario($user,$pass);
-                }
-                $db->desconectarDB();
-            ?>
         </form> 
     </div>
     <br><br>
+    </div>
+            -->
+    <div class="contenct-wrapper">
+        <section class="flexbox-container">
+            <div class="col-12 d-flex align-items-center justify-content-center cardi">
+                <div class="col-md-4 col-12 box-shadow-2 p-0">
+                    <div class="card border-grey border-lighten-3 m-0">
+                        <div class="card-header border-0">
+                            <h5 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2"><span>Crea una cuenta para ordenar en la página de Carnitas Chaperon</span></h5><br>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <form class="form-horizontal form-simple" action="" method="POST">
+                                    <fieldset class="form-group position-relative">
+                                    <div class="input-group">
+                                        <input type="text" name="nombre" placeholder="Nombre(s)" class="form-control form-control-lg input-lg" required>
+                                    </div>
+                                    </fieldset>
+                                    <br>
+                                    <fieldset class="form-group position-relative">
+                                    <div class="input-group">
+                                        <input type="text" name="apellido" placeholder="Apellidos" class="form-control form-control-lg input-lg" required>
+                                    </div>
+                                    </fieldset>
+                                    <br>
+                                    <fieldset class="form-group position-relative">
+                                    <div class="input-group">
+                                        <input type="text" name="user" placeholder="Nombre de usuario" class="form-control form-control-lg input-lg" required>
+                                    </div>
+                                    </fieldset>
+                                    <br>
+                                    <fieldset class="form-group position-relative">
+                                    <div class="input-group">
+                                        <input type="text" name="correo" placeholder="Correo" class="form-control form-control-lg input-lg" required>
+                                    </div>
+                                    </fieldset>
+                                    <br>
+                                    <fieldset class="form-group position-relative has-icon-left">
+                                    <div class="input-group">
+                                        <input type="password" name="pass" placeholder="Contraseña" class="form-control form-control-lg input-lg" required>
+                                    </div>
+                                    </fieldset>
+                                    <br>
+                                    <button class="btn btn-lg btn-block boton formulario" type="submit" name="registro">
+                                        Crear cuenta
+                                    </button>
+                                    <div>
+                                        <br>
+                                        <p class="formulario">¿Ya tienes una cuenta?  <a href="login.php" align="center" style="color:brown; text-decoration: none;">Iniciar sesión</a></p>
+                                    </div>
+                                    <?php
+                                    include '../class/database.php';
+                                    $db=new Database();
+                                    $db->ConectarDB();
+
+                                    extract($_POST);
+
+                                    if(isset($_POST['registro']))
+                                    {
+                                        $db->ExisteUsuario($user,$pass);
+                                    }
+                                    $db->desconectarDB();
+                                    ?>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </body>
 </html>

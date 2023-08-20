@@ -10,15 +10,24 @@
     //print_r($_SESSION);
 
     $lista_carrito = array();
+    $total_productos = array();
 
     if($productos !=  null)
     {
         foreach ($productos as $clave => $cantidad)
         {
-            $sql = $pdo->prepare("select producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id=?  and status='Activo'");
+            $sql = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id=?  and status='Activo'");
             $sql->execute([$clave]);
             $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
+
+            $sql2 = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id=?  and status='Activo'");
+            $sql2->execute([$clave]);
+            $total_productos[]= $sql2->fetch(PDO::FETCH_ASSOC);
         }
+    }
+    else
+    {
+        header("Location: PRODUCTOS_pllevar.php");
     }
 
 
@@ -51,6 +60,13 @@
             background-color: #D44000;
             font-family: 'Lilita One', sans-serif;
         }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+        }
+
+        input[type=number] { -moz-appearance:textfield; }
     </style>
     <?php include "../headadmin.php"; ?>
     <title>PARA LLEVAR</title>
@@ -68,6 +84,16 @@
                 <div id="formulario">
                     <h4 align="center">DETALLES DE PAGO</h4>
                     <BR>
+                    <?php
+                        $total = 0;
+                        foreach($total_productos as $product)
+                        {
+                            $precio = $product['precio_app'];
+                            $cantidad = $product['cantidad'];
+                            $subtotal = $cantidad * $precio;
+                            $total += $subtotal;
+                        }
+                    ?>
                     <form action="" method="POST">
                     <div class="mb-3">
                         <label for="monto_pagar" class="form-label">MONTO A PAGAR:</label>
@@ -85,9 +111,11 @@
                         <input type="submit" name="pagar" class="btn btn-lg" id="boton" value="PAGAR">
                     </div>
                     <?php
+                        extract($_POST);
+
                         if(isset($_POST['pagar']))
                         {
-                            if($_POST['monto_pagar'] > $_POST['monto_dado'])
+                            if(isset($_POST['monto_pagar']) > isset($_POST['monto_dado']))
                             {
                                 echo '<div class="alert alert-danger mt-3" role="alert">
                                     No se puede realizar este pago. La cantidad de dinero es menor.
@@ -95,9 +123,8 @@
                             }
                             else
                             {
-                                $tipo_ord = 3;
-                                $cadena = $pdo->prepare("CALL InsertarOrdenRAPIDO ('Efectivo');");
-                                $cadena->execute();
+                                $sql = $pdo->prepare("INSERT INTO ORDENES (cliente, mesa, forma_pago, fecha, hora_inicio, hora_fin, tipo_orden, status) VALUES (null, null, 'Efectivo', curdate(), curtime(), curtime(), 3, 'Finalizado')");
+                                $sql->execute();
                                 $id = $pdo->lastInsertId();
 
                                 if($productos != null)
@@ -108,10 +135,8 @@
                                     $sentencia->execute([$clave]);
                                     $row_prod=$sentencia->fetch(PDO::FETCH_ASSOC);
                         
-                                    $precio_app = $row_prod['precio_app'];
-                        
-                                    $sql_insert = $pdo->prepare("INSERT INTO DETALLE_ORDEN (orden, producto, cantidad) VALUES (?,?,?)");
-                                    $sql_insert->execute([$id, $clave, $cantidad]);
+                                    $sql_insert = $pdo->prepare("INSERT INTO DETALLE_ORDEN (orden, producto, cantidad) VALUES ($id, $clave, $cantidad)");
+                                    $sql_insert->execute();
                                     }
                                 }
                             }

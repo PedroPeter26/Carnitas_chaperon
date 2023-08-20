@@ -15,14 +15,14 @@
     {
         foreach ($productos as $clave => $cantidad)
         {
-            $sql = $pdo->prepare("select producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id=?  and status='Activo'");
+            $sql = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id=? AND (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Rapido') and status='Activo'");
             $sql->execute([$clave]);
             $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
         }
     }
     else
     {
-        header("Location: ../index.php");
+        header("Location: productos_pllevar.php");
         exit();
     }
 
@@ -158,7 +158,7 @@
                 actions.order.capture().then(function (detalles){
                     console.log(detalles)
 
-                    let url = '../class/captura_pllevar.php'
+                    let url = '../../class/captura_pllevar.php'
                     return fetch(url, {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},

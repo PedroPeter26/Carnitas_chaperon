@@ -32,23 +32,27 @@ $idUsuario = $_SESSION['idUsuario'];
         {
             max-width: 100% !important;
         }
-        #contenedor
-        {
-            width: 40%;
-            margin: auto;
-        }
         .formulario
         {
-            margin-top: 30%;
-            margin-bottom: 5%;
             padding: 2em;
             font-family: 'Lilita One', sans-serif;
-            background-color: whitesmoke;
-            border-radius: 20px;
         }
-        .formulario input
+        .cardi
         {
-            background-color: whitesmoke;
+            background: rgb(231,155,190);
+            background: linear-gradient(45deg, rgba(231,155,190,0.3757878151260504) 0%, rgba(249,218,167,0.5494572829131652) 72%);
+        }
+        .cardi input
+        {
+            background: transparent;
+            border:none;
+            border-bottom:1px solid;
+            border-color: black;
+            border-radius: 0;
+        }
+        .cardi2
+        {
+            margin-top: 8%;
         }
         .boton
         {
@@ -85,30 +89,9 @@ $idUsuario = $_SESSION['idUsuario'];
             {
                 font-size: 100%;
             }
-
-            #contenedor
-            {
-                width: 90%;
-                margin: auto;
-            }
-        }
-        @media screen and (min-width: 577px) /*Pantalla pequeña*/
-        {
-            #contenedor
-            {
-                width: 60%;
-                margin: auto;
-            }
-        }
-        @media screen and (min-width: 900px) /*Pantalla pequeña*/
-        {
-            #contenedor
-            {
-                width: 60%;
-                margin: auto;
-            }
         }
     </style>
+
     <title>MI USUARIO</title>
 </head>
 <body>
@@ -139,6 +122,7 @@ $idUsuario = $_SESSION['idUsuario'];
         </div>
     </nav>
 
+    <!--
     <div class="container" id="contenedor">
     <div class="formulario">
         <h2 align="center">CAMBIO DE CONTRASEÑA</h2>
@@ -159,48 +143,134 @@ $idUsuario = $_SESSION['idUsuario'];
         <div class="d-grid gap-2">
         	<input type="submit" name="cambiar" class="btn btn-lg" id="cambios" value="Cambiar contraseña">
         </div>
-        <?php
-            if(isset($_POST['cambiar']))
-            {
-                $actual = $_POST['actual'];
-                $nueva = $_POST['nueva'];
-                $repite = $_POST['repite'];
-
-                if(strlen($nueva) < 8)
-                {
-                    echo'
-                    <div class="alert alert-danger mt-3" role="alert">
-                        La contraseña nueva debe tener al menos 8 caracteres.
-                    </div>';
-                    return;
-                }
-
-                if($nueva !== $repite) 
-                {
-                    echo'
-                    <div class="alert alert-danger mt-3" role="alert">
-                        La contraseña repetida debe coincidir con la nueva.
-                    </div>';
-                    return;
-                }
-
-                $passwordVerificada = $db->verificarPassword($idUsuario, $actual);
-                
-                if(!$passwordVerificada)
-                {
-                    echo'
-                    <div class="alert alert-danger mt-3" role="alert">
-                        La contraseña actual es incorrecta.
-                    </div>';
-                    return;
-                }
-
-                $db->cambiarPassword($idUsuario, $repite);
-            }
-            ?>
 	    </form>
     </div>
 </div>
+        -->
 
+        <div class="contenct-wrapper">
+        <section class="flexbox-container">
+            <div class="col-12 d-flex align-items-center justify-content-center cardi2">
+                <div class="col-md-6 col-12 box-shadow-2 p-0">
+                    <div class="card border-grey border-lighten-3 m-0 cardi">
+                        <div class="card-header border-0">
+                            <div class="card-title text-center">
+                                <div class="p-1">
+                                    <img height="100" id="imag" alt="Carnitas Chaperon" src="../img/logo.png">
+                                </div>
+                            </div>
+                            <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2"><span>Carnitas Chaperon</span></h6>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body p-4">
+                            <form class="form-horizontal form-simple" action="" method="POST">
+                            <fieldset class="form-group position-relative has-icon-left">
+                                <div class="input-group">
+                                <input type="password" id="txtPassword1" name="actual" placeholder="Contraseña actual" class="form-control form-control-lg input-lg" required>
+                                </div>
+                            </fieldset>
+                            <br>
+                            <fieldset class="form-group position-relative has-icon-left">
+                                <div class="input-group">
+                                <input type="password" id="txtPassword2" name="nueva" placeholder="Contraseña nueva" class="form-control form-control-lg input-lg" required>
+                                </div>
+                            </fieldset>
+                            <br>
+                            <fieldset class="form-group position-relative has-icon-left">
+                                <div class="input-group">
+                                <input type="password" id="txtPassword3" name="repite" placeholder="Repite la nueva contraseña" class="form-control form-control-lg input-lg" required>
+                                </div>
+                            </fieldset>
+                            <br>
+                            <div class="card-footer text-end">
+                            <button type="submit" name="cambiar" class="btn btn-danger" id="cambios" >Guardar</button>
+                            </div>
+                            <?php
+                            if(isset($_POST['cambiar']))
+                            {
+                                $actual = $_POST['actual'];
+                                $nueva = $_POST['nueva'];
+                                $repite = $_POST['repite'];
+
+                                if(strlen($nueva) < 8)
+                                {
+                                    echo'
+                                    <div class="alert alert-danger mt-3" role="alert">
+                                        La contraseña nueva debe tener al menos 8 caracteres.
+                                    </div>';
+                                    return;
+                                }
+
+                                if($nueva !== $repite) 
+                                {
+                                    echo'
+                                    <div class="alert alert-danger mt-3" role="alert">
+                                        La contraseña repetida debe coincidir con la nueva.
+                                    </div>';
+                                    return;
+                                }
+
+                                $passwordVerificada = $db->verificarPassword($idUsuario, $actual);
+                                
+                                if(!$passwordVerificada)
+                                {
+                                    echo'
+                                    <div class="alert alert-danger mt-3" role="alert">
+                                        La contraseña actual es incorrecta.
+                                    </div>';
+                                    return;
+                                }
+
+                                $db->cambiarPassword($idUsuario, $repite);
+                            }
+                            ?>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!--
+    <div class="contenct-wrapper">
+        <section class="flexbox-container">
+            <div class="col-12 d-flex align-items-center justify-content-center cardi">
+                <div class="col-md-8 col-12 p-0" style="margin-top: 8%;">
+                    <div class="card border-grey border-lighten-3 m-0 formulario">
+                        <H2 class="card-title text-muted pt-2"><span>Tu cuenta</span></H2><br>
+                        <div class="card-content">
+                            <div class="card-body">
+                            <form class="form-horizontal form-simple" action="" method="POST">
+                            <fieldset class="form-group position-relative has-icon-left">
+                                <div class="input-group">
+                                <input type="password" id="txtPassword1" name="actual" placeholder="Contraseña actual" class="form-control form-control-lg input-lg" required>
+                                <button id="ShowPassword1" class="btn btn-danger" type="button" onclick="mostrarPassword1()"> <span class="fa fa-eye-slash icon"></span></button>
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group position-relative has-icon-left">
+                                <div class="input-group">
+                                <input type="password" id="txtPassword2" name="nueva" placeholder="Contraseña nueva" class="form-control form-control-lg input-lg" required>
+                                <button id="ShowPassword2" class="btn btn-danger" type="button" onclick="mostrarPassword2()"> <span class="fa fa-eye-slash icon"></span></button>
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group position-relative has-icon-left">
+                                <div class="input-group">
+                                <input type="password" id="txtPassword3" name="repite" placeholder="Repite la nueva contraseña" class="form-control form-control-lg input-lg" required>
+                                <button id="ShowPassword3" class="btn btn-danger" type="button" onclick="mostrarPassword3()"> <span class="fa fa-eye-slash icon"></span></button>
+                                </div>
+                            </fieldset>
+                            <br>
+                            <button type="submit" name="cambiar" class="btn btn-danger" id="cambios" >Guardar</button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+                        -->
 </body>
 </html>

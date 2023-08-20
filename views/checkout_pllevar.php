@@ -43,10 +43,11 @@
 <body>
     <?php include '../sidebaradmin.php'; ?>
     
-    <div class="content-wrapper"  style="background-color: white;">
+    <div class="content-wrapper p-4"  style="background-color: white;">
 
     <div class="container">
 
+        <H3>PRODUCTOS DE LA ORDEN</H3>
         <div class="table-responsive" style="margin-top: 5%;">
             <table class="table table-hover">
                 <thead class="table-dark">

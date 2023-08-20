@@ -136,13 +136,16 @@ $sql->execute();
 
         foreach ($historial as $row) {
         ?>
-            <div class="card mb-3" style="margin-bottom: 1em;">
+            <div class="card mb-3" style="margin-bottom: 1em; background: rgb(231,180,155);
+            background: linear-gradient(45deg, rgba(231,180,155,0.5858718487394958) 0%, rgba(249,245,167,0.6446953781512605) 72%);">
                 <div class="card-header">
                     Folio de Orden: <?php echo $row['orden']; ?>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Fecha: <?php echo $row['fecha'], "<br>Hora: ", $row['hora']; ?> </h5><br>
-                    <a href="#" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#<?php echo $row['orden']; ?>">Ver detalles de compra</a>
+                    <br><h5 class="card-title">Fecha: <?php echo $row['fecha'], "<br>Hora: ", $row['hora']; ?> </h5><br>
+                </div>
+                <div class="card-footer text-end">
+                    <a href="#" class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#<?php echo $row['orden']; ?>">Ver detalles de compra</a>
                 </div>
             </div>
             <?php

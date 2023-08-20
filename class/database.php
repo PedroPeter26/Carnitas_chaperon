@@ -1,4 +1,4 @@
-<?php 
+<?php
 class database
 {
     public $PDOlocal;
@@ -102,7 +102,7 @@ class database
                         echo "<div class='alert alert-success'>¡Cliente registrado exitosamente!</div>";
                         echo "<script>window.location.href='../views/login.php'</script>";
                     }
-                    else 
+                    else
                     {
                         echo "<br>";
                         echo "<div class='alert alert-danger'>Hubo un error al registrarse. Intente de nuevo.</div>";
@@ -156,7 +156,7 @@ class database
                         echo "<br>";
                         echo "<div class='alert alert-success'>¡Cliente registrado exitosamente!</div>";
                     }
-                    else 
+                    else
                     {
                         echo "<br>";
                         echo "<div class='alert alert-danger'>Hubo un error al registrarse. Intente de nuevo.</div>";
@@ -194,27 +194,30 @@ class database
                 session_start();
                 $_SESSION["usuario"]=$usuario;
                 $_SESSION["idUsuario"]=$renglon['user_id'];
-                echo "<div class='alert alert-success'>
-                <H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>
+                echo "
+                <div class='alert alert-success'>
+                    <H1 align='center'>Bienvenido ".$_SESSION["usuario"]."</H1>
                 </div>";
-                header("refresh:2; ../index.php");
+                header("refresh: 2; ../index.php");
                 }
-                else 
+                else
                 {
                 session_start();
                 $_SESSION["usuario"]=$usuario;
                 $_SESSION["idUsuario"]=$renglon['user_id'];
-                echo "<div class='alert alert-success'>";
-                echo "<H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>";
-                echo "</div>";
-                header("refresh:2; ../indexAdmin.php");
+                echo "
+                <div class='alert alert-success'>
+                    <H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>
+                </div>";
+                header("refresh: 2; ../indexadmin.php");
                 }
             }
             else
             {
-            echo "<div class='alert alert-danger'>";
-            echo "<H6 align='center'>Usuario o contraseña incorrecta.</H6>";
-            echo "</div>";
+            echo "<div class='alert alert-danger'>
+                <H6 align='center'>Usuario o contraseña incorrecta.</H6>
+            </div>";
+            header("refresh: 2; ../views/login.php");
             }
         }
         catch (PDOException $e)

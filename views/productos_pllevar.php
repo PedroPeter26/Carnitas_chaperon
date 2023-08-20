@@ -5,9 +5,9 @@
     $db->conectarDB();
     $pdo = $db->getConexion();
 
-    $PRODUCTOS = isset($_SESSION['carrito']['PRODUCTOS']) ? $_SESSION['carrito']['PRODUCTOS'] : null;
+    $productos = isset($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
 
-    $sql = $pdo->prepare("select producto_id, nombre, precio_app from PRODUCTOS where status='Activo'");
+    $sql = $pdo->prepare("SELECT producto_id, nombre, precio_app FROM PRODUCTOS WHERE status='Activo'");
     $sql->execute();
     $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -88,26 +88,21 @@
                         $sentencia->execute();
                         $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                         
-                    ?>
-                    <?php
-                        foreach ($listaPRODUCTOS as $producto)
+                        foreach ($listaproductos as $producto)
                         {
+                            $id = $producto['producto_id'];
                     ?>
-                            <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-end mb-4">
-                                <div class="card contenidocards" style="width: 15rem; top: 0px; background-color: #FFEFCF">
-                                    <?php 
-                                    $id = $producto['producto_id'];
-                                    ?>
-                                    <img src="<?php echo $producto['img'];?>" class="card-img-top p-2" height="250em">
+                            <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
+                                <button class="btn" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">
+                                <div class="card" style="width: 20rem;">
+                                    <img src="<?php echo $producto['img'];?>" class="card-img-top" height="200em">
                                     <div class="card-body">
-                                        <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
-                                        <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ',');?></p>
-                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                            <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
-                                        </div>
+                                    <p class="card-text"><h4><?php echo $producto['nombre'];?></h4></p>
+                                    <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ',');?></p>
                                     </div>
-                                </div>
+                                </div> 
                             </div>
+                            </button>
                     <?php
                         }
                     ?>
@@ -122,28 +117,23 @@
                         <?php
                             $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO2' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                             $sentencia->execute();
-                            $listaPRODUCTOS=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+                            $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 
-                        ?>
-                        <?php
-                            foreach ($listaPRODUCTOS as $producto)
+                            foreach ($listaproductos as $producto)
                             {
+                                $id = $producto['producto_id'];
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
-                                    <div class="card contenidocards" style="width: 15rem; top: 0px; background-color: #FFEFCF">
-                                        <?php 
-                                            $id = $producto['producto_id'];
-                                        ?>
-                                        <img src="<?php echo $producto['img'];?>" class="card-img-top p-2" height="250em">
+                                    <button class="btn" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">
+                                    <div class="card" style="width: 20rem;">
+                                        <img src="<?php echo $producto['img'];?>" class="card-img-top" height="200em">
                                         <div class="card-body">
-                                            <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
-                                            <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
-                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                            <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
-                                            </div>
+                                        <p class="card-text"><h4><?php echo $producto['nombre'];?></h4></p>
+                                        <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ',');?></p>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
+                                </button>
                         <?php
                             }
                         ?>
@@ -159,27 +149,22 @@
                             $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO3' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                             $sentencia->execute();
                             $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-                                
-                        ?>
-                        <?php
+                              
                             foreach ($listaproductos as $producto)
                             {
+                                $id = $producto['producto_id'];
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
-                                    <div class="card contenidocards" style="width: 15rem; top: 0px; background-color: #FFEFCF">
-                                        <?php 
-                                            $id = $producto['producto_id'];
-                                        ?>
-                                        <img src="<?php echo $producto['img'];?>" class="card-img-top p-2" height="250em">
+                                    <button class="btn" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">
+                                    <div class="card" style="width: 20rem;">
+                                        <img src="<?php echo $producto['img'];?>" class="card-img-top" height="200em">
                                         <div class="card-body">
-                                            <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
-                                            <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
-                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                            <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
-                                            </div>
+                                        <p class="card-text"><h4><?php echo $producto['nombre'];?></h4></p>
+                                        <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ',');?></p>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
+                                </button>
                         <?php
                             }
                         ?>
@@ -195,27 +180,22 @@
                             $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO4' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                             $sentencia->execute();
                             $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-                                
-                        ?>
-                        <?php
+                            
                             foreach ($listaproductos as $producto)
                             {
+                                $id = $producto['producto_id'];
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
-                                    <div class="card contenidocards" style="width: 15rem; top: 0px; background-color: #FFEFCF">
-                                        <?php 
-                                            $id = $producto['producto_id'];
-                                        ?>
-                                        <img src="<?php echo $producto['img'];?>" class="card-img-top p-2" height="250em">
+                                    <button class="btn" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">
+                                    <div class="card" style="width: 20rem;">
+                                        <img src="<?php echo $producto['img'];?>" class="card-img-top" height="200em">
                                         <div class="card-body">
-                                            <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
-                                            <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
-                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                            <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
-                                            </div>
+                                        <p class="card-text"><h4><?php echo $producto['nombre'];?></h4></p>
+                                        <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ',');?></p>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
+                                </button>
                         <?php
                             }
                         ?>
@@ -231,27 +211,22 @@
                             $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO5' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                             $sentencia->execute();
                             $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-                                
-                        ?>
-                        <?php
+                               
                             foreach ($listaproductos as $producto)
                             {
+                                $id = $producto['producto_id'];
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
-                                    <div class="card contenidocards" style="width: 15rem; top: 0px; background-color: #FFEFCF">
-                                        <?php 
-                                            $id = $producto['producto_id'];
-                                        ?>
-                                        <img src="<?php echo $producto['img'];?>" class="card-img-top p-2" height="250em">
+                                    <button class="btn" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">
+                                    <div class="card" style="width: 20rem;">
+                                        <img src="<?php echo $producto['img'];?>" class="card-img-top" height="200em">
                                         <div class="card-body">
-                                            <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
-                                            <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
-                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                            <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
-                                            </div>
+                                        <p class="card-text"><h4><?php echo $producto['nombre'];?></h4></p>
+                                        <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ',');?></p>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
+                                </button>
                         <?php
                             }
                         ?>
@@ -267,27 +242,22 @@
                             $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO6' and PRODUCTOS.disponibilidad = 'Rapido' and status='Activo'");
                             $sentencia->execute();
                             $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-                                
-                        ?>
-                        <?php
+                               
                             foreach ($listaproductos as $producto)
                             {
+                                $id = $producto['producto_id'];
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
-                                    <div class="card contenidocards" style="width: 15rem; top: 0px; background-color: #FFEFCF">
-                                        <?php 
-                                            $id = $producto['producto_id'];
-                                        ?>
-                                        <img src="<?php echo $producto['img'];?>" class="card-img-top p-2" height="250em">
+                                    <button class="btn" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">
+                                    <div class="card" style="width: 20rem;">
+                                        <img src="<?php echo $producto['img'];?>" class="card-img-top" height="250em">
                                         <div class="card-body">
-                                            <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
-                                            <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
-                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                            <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
-                                            </div>
+                                        <p class="card-text"><h4><?php echo $producto['nombre'];?></h4></p>
+                                        <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ',');?></p>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
+                                </button>
                         <?php
                             }
                         ?>
@@ -303,27 +273,22 @@
                             $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO7' and PRODUCTOS.disponibilidad = 'Ambos' and status='Activo'");
                             $sentencia->execute();
                             $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-                                
-                        ?>
-                        <?php
+                               
                             foreach ($listaproductos as $producto)
                             {
+                                $id = $producto['producto_id'];
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
-                                    <div class="card contenidocards" style="width: 15rem; top: 0px; background-color: #FFEFCF">
-                                        <?php 
-                                            $id = $producto['producto_id'];
-                                        ?>
-                                        <img src="<?php echo $producto['img'];?>" class="card-img-top p-2" height="260em">
+                                    <button class="btn" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">
+                                    <div class="card" style="width: 20rem;">
+                                        <img src="<?php echo $producto['img'];?>" class="card-img-top" height="250em">
                                         <div class="card-body">
-                                            <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
-                                            <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
-                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                            <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
-                                            </div>
+                                        <p class="card-text"><h4><?php echo $producto['nombre'];?></h4></p>
+                                        <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ',');?></p>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
+                                </button>
                         <?php
                             }
                         ?>
@@ -339,27 +304,22 @@
                             $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE PRODUCTOS.tipo = 'TIPO8' and PRODUCTOS.disponibilidad = 'Rapido' and status='Activo'");
                             $sentencia->execute();
                             $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-                                
-                        ?>
-                        <?php
+                              
                             foreach ($listaproductos as $producto)
                             {
+                                $id = $producto['producto_id'];
                         ?>
                                 <div class="col-12 col-md-12 col-lg-4 d-flex justify-content-center align-items-center mb-4">
-                                    <div class="card contenidocards" style="width: 15rem; top: 0px; background-color: #FFEFCF">
-                                        <?php 
-                                            $id = $producto['producto_id'];
-                                        ?>
-                                        <img src="<?php echo $producto['img'];?>" class="card-img-top p-2" height="250em">
+                                    <button class="btn" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-toggle="modal" data-bs-target="#prodAgregado">
+                                    <div class="card" style="width: 20rem;">
+                                        <img src="<?php echo $producto['img'];?>" class="card-img-top" height="200em">
                                         <div class="card-body">
-                                            <h5 class="card-title"><?php echo $producto['nombre'];?></h5>
-                                            <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ','); ?></p>
-                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                                            <button class="btn btn-dark justify-content-md-end" type="button" onclick="addProducto(<?php echo $producto['producto_id']; ?>, '<?php echo hash_hmac('sha1', $id, KEY_TOKEN); ?>')" data-bs-id="<?php echo $_id; ?>" data-bs-toggle="modal" data-bs-target="#prodAgregado">Agregar</button>
-                                            </div>
+                                        <p class="card-text"><h4><?php echo $producto['nombre'];?></h4></p>
+                                        <p class="card-text">Precio: <?php echo MONEDA . number_format($producto['precio_app'], 2, '.', ',');?></p>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
+                                </button>
                         <?php
                             }
                         ?>
@@ -378,7 +338,7 @@
                         <p>Se ha agregdo un nuevo producto a la orden.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
                     </div>
                     </div>
                 </div>
