@@ -104,7 +104,7 @@ class database
                     session_start();
                     $_SESSION["usuario"] = $usuario;
                     $_SESSION["idUsuario"] = $renglon['user_id'];
-                    header("Location: ../index2.php");
+                    header("Location: ../index.php");
                 } else {
                     session_start();
                     $_SESSION["usuario"] = $usuario;

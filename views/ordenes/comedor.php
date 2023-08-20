@@ -26,7 +26,7 @@ $database->desconectarDB();
 
     <div class="content-wrapper p-5">
         <div class="container">
-            <h1>Mesas</h1>
+            <h1>Mesas</h1><br>
             <div class="row">
                 <?php foreach ($mesas as $mesa) : ?>
 
