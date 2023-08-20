@@ -38,6 +38,10 @@ $pdo = $db->getConexion();
             <h1>USUARIOS REGISTRADOS</h1>
             <br>
 
+<<<<<<< Updated upstream
+=======
+            <!--FORM DE BUSCAR USUARIOS-->
+>>>>>>> Stashed changes
             <div class="container pt-3 pb-3 pe-4 ps-4 mb-5" style="background-color: #EFEDED;">
                 <h3>Buscar usuarios</h3>
                 <form action="usuarios.php" method="POST">
@@ -50,9 +54,15 @@ $pdo = $db->getConexion();
                             <input class="btn btn-dark" type="submit" name="buscar" value="Buscar">
                         </div>
                         <div class="d-grid gap-2 col-3 col-md-3 col-lg-3" style="margin-top: 32px">
+<<<<<<< Updated upstream
                         <a href="usuarios.php">
                             <button class="btn btn-dark col-12">Limpiar</button>
                         </a>
+=======
+                            <a href="usuarios.php">
+                                <button class="btn btn-dark col-12">Limpiar</button>
+                            </a>
+>>>>>>> Stashed changes
                         </div>
                     </div>
                 </form>
@@ -60,6 +70,7 @@ $pdo = $db->getConexion();
 
             <!-- MOSTRAR LOS USUARIOS REGISTRADOS O RESULTADOS DE BÚSQUEDA -->
             <?php
+<<<<<<< Updated upstream
 
             if (!empty($_POST['buscar']))
             {
@@ -82,6 +93,23 @@ $pdo = $db->getConexion();
                 echo "<div class='container' id='tablaContainer'>";
                 echo "<div class='table-responsive'>";
                 echo "<table class='table table-hover' id='tablaRegistros'>
+=======
+            if (!empty($_POST['buscar'])) {
+                $userToSearch = $_POST['user'];
+
+                if (empty($userToSearch)) {
+                    echo "<div class='alert alert-danger'>Escribe un user antes de buscar.</div>";
+                } else {
+                    $sql = $pdo->prepare("SELECT * FROM USUARIOS WHERE user = :userToSearch AND tipo <> 'admin'");
+                    $sql->bindParam(':userToSearch', $userToSearch);
+                    $sql->execute();
+                    $num = $sql->rowCount();
+                    if ($num > 0) {
+                        // Muestra la tabla de usuarios o resultados de búsqueda
+                        echo "<div class='container' id='tablaContainer'>";
+                        echo "<div class='table-responsive'>";
+                        echo "<table class='table table-hover' id='tablaRegistros'>
+>>>>>>> Stashed changes
                             <thead class='table-dark'>
                                 <tr'>
                                     <th style='width: 25%'>Nombre</th>
@@ -92,6 +120,7 @@ $pdo = $db->getConexion();
                             </thead>
                             <tbody>";
 
+<<<<<<< Updated upstream
                 //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
                 while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
                     echo "<tr>";
@@ -110,12 +139,73 @@ $pdo = $db->getConexion();
             else 
             {
                 echo "<div class='alert alert-secondary' id='alert1'>No se encontraron registros.</div>";
+=======
+                        //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
+                        while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
+                            echo "<tr>";
+                            echo "<td style='width: 25%'>" . $registro['nombre'] . "</td>";
+                            echo "<td style='width: 25%'>" . $registro['apellido'] . "</td>";
+                            echo "<td style='width: 25%'>" . $registro['user'] . "</td>";
+                            echo "<td style='width: 25%'>" . $registro['correo'] . "</td>";
+                            echo "</tr>";
+                        endwhile;
+
+                        echo "</tbody>
+                            </table>";
+                        echo "</div>";
+                        echo "</div>";
+                    } else {
+                        echo "<div class='alert alert-secondary' id='alert1'>No se encontraron registros.</div>";
+                    }
+                }
+            } else {
+                $sql = $pdo->prepare("SELECT * FROM USUARIOS WHERE tipo <> 'admin'");
+                $sql->execute();
+                $num = $sql->rowCount();
+                if ($num > 0) {
+                    // Muestra la tabla de usuarios o resultados de búsqueda
+                    echo "<div class='container' id='tablaContainer'>";
+                    echo "<div class='table-responsive'>";
+                    echo "<table class='table table-hover' id='tablaRegistros'>
+                            <thead class='table-dark'>
+                                <tr'>
+                                    <th style='width: 25%'>Nombre</th>
+                                    <th style='width: 25%'>Apellido</th>
+                                    <th style='width: 25%'>User</th>
+                                    <th style='width: 25%'>Correo</th>
+                                </tr>
+                            </thead>
+                            <tbody>";
+
+                    //comenzamos a mostrar los registros que se encontraron con el PA con el while como el foreach
+                    while ($registro = $sql->fetch(PDO::FETCH_ASSOC)) :
+                        echo "<tr>";
+                        echo "<td style='width: 25%'>" . $registro['nombre'] . "</td>";
+                        echo "<td style='width: 25%'>" . $registro['apellido'] . "</td>";
+                        echo "<td style='width: 25%'>" . $registro['user'] . "</td>";
+                        echo "<td style='width: 25%'>" . $registro['correo'] . "</td>";
+                        echo "</tr>";
+                    endwhile;
+
+                    echo "</tbody>
+                            </table>";
+                    echo "</div>";
+                    echo "</div>";
+                } else {
+                    echo "<div class='alert alert-secondary' id='alert1'>No se encontraron registros.</div>";
+                }
+>>>>>>> Stashed changes
             }
 
             $db->desconectarDB();
             ?>
         </div>
     </div>
+<<<<<<< Updated upstream
+=======
+
+</body>
+>>>>>>> Stashed changes
 
 </body>
 </html>

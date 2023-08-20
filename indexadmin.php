@@ -1,3 +1,11 @@
+<?php
+include 'class/config.php';
+include 'class/database.php';
+$db = new database();
+$db->ConectarDB();
+$pdo = $db->getConexion();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,6 +77,7 @@
 
 <body>
   <!-- Navbar -->
+  <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark">
     <!-- Left navbar links-->
     <ul class="navbar-nav">
@@ -78,42 +87,39 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="indexadmin.php" class="nav-link">Home</a>
       </li>
+      <div class="dropdown m-1">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Notificaciones
+        </button>
+        <div class="dropdown-menu" aria-labelledby="notificationDropdown" id="table">
+        </div>
+      </div>
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
 
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li>
+    <div id="newNotification" class="alert alert-success m-3 p-3 position-fixed" style="display: none; top: 0; left: 0;">
+      Nueva orden recibida!
+    </div>
+    <a href="class/cerrarsesion.php">
+    <button class="btn btn-block col-12 btn-dark justify-content-md-end">Cerrar sesión</button>
+    </a>
     </ul>
-    <button type="button" class="btn btn-block col-2 btn-dark">Cerrar sesión</button>
   </nav>
   <!-- /.navbar -->
+  <script type="text/javascript">
+    function tiempoReal() {
+      var tabla = $.ajax({
+        url: 'scripts/notifications.php',
+        dataType: 'text',
+        async: false
+      }).responseText;
+
+      document.getElementById("table").innerHTML = tabla;
+    }
+    setInterval(tiempoReal, 1000);
+  </script>
 
   <!-- Main Sidebar Container-->
   <aside class="main-sidebar elevation-4 position-fixed" style="background-color: #ff7a00;">
@@ -139,9 +145,6 @@
               <!-- Sidebar user panel (optional) -->
               <hr class="border-1 opacity-100" style="background-color: black; width:auto">
               <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                  <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                </div>
                 <div class="info">
                   <a href="#" class="d-block" style="color: black;">Administrador</a>
                 </div>
@@ -216,7 +219,11 @@
                     </ul>
                   </li>
                   <li class="nav-item">
+<<<<<<< Updated upstream
                     <a href="" class="nav-link" style="color: black;">
+=======
+                    <a href="views/ordenes/comedor.php" class="nav-link" style="color: black;">
+>>>>>>> Stashed changes
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes del comedor
@@ -225,7 +232,11 @@
                     </a>
                   </li>
                   <li class="nav-item">
+<<<<<<< Updated upstream
                     <a href="" class="nav-link" style="color: black;">
+=======
+                    <a href="views/ordenes/productos_pllevar.php" class="nav-link" style="color: black;">
+>>>>>>> Stashed changes
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes para llevar
@@ -234,7 +245,11 @@
                     </a>
                   </li>
                   <li class="nav-item">
+<<<<<<< Updated upstream
                     <a href="" class="nav-link" style="color: black;">
+=======
+                    <a href="views/ordenes/ordenes_online.php" class="nav-link" style="color: black;">
+>>>>>>> Stashed changes
                       <i class="nav-icon fas fa-th"></i>
                       <p class="ms-auto">
                         Órdenes online
@@ -291,6 +306,7 @@
         <div class="os-scrollbar-corner"></div>
       </div>
 
+        
   </aside>
 
   <div class="content-wrapper" style="background-color: white;">
@@ -300,55 +316,39 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
+          <!--TOTAL DIARIO-->
           <div class="col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
                 <?php
-                $host = "localhost";
-                $dbname = "BDCarnitasChaperon";
-                $username = "root";
-                $password = "";
-
-                $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-
-                $cadena = "CALL DINERO_DIARIO(@TotalDiario);";
-                $stmt = $conn->query($cadena);
-                $stmt->closeCursor();
-                $r = $conn->query("SELECT @TotalDiario as 'Total Diario';")->fetch(PDO::FETCH_ASSOC);
+                $sql = $pdo->prepare("CALL DINERO_DIARIO(@TotalDiario);");
+                $sql->execute();
+                $r = $pdo->query("SELECT @TotalDiario as 'Total Diario';")->fetch(PDO::FETCH_ASSOC);
                 $totalDiario = $r['Total Diario'];
                 if ($totalDiario == null) {
                   echo "<h3>$0.00</h3>";
                 } else {
                   echo "<h3>$ " . $totalDiario . "</h3>";
                 }
-                $conn = null; //Termina la conexión con la bd
                 ?>
                 <p>Ventas diarias</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="VIEWS/generaladmin/diario.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="views/generaladmin/diario.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
+          <!-- TOTAL SEMANAL -->
           <div class="col-6">
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
                 <?php
-                $host = "localhost";
-                $dbname = "BDCarnitasChaperon";
-                $username = "root";
-                $password = "";
-
-                $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-
-                $cadena = "CALL DINERO_SEMANAL(@TotalSemanal);";
-                $stmt = $conn->query($cadena);
-                $stmt->closeCursor();
-                $r = $conn->query("SELECT @TotalSemanal as 'Total Semanal';")->fetch(PDO::FETCH_ASSOC);
+                $sql = $pdo->prepare("CALL DINERO_SEMANAL(@TotalSemanal);");
+                $sql->execute();
+                $r = $pdo->query("SELECT @TotalSemanal as 'Total Semanal';")->fetch(PDO::FETCH_ASSOC);
                 $totalSemanal = $r['Total Semanal'];
                 if ($totalSemanal == null) {
                   echo "<h3>$0.00</h3>";
@@ -365,30 +365,21 @@
               <a href="views/generaladmin/semanal.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
+          <!-- TOTAL MENSUAL -->
           <div class="col-6">
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
                 <?php
-                $host = "localhost";
-                $dbname = "BDCarnitasChaperon";
-                $username = "root";
-                $password = "";
-
-                $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-
-                $cadena = "CALL DINERO_MENSUAL(@TotalMensual);";
-                $stmt = $conn->query($cadena);
-                $stmt->closeCursor();
-                $r = $conn->query("SELECT @TotalMensual as 'Total Mensual';")->fetch(PDO::FETCH_ASSOC);
+                $sql = $pdo->prepare("CALL DINERO_MENSUAL(@TotalMensual);");
+                $sql->execute();
+                $r = $pdo->query("SELECT @TotalMensual as 'Total Mensual';")->fetch(PDO::FETCH_ASSOC);
                 $totalMensual = $r['Total Mensual'];
                 if ($totalMensual == null) {
                   echo "<h3>$0.00</h3>";
                 } else {
                   echo "<h3>$ " . $totalMensual . "</h3>";
                 }
-                $conn = null; //Termina la conexión con la bd
                 ?>
 
                 <p>Venta mensual</p>
@@ -399,34 +390,24 @@
               <a href="views/generaladmin/mensual.php" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
+          <!-- USUARIOS -->
           <div class="col-6">
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
                 <?php
-                $host = "localhost";
-                $dbname = "BDCarnitasChaperon";
-                $username = "root";
-                $password = "";
+                $sql = $pdo->prepare("SELECT USUARIOS FROM CANTIDAD_USUARIOS");
+                $sql->execute();
 
-                $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-                // Consulta para obtener el resultado de la vista
-                $consulta = "SELECT USUARIOS FROM CANTIDAD_USUARIOS";
-
-                // Ejecutar la consulta y obtener el resultado como un entero
-                $resultado = $conn->query($consulta)->fetchColumn();
+                $r = $sql->fetch(PDO::FETCH_ASSOC);
 
                 // Imprimir el resultado
-                if ($resultado == null) {
+                if ($r == null) {
                   echo "<h3>No hay usuarios registrados.</h3>";
                 } else {
-                  echo "<h3> " . $resultado . "</h3>";
+                  echo "<h3> " . $r['USUARIOS'] . "</h3>";
                 }
 
-                $conn = null; //Termina la conexión con la bd
                 ?>
 
                 <p>Usuarios registrados</p>
@@ -455,20 +436,23 @@
 
           <?php
           $horas = range(10, 18); // Hours from 10:00 a.m. to 6:00 p.m.
+<<<<<<< Updated upstream
 
           $labels = array_map(function ($hora) {
             return sprintf('%02d:00', $hora); // Formatear la hora en formato HH:00
           }, $horas);
 
+=======
+>>>>>>> Stashed changes
 
-          $servername = "localhost";
-          $username = "root";
-          $password = "";
-          $dbname = "BDCarnitasChaperon";
+          $labels = array_map(function ($hora) {
+            return sprintf('%02d:00', $hora); // Formatear la hora en formato HH:00
+          }, $horas);
 
           try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $currentMonth = date('Y-m'); // Get the current year and month (e.g., 2023-08)
 
             $currentMonth = date('Y-m'); // Get the current year and month (e.g., 2023-08)
 
@@ -479,7 +463,11 @@
             GROUP BY HOUR(hora_inicio)
             ORDER BY HOUR(hora_inicio);";
 
+<<<<<<< Updated upstream
             $stmt = $conn->prepare($sql);
+=======
+            $stmt = $pdo->prepare($sql);
+>>>>>>> Stashed changes
             //$stmt->bindParam(':currentMonth', $currentMonth); // No es necesario enlazar este parámetro
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -495,11 +483,13 @@
           $conn = null;
           ?>
 
-
         </div>
       </div>
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
       <script>
         // Configure the chart context
         var ctx = document.getElementById('horaPicoChart').getContext('2d');

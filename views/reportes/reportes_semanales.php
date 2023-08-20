@@ -20,6 +20,7 @@ $pdo = $db->getConexion();
     <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Lilita+One&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <?php include '../headadmin.php'; ?>
+    <?php include '../footeradmin.php'; ?>
 
     <title>Reportes semanales</title>
 </head>
@@ -366,7 +367,6 @@ $pdo = $db->getConexion();
         </div>
     </div>
 
-    <?php include '../footeradmin.php'; ?>
 
 </body>
 
