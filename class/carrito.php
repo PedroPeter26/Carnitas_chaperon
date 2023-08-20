@@ -1,5 +1,6 @@
 <?php
 require 'config.php';
+include 'database.php';
 
 if (isset($_POST['producto_id'])){
 

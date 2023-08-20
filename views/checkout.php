@@ -72,20 +72,23 @@ if($productos != null){
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills align-content-end offset-8" style="color: white;">
+                <!--<li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>-->
                 <li class="nav-item">
                 <a class="btn btn-warning" href="checkout.php">Carrito <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span></a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="ordenar.php">Ordenar</a>
+                <a class="nav-link" style="color: white;" href="views/ordenar.php">Ordenar</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" style="color: white;" href="menusinordenar.php">Menú</a>
+                <a class="nav-link" style="color: white;" href="views/menu1.php">Menú</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="#" data-bs-toggle="modal" data-bs-target="#alta">Ubicación</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="color: white;" href="../views/cerrarsesion.php">Cerrar sesión</a>
+                    <a class="nav-link" style="color: white;" href="scripts/logout.php">Cerrar sesión</a>
                 </li>
             </ul>
             </div>
@@ -205,7 +208,7 @@ if($productos != null){
         console.log('Cantidad:', cantidad);
         console.log('ID:', _id);
         
-        let url = '../class/actualizar_carrito.php'
+        let url = 'class/actualizar_carrito.php'
         let formData = new FormData()
         formData.append('action', 'agregar')
         formData.append('_id', _id)
@@ -244,7 +247,7 @@ if($productos != null){
         let botonElimina = document.getElementById('btn-elimina')
         let _id = botonElimina.value
 
-        let url = '../class/actualizar_carrito.php'
+        let url = 'class/actualizar_carrito.php'
         let formData = new FormData()
         formData.append('action', 'eliminar')
         formData.append('_id', _id)

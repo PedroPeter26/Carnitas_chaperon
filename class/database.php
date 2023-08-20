@@ -9,11 +9,7 @@ class database
     function ConectarDB()
     {
         try {
-<<<<<<< Updated upstream
-            $this->PDOLocal = new PDO($this->server, $this->user, $this->password);
-=======
             $this->PDOlocal = new PDO($this->server, $this->user, $this->password);
->>>>>>> Stashed changes
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -22,23 +18,11 @@ class database
     function desconectarDB()
     {
         try {
-<<<<<<< Updated upstream
-            $this->PDOLocal = null;
-=======
             $this->PDOlocal = null;
->>>>>>> Stashed changes
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
     }
-<<<<<<< Updated upstream
-    function seleccionar($consulta)
-    {
-        try {
-            $resultado = $this->PDOLocal->query($consulta);
-            $fila = $resultado->fetchAll(PDO::FETCH_OBJ);
-            /*Leer doc: configuración en tiempo de ejecucion*/
-=======
 
     function getConexion()
     {
@@ -50,31 +34,11 @@ class database
         try {
             $resultado = $this->PDOlocal->query($consulta);
             $fila = $resultado->fetchAll(PDO::FETCH_OBJ);
->>>>>>> Stashed changes
             return $fila;
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
     }
-<<<<<<< Updated upstream
-    function getConexion()
-    {
-        return $this->PDOLocal;
-    }
-    function seleccionar2($consulta)
-    {
-        try {
-            $this->conectarDB(); // Asegurar que la conexión esté establecida
-            $resultado = $this->PDOLocal->query($consulta);
-            $fila = $resultado->fetchAll(PDO::FETCH_ASSOC);
-            return $fila;
-        } catch (PDOException $e) {
-            echo "Error en consulta: " . $e->getMessage();
-        } finally {
-            $this->desconectarDB();
-        }
-    }
-=======
 
     function ejecutaSQL($consulta)
     {
@@ -140,12 +104,12 @@ class database
                     session_start();
                     $_SESSION["usuario"] = $usuario;
                     $_SESSION["idUsuario"] = $renglon['user_id'];
-                    header("refresh:2; ../index.php");
+                    header("Location: ../index2.php");
                 } else {
                     session_start();
                     $_SESSION["usuario"] = $usuario;
                     $_SESSION["idUsuario"] = $renglon['user_id'];
-                    header("refresh:2; ../indexadmin.php");
+                    header("Location: ../indexadmin.php");
                 }
                 exit(); // Importante: detener la ejecución del script después de las redirecciones
             } else {
@@ -164,5 +128,4 @@ class database
         session_destroy();
         header("Location:../index.php");
     }
->>>>>>> Stashed changes
 }

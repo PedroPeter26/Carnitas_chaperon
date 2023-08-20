@@ -65,43 +65,22 @@ date_default_timezone_set('America/Monterrey');
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
-<<<<<<< Updated upstream
-=======
                     <!--VENTAS ONLINE-->
->>>>>>> Stashed changes
                     <div class="col-4">
                         <!-- small box -->
                         <div class="small-box" style="background-color: #CCD1D1;">
                             <div class="inner">
                                 <?php
-<<<<<<< Updated upstream
-                                $host = "localhost";
-                                $dbname = "BDCarnitasChaperon";
-                                $username = "root";
-                                $password = "";
-
-                                $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-
-                                $cadena = "CALL DINERO_DIARIO_ONLINE(@TotalDiarioOnline);";
-                                $stmt = $conn->query($cadena);
-                                $stmt->closeCursor();
-                                $r = $conn->query("SELECT @TotalDiarioOnline as 'Total Diario Online';")->fetch(PDO::FETCH_ASSOC);
-=======
 
                                 $sql = $pdo->prepare("CALL DINERO_DIARIO_ONLINE(@TotalDiarioOnline);");
                                 $sql->execute();
                                 $r = $pdo->query("SELECT @TotalDiarioOnline as 'Total Diario Online';")->fetch(PDO::FETCH_ASSOC);
->>>>>>> Stashed changes
                                 $totalDiarioOnline = $r['Total Diario Online'];
                                 if ($totalDiarioOnline == null) {
                                     echo "<h3>$0.00</h3>";
                                 } else {
                                     echo "<h3>$ " . $totalDiarioOnline . "</h3>";
                                 }
-<<<<<<< Updated upstream
-                                $conn = null; //Termina la conexión con la bd
-=======
->>>>>>> Stashed changes
                                 ?>
                                 <p>Ventas online</p>
                             </div>
@@ -110,33 +89,15 @@ date_default_timezone_set('America/Monterrey');
                             </div>
                         </div>
                     </div>
-<<<<<<< Updated upstream
-                    <!-- ./col -->
-=======
                     <!-- VENTAS COMEDOR -->
->>>>>>> Stashed changes
                     <div class="col-4">
                         <!-- small box -->
                         <div class="small-box" style="background-color: #B2BABB;">
                             <div class="inner">
                                 <?php
-<<<<<<< Updated upstream
-                                $host = "localhost";
-                                $dbname = "BDCarnitasChaperon";
-                                $username = "root";
-                                $password = "";
-
-                                $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-
-                                $cadena = "CALL DINERO_DIARIO_COMEDOR(@TotalDiarioComedor);";
-                                $stmt = $conn->query($cadena);
-                                $stmt->closeCursor();
-                                $r = $conn->query("SELECT @TotalDiarioComedor as 'Total Diario Comedor';")->fetch(PDO::FETCH_ASSOC);
-=======
                                 $sql = $pdo->prepare("CALL DINERO_DIARIO_COMEDOR(@TotalDiarioComedor);");
                                 $sql->execute();
                                 $r = $pdo->query("SELECT @TotalDiarioComedor as 'Total Diario Comedor';")->fetch(PDO::FETCH_ASSOC);
->>>>>>> Stashed changes
                                 $totalDiarioComedor = $r['Total Diario Comedor'];
                                 if ($totalDiarioComedor == null) {
                                     echo "<h3>$0.00</h3>";
@@ -152,34 +113,16 @@ date_default_timezone_set('America/Monterrey');
                             </div>
                         </div>
                     </div>
-<<<<<<< Updated upstream
-                    <!-- ./col -->
-=======
                     <!-- VENTAS PARA LLEVAR -->
->>>>>>> Stashed changes
                     <div class="col-4">
                         <!-- small box -->
                         <div class="small-box" style="background-color: #99A3A4;">
                             <div class="inner">
                                 <?php
-<<<<<<< Updated upstream
-                                $host = "localhost";
-                                $dbname = "BDCarnitasChaperon";
-                                $username = "root";
-                                $password = "";
-
-                                $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-
-                                $cadena = "CALL DINERO_DIARIO_PLLEVAR(@TotalDiarioPllevar);";
-                                $stmt = $conn->query($cadena);
-                                $stmt->closeCursor();
-                                $r = $conn->query("SELECT @TotalDiarioPllevar as 'Total Diario Para llevar';")->fetch(PDO::FETCH_ASSOC);
-=======
 
                                 $sql = $pdo->prepare("CALL DINERO_DIARIO_PLLEVAR(@TotalDiarioPllevar);");
                                 $sql->execute();
                                 $r = $pdo->query("SELECT @TotalDiarioPllevar as 'Total Diario Para llevar';")->fetch(PDO::FETCH_ASSOC);
->>>>>>> Stashed changes
                                 $totalDiarioPllevar = $r['Total Diario Para llevar'];
                                 if ($totalDiarioPllevar == null) {
                                     echo "<h3>$0.00</h3>";
@@ -204,11 +147,7 @@ date_default_timezone_set('America/Monterrey');
         <!--GRAFICA DE BARRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAS-->
 
         <!--CARD DE LA GRÁFICA DE BARRAS-->
-<<<<<<< Updated upstream
-        <div class="col-12 col-md-12 col-lg-12">
-=======
         <div class="col-12 col-md-12 col-lg-12" id="barras">
->>>>>>> Stashed changes
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Gráfica de ventas diarias</h3>
@@ -221,24 +160,6 @@ date_default_timezone_set('America/Monterrey');
 
         <!--CONSULTA A LA BD DE BARRAS-->
         <?php
-<<<<<<< Updated upstream
-            try {
-                // Configura PDO para reportar errores
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-                // Consulta los datos de la base de datos
-                try {
-                    // ... (código de conexión a la base de datos y manejo de excepciones)
-
-                    // Crear un arreglo con los nombres de los días de la semana en español
-                    $nombreDias = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-                    // Llenar los arreglos con valores por defecto de 0 para todos los días de la semana
-                    $etiquetas = $nombreDias;
-                    $datos = array_fill(0, count($nombreDias), 0);
-
-                    $sql = "SELECT DAYNAME(fecha) AS dia_semana, COUNT(orden_id) AS total
-=======
         try {
             // Configura PDO para reportar errores
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -253,49 +174,11 @@ date_default_timezone_set('America/Monterrey');
                 $datos = array_fill(0, count($nombreDias), 0);
 
                 $sql = "SELECT DAYNAME(fecha) AS dia_semana, COUNT(orden_id) AS total
->>>>>>> Stashed changes
                                     FROM ORDENES
                                     WHERE status = 'Finalizado'
                                     AND YEARWEEK(fecha) = YEARWEEK(CURDATE())
                                     GROUP BY dia_semana;";
 
-<<<<<<< Updated upstream
-                    $stmt = $pdo->prepare($sql);
-                    $stmt->execute();
-
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $dia_semana = $row["dia_semana"];
-                        $total = $row["total"];
-
-                        // Encontrar el índice del día de la semana en el arreglo
-                        $indice = array_search($dia_semana, $nombreDias);
-
-                        // Actualizar el total en el arreglo de datos
-                        $datos[$indice] = $total;
-                    }
-                } catch (PDOException $e) {
-                    echo "Error: " . $e->getMessage();
-                }
-
-                // Arreglo de traducción de nombres de días de la semana en inglés a español
-                $diasSemanaTraduccion = [
-                    'Monday' => 'Lunes',
-                    'Tuesday' => 'Martes',
-                    'Wednesday' => 'Miércoles',
-                    'Thursday' => 'Jueves',
-                    'Friday' => 'Viernes',
-                    'Saturday' => 'Sábado',
-                    'Sunday' => 'Domingo',
-                ];
-
-                // Formatear las etiquetas (días de la semana) para mostrar el nombre en español
-                $etiquetasFormateadas = array_map(function ($dia) use ($diasSemanaTraduccion) {
-                    return $diasSemanaTraduccion[$dia];
-                }, $etiquetas);
-            } catch (PDOException $e) {
-                echo ("Error occurred:" . $e->getMessage());
-            }
-=======
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
 
@@ -331,7 +214,6 @@ date_default_timezone_set('America/Monterrey');
         } catch (PDOException $e) {
             echo ("Error occurred:" . $e->getMessage());
         }
->>>>>>> Stashed changes
         ?>
 
         <!--GRÁFICA DE BARRAS-->
@@ -365,11 +247,7 @@ date_default_timezone_set('America/Monterrey');
 
 
         <!--GRAFICA DE PASTEL-->
-<<<<<<< Updated upstream
-        <div class="col-12 col-md-12 col-lg-12">
-=======
         <div class="col-12 col-md-12 col-lg-12" id="pastel">
->>>>>>> Stashed changes
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Gráfica de porcentaje ventas por categoría (diario)</h3>
@@ -471,8 +349,6 @@ date_default_timezone_set('America/Monterrey');
             </script>
 
         <?php
-<<<<<<< Updated upstream
-=======
         else:
         ?>
             <style>
@@ -481,7 +357,6 @@ date_default_timezone_set('America/Monterrey');
             }
         </style>
         <?php
->>>>>>> Stashed changes
         endif;
         ?>
 

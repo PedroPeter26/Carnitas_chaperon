@@ -1,9 +1,9 @@
 <?php
-include '../class/database.php';
-$db = new Database();
-$db->conectarDB();
+include '../../class/database.php';
+$db = new database();
+$db->ConectarDB();
 $pdo = $db->getConexion();
-require '../class/configcom.php';
+require '../../class/configcom.php';
 
 $mesa_id = isset($_GET['mesa_id']) ? $_GET['mesa_id'] : null;
 if ($mesa_id === null) {

@@ -219,11 +219,7 @@ $pdo = $db->getConexion();
                     </ul>
                   </li>
                   <li class="nav-item">
-<<<<<<< Updated upstream
-                    <a href="" class="nav-link" style="color: black;">
-=======
                     <a href="views/ordenes/comedor.php" class="nav-link" style="color: black;">
->>>>>>> Stashed changes
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes del comedor
@@ -232,11 +228,7 @@ $pdo = $db->getConexion();
                     </a>
                   </li>
                   <li class="nav-item">
-<<<<<<< Updated upstream
-                    <a href="" class="nav-link" style="color: black;">
-=======
                     <a href="views/ordenes/productos_pllevar.php" class="nav-link" style="color: black;">
->>>>>>> Stashed changes
                       <i class="nav-icon fas fa-th"></i>
                       <p>
                         Órdenes para llevar
@@ -245,11 +237,7 @@ $pdo = $db->getConexion();
                     </a>
                   </li>
                   <li class="nav-item">
-<<<<<<< Updated upstream
-                    <a href="" class="nav-link" style="color: black;">
-=======
                     <a href="views/ordenes/ordenes_online.php" class="nav-link" style="color: black;">
->>>>>>> Stashed changes
                       <i class="nav-icon fas fa-th"></i>
                       <p class="ms-auto">
                         Órdenes online
@@ -436,14 +424,6 @@ $pdo = $db->getConexion();
 
           <?php
           $horas = range(10, 18); // Hours from 10:00 a.m. to 6:00 p.m.
-<<<<<<< Updated upstream
-
-          $labels = array_map(function ($hora) {
-            return sprintf('%02d:00', $hora); // Formatear la hora en formato HH:00
-          }, $horas);
-
-=======
->>>>>>> Stashed changes
 
           $labels = array_map(function ($hora) {
             return sprintf('%02d:00', $hora); // Formatear la hora en formato HH:00
@@ -454,8 +434,6 @@ $pdo = $db->getConexion();
 
             $currentMonth = date('Y-m'); // Get the current year and month (e.g., 2023-08)
 
-            $currentMonth = date('Y-m'); // Get the current year and month (e.g., 2023-08)
-
             $sql = "SELECT HOUR(hora_inicio) AS hora, COUNT(*) AS cantidad_ordenes
             FROM ORDENES
             WHERE TIME(hora_inicio) >= '10:00:00' AND TIME(hora_inicio) <= '18:00:00'
@@ -463,11 +441,7 @@ $pdo = $db->getConexion();
             GROUP BY HOUR(hora_inicio)
             ORDER BY HOUR(hora_inicio);";
 
-<<<<<<< Updated upstream
-            $stmt = $conn->prepare($sql);
-=======
             $stmt = $pdo->prepare($sql);
->>>>>>> Stashed changes
             //$stmt->bindParam(':currentMonth', $currentMonth); // No es necesario enlazar este parámetro
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -486,10 +460,6 @@ $pdo = $db->getConexion();
         </div>
       </div>
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
       <script>
         // Configure the chart context
         var ctx = document.getElementById('horaPicoChart').getContext('2d');

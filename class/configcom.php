@@ -4,8 +4,6 @@ define('CURRENCY', 'MXN');
 
 define("MONEDA", "$");
 
-session_start();
-
 $num_ord = 0;
 if (isset($_SESSION['carrito'])) {
     foreach ($_SESSION['carrito'] as $mesa_carrito) {

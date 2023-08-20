@@ -27,11 +27,3 @@
 <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
 <!-- summernote -->
 <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
-
-<style>
-    .rounded-div {
-            border-radius: 10px; /* Ajusta el valor según lo redondeado que desees que sea */
-            background-color: #EFEDED;
-            padding: 20px;
-        }
-</style>

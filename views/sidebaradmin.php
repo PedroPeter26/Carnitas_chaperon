@@ -16,18 +16,29 @@
         <?php
         // Configuración de la base de datos
         $db = new database();
-        $db->conectarDB();
+        $db->ConectarDB();
         $pdo = $db->getConexion();
         // Configuración de la base de datos
         try {
-          $sql = "SELECT notification_dataadmin.description as dd FROM notification_dataadmin join notification_data on notification_dataadmin.noti = notification_data.id where notification_data.status = 'Proceso' ORDER BY noti desc limit 1";
+          $sql = "SELECT notification_dataadmin.description as dd
+          FROM notification_dataadmin 
+          join notification_data on notification_dataadmin.noti = notification_data.id 
+          JOIN ORDENES ON ORDENES.orden_id = notification_data.orden
+          where ORDENES.status='Pendiente' 
+          ORDER BY noti desc 
+          limit 1";
           $sql = $pdo->prepare($sql);
           $sql->execute();
           $notifications = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-          $sql1 = "SELECT noti, user_id, nombre as 'n', orden_id as 'o' from USUARIOS join ORDENES on USUARIOS.user_id = ORDENES.cliente 
-            join notification_data on notification_data.orden = ORDENES.orden_id join notification_dataadmin on notification_dataadmin.noti = notification_data.id
-            where notification_data.status = 'Proceso' order by noti desc limit 3";
+          $sql1 = "SELECT noti, user_id, nombre as 'n', orden_id as 'o' 
+          from USUARIOS 
+          join ORDENES on USUARIOS.user_id = ORDENES.cliente 
+          join notification_data on notification_data.orden = ORDENES.orden_id
+          join notification_dataadmin on notification_dataadmin.noti = notification_data.id
+          where ORDENES.status='Pendiente' 
+          order by noti desc 
+          limit 3";
           $sql1 = $pdo->prepare($sql1);
           $sql1->execute();
           $users = $sql1->fetchAll(PDO::FETCH_ASSOC);
@@ -39,7 +50,7 @@
               }
             }
           } else {
-            echo '<a class="dropdown-item">No hay nuevas notificaciones.</a>';
+            echo '<a class="dropdown-item">No hay ordenes pendientes.</a>';
           }
         } catch (PDOException $e) {
           echo '<a class="dropdown-item text-danger">Error: ' . $e->getMessage() . '</a>';
@@ -128,165 +139,6 @@
             <hr class="border-1 opacity-100" style="background-color: black; width:auto">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
-<<<<<<< Updated upstream
-    <a href="../../indexadmin.php" class="brand-link mt-2">
-      <img src="../../img\logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light" style="color: black;"><b>Carnitas&nbsp;el&nbsp;Chaperon</b></span>
-    </a>
-
-    <div class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition">
-      <div class="os-resize-observer-host observed">
-        <div class="os-resize-observer" style="left: 0px; right: auto;"></div>
-      </div>
-      <div class="os-size-auto-observer observed" style="height: calc(100% + 1px); float: left;">
-        <div class="os-resize-observer"></div>
-      </div>
-      <div class="os-content-glue" style="margin: 0px -8px; width: 249px; height: 742px;"></div>
-      <div class="os-padding">
-        <div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;">
-          <div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
-
-            <div class="sidebar">
-              <!-- Sidebar user panel (optional) -->
-              <hr class="border-1 opacity-100" style="background-color: black; width:auto">
-              <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                  <img src="../../dist\img\user2-160x160.jpg" class="img-circle" alt="User Image">
-                </div>
-                <div class="info">
-                  <a href="#" class="d-block" style="color: black;">Administrador</a>
-                </div>
-              </div>
-              <hr class="border-1 opacity-100" style="background-color: black; width:auto">
-
-              <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                  <li class="nav-item">
-                    <a href="#" class="nav-link" style="color: black;">
-                      <i class="nav-icon fas fa-th"></i>
-                      <p>
-                        Reportes
-                        <i class="right fas fa-angle-left"></i>
-                      </p>
-                    </a>
-                    <ul class="nav nav-treeview" style="display: none;">
-                      <li class="nav-item">
-                        <a href="../../views/reportes/reportes_diarios.php" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Reporte diario</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="../../views/reportes/reportes_semanales.php" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes semanales</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="../../views/reportes/reportes_mensuales.php" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes mensuales</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="../../views/reportes/reportes_anuales.php" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes anuales</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="../../views/reportes/reportes_segun_fecha.php" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes por rango de fechas</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="../../views/reportes/reportes_segun_tipo_comida_fechas.php" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes por tipo de comida</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="../../views/reportes/reportes_segun_producto.php" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes según producto</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="../../views/reportes/reportes_metodo_pago.php" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes por método de pago</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="../../views/reportes/reportes_cantidad_productos.php" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Reportes de cantidad de productos</p>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="nav-item">
-                    <a href="" class="nav-link" style="color: black;">
-                      <i class="nav-icon fas fa-th"></i>
-                      <p>
-                        Órdenes del comedor
-                        <!--<span class="right badge badge-danger">New</span>-->
-                      </p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="" class="nav-link" style="color: black;">
-                      <i class="nav-icon fas fa-th"></i>
-                      <p>
-                        Órdenes para llevar
-                        <!--<span class="right badge badge-danger">New</span>-->
-                      </p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../../views/ordenes/ordenes_online.php" class="nav-link" style="color: black;">
-                      <i class="nav-icon fas fa-th"></i>
-                      <p class="ms-auto">
-                        Órdenes online
-                        <!--<span class="right badge badge-danger">New</span>-->
-                      </p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link" style="color: black;">
-                      <i class="nav-icon fas fa-circle"></i>
-                      <p>
-                        Productos
-                        <i class="right fas fa-angle-left"></i>
-                      </p>
-                    </a>
-                    <ul class="nav nav-treeview" style="display: none;">
-                      <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Añadir productos</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Editar productos</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Eliminar productos</p>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><br><br><br><br><br><br></li>
-                </ul>
-              </nav>
-
-=======
               <div class="info">
                 <a href="#" class="d-block" style="color: black;">
                   <div class="icon">
@@ -294,7 +146,6 @@
                   </div>
                 </a>
               </div>
->>>>>>> Stashed changes
             </div>
             <hr class="border-1 opacity-100" style="background-color: black; width:auto">
 

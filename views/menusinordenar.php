@@ -156,7 +156,6 @@ $pdo = $db->getConexion();
         }
 
         @media screen and (max-width: 576px)
-
         /*Pantalla pequeña*/
             {
             .imgmodal {
@@ -313,7 +312,6 @@ $pdo = $db->getConexion();
                                                 }
                                                 ?>
                                             </p>
-                                            <!-- Agregar el atributo data-bs-producto con la información del producto -->
                                             <p class="card-text">
                                                 <small class="text-body-secondary">
                                                     <a href="#" style="text-decoration: none; color: black;" data-bs-toggle="modal" data-bs-target="#<?php echo $producto['producto_id']; ?>">Más información</a>
