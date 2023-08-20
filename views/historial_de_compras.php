@@ -7,7 +7,7 @@ $db->conectarDB();
 $pdo = $db->getConexion();
 
 $idCliente = $_SESSION["idUsuario"];
-$sql = $pdo->prepare("SELECT num_usuario, orden, fecha, hora FROM BITACORA_HISTORIAL WHERE num_usuario = '$idCliente' GROUP BY orden ORDER BY orden DESC");
+$sql = $pdo->prepare("SELECT DISTINCT num_usuario, orden, fecha, hora FROM BITACORA_HISTORIAL WHERE num_usuario = '$idCliente' GROUP BY num_usuario, orden, fecha, hora ORDER BY orden, hora DESC");
 $sql->execute();
 ?>
 <!DOCTYPE html>

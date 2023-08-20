@@ -27,18 +27,14 @@
     }
     else
     {
-        header("Location: PRODUCTOS_pllevar.php");
+        header("Location: productos_pllevar.php");
     }
 
 
     //session_destroy();
-    $sql = $pdo->prepare("select producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id='$clave' and status='Activo'");
+    $sql = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id='$clave' and status='Activo'");
     $sql->execute();
     $orden = $sql->fetch(PDO::FETCH_ASSOC);
-
-    $total = 0;
-    $subtotal = $orden['precio_app'] * $cantidad;
-    $total += $subtotal;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -85,19 +81,19 @@
                     <h4 align="center">DETALLES DE PAGO</h4>
                     <BR>
                     <?php
-                        $total = 0;
+                        $total_ = 0;
                         foreach($total_productos as $product)
                         {
-                            $precio = $product['precio_app'];
-                            $cantidad = $product['cantidad'];
-                            $subtotal = $cantidad * $precio;
-                            $total += $subtotal;
+                            $precio_ = $product['precio_app'];
+                            $cantidad_ = $product['cantidad'];
+                            $subtotal_ = $cantidad_ * $precio_;
+                            $total_ += $subtotal_;
                         }
                     ?>
                     <form action="" method="POST">
                     <div class="mb-3">
                         <label for="monto_pagar" class="form-label">MONTO A PAGAR:</label>
-                        <input type="number" id="paga" name="monto_pagar" class="form-control" oninput="restar()" value="<?php echo number_format($total, 2, '.', ','); ?>" disabled>
+                        <input type="number" id="paga" name="monto_pagar" class="form-control" oninput="restar()" value="<?php echo number_format($total_, 2, '.', ','); ?>">
                     </div>
                     <div class="mb-3">
                         <label for="monto_dado" class="form-label">MONTO DADO:</label>
@@ -131,7 +127,7 @@
                                 {
                                     foreach($productos as $clave => $cantidad)
                                     {
-                                    $sentencia = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad AS Cantidad FROM PRODUCTOS WHERE producto_id = ? AND (productos.disponibilidad = 'Ambos' OR productos.disponibilidad = 'Rapido') AND status = 'Activo'");
+                                    $sentencia = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad AS Cantidad FROM PRODUCTOS WHERE producto_id = ? AND (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Rapido') AND status = 'Activo'");
                                     $sentencia->execute([$clave]);
                                     $row_prod=$sentencia->fetch(PDO::FETCH_ASSOC);
                         
@@ -194,7 +190,6 @@
                             <?php 
                                 }
                             ?>
-
                             <tr>
                                 <td></td>
                                 <td>
