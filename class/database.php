@@ -115,6 +115,7 @@ class database
             } else {
                 echo "<div class='alert alert-danger'>";
                 echo "<H6 align='center'>Usuario o contraseña incorrecta.</H6>";
+                header("Refresh: 2; ../views/login.php");
                 echo "</div>";
             }
         } catch (PDOException $e) {
@@ -127,5 +128,54 @@ class database
         session_start();
         session_destroy();
         header("Location:../index.php");
+    }
+
+    function editarUsuario($nombre, $apellido, $usuario, $correo, $id)
+    {
+        $sentencia = "UPDATE USUARIOS SET nombre = '$nombre', apellido = '$apellido', user = '$usuario', correo = '$correo' WHERE user_id = '$id'";
+        $resultado = $this->PDOlocal->query($sentencia);
+
+        if($resultado)
+        {
+            echo "
+            <div class='alert alert-success mt-3' role='alert' style='text-align:center;'>
+                Información de usuario actualizada con éxito.
+            </div>";
+        }
+        else
+        {
+            echo "
+            <div class='alert alert-danger mt-3' role='alert' style='text-align:center;'>
+                Hubo un error al actualizar la informacion del usuario. Intente de nuevo más tarde.
+            </div>";
+        }
+    }
+
+    function verificarPassword($idUsuario, $password)
+    {
+        $query = "SELECT * FROM USUARIOS WHERE user_id = '$idUsuario'";
+        $consulta = $this->PDOlocal->query($query);
+        $renglon=$consulta->fetch(PDO::FETCH_ASSOC);
+
+        if(password_verify($password,$renglon['password']))
+        {
+            $pase = true;
+            return $pase;
+        }
+    }
+
+    function cambiarPassword($idUsuario, $password)
+    {
+        $nueva = password_hash($password, PASSWORD_DEFAULT);
+        $sentencia = "UPDATE USUARIOS SET password = '$nueva' WHERE user_id = '$idUsuario'";
+        $resultado = $this->PDOlocal->query($sentencia);
+
+        if($resultado)
+        {
+            echo '
+            <div class="alert alert-success mt-3" role="alert" style="text-align: center;">
+                Contraseña actualizada correctamente.
+            </div>';
+        }
     }
 }
