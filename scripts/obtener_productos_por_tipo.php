@@ -1,9 +1,9 @@
 <?php
 // Obtener los productos por tipo desde la base de datos
 if (isset($_GET['tipo']) && !empty($_GET['tipo'])) {
-    require_once '../class/Database.php';
-    $database = new Database();
-    $database->conectarDB();
+    require_once '../class/database.php';
+    $database = new database();
+    $database->ConectarDB();
 
     $tipo = $_GET['tipo'];
     $sql = "SELECT * FROM PRODUCTOS WHERE tipo = :tipo";

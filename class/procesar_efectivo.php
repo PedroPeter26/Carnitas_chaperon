@@ -2,8 +2,8 @@
 session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require 'database.php';
-    $db = new Database();
-    $db->conectarDB();
+    $db = new database();
+    $db->ConectarDB();
     $pdo = $db->getConexion();
 
     $mesa_id = isset($_POST['mesa_id']) ? $_POST['mesa_id'] : null;

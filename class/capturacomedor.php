@@ -1,7 +1,7 @@
 <?php
 include 'database.php';
-$db = new Database();
-$db->conectarDB();
+$db = new database();
+$db->ConectarDB();
 $pdo = $db->getConexion();
 require 'configcom.php';
 

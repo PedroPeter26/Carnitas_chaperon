@@ -6,16 +6,7 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 style="text-align: center;">Carnitas el chaperón</h1>
-        <h5>Carr. Torreón - Matamoros 159, Oscar Flores Tapia, 27086 Torreón, Coah.</h5>
-        <?php
-            date_default_timezone_set('America/Mexico_City');
-            $fecha_nueva = date('d-m-y');
-            $hora_actual = date('H:i:s');
-            echo $fecha_nueva . ' | ' . $hora_actual;
-        ?>
-        <hr>
-
+        <h1>Ticket de Compra</h1>
         <?php
         // Conexión a la base de datos y obtención de los detalles de la orden
         require '../class/database.php';
@@ -54,7 +45,7 @@
                 if (empty($orden)) {
                     echo "No se encontraron detalles de la orden.";
                 } else {
-                    echo '<h3>Número de Orden: ' . $orden['orden_id'] . '</h3>';
+                    echo '<h2>Número de Orden: ' . $orden['orden_id'] . '</h2>';
                     echo '<h3>Mesa: ' . $orden['mesa'] . '</h3>';
                     echo '<table class="table">
                             <thead>
@@ -82,7 +73,6 @@
                     }
                     echo '</tbody>
                           </table>';
-                    echo '<hr>';
                     echo '<h3>Total a Pagar: ' . MONEDA . number_format($_SESSION['carrito'][$orden['mesa']]['total'], 2, '.', ',') . '</h3>';
 
                     unset($_SESSION['carrito'][$orden['mesa']]);

@@ -75,8 +75,8 @@ if($productos != null){
                     <thead>
                         <tr>
                             <th>Producto</th>
-                            <th>Cantidad</th>
                             <th>Subtotal</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,7 +94,6 @@ if($productos != null){
                             ?>
                         <tr>
                             <td><?php echo $nombre; ?></td>
-                            <td><?php echo $cantidad; ?></td>
                             <td>
                                 <div id="subtotal_<?php echo $_id; ?>" name="subtotal[]">
                                 <?php echo MONEDA . number_format($subtotal, 2, '.', ','); ?>
@@ -104,7 +103,7 @@ if($productos != null){
                         <?php } $_SESSION['carrito'][$mesa_id]['total'] = $total;?>
 
                         <tr>
-                            <td colspan="3">
+                            <td colspan="2">
                                 <p class="h3 text-end" id="total"><?php echo 'Total: ' . MONEDA . number_format($total, 2, '.', ','); ?></p>
                             </td>
                         </tr>

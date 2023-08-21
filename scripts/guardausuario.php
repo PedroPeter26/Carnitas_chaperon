@@ -10,17 +10,14 @@
     <div class="container">
         <?php
         include '../class/database.php';
-        $db = new Database();
-        $db->conectarDB();
+        $db = new database();
+        $db->ConectarDB();
 
         extract($_POST);
-        $hash = password_hash($passw, PASSWORD_DEFAULT);
-        $cadena = "INSERT INTO USUARIOS(usuario, password) VALUES ('$usuario', '$hash')";
 
-        $db->ejecutaSQL($cadena);
+        $db->ExisteUsuario($user);
         $db->desconectarDB();
-        echo "<div class='alert alert-success'>Usuario registrado</div>";
-        header("refresh: 3; ../views/formlogin.php");
+        header("refresh: 3; ../views/login.php");
         ?>
     </div>
 </body>

@@ -1,6 +1,6 @@
 <?php
 require 'database.php';
-require 'config.php';
+require 'configp.php';
 
 if(isset($_POST['action'])){
     $action = $_POST['action'];
@@ -37,7 +37,7 @@ function agregar($_id, $cantidad){
             $pdo = $db->getConexion();
 
             $sentencia=$pdo->prepare("SELECT precio_app FROM PRODUCTOS WHERE producto_id = ? AND (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Rapido') AND status = 'Activo' LIMIT 1");
-             $sentencia->execute([$_id]);
+            $sentencia->execute([$_id]);
             $row = $sentencia->fetch(PDO::FETCH_ASSOC);
             $precio_app = $row['precio_app'];
             $res = $cantidad * $precio_app;

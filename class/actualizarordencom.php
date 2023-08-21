@@ -34,12 +34,12 @@ function agregar($_id, $cantidad, $mesa_id){
         if(isset($_SESSION['carrito'][$mesa_id]['productos'][$_id])){
             $_SESSION['carrito'][$mesa_id]['productos'][$_id] = $cantidad;
 
-            $db = new Database();
-            $db->conectarDB();
+            $db = new database();
+            $db->ConectarDB();
             $pdo = $db->getConexion();
 
             $sentencia=$pdo->prepare("SELECT precio_com FROM PRODUCTOS WHERE producto_id = ? AND (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Comedor') AND status = 'Activo' LIMIT 1");
-             $sentencia->execute([$_id]);
+            $sentencia->execute([$_id]);
             $row = $sentencia->fetch(PDO::FETCH_ASSOC);
             $precio_com = $row['precio_com'];
             $res = $cantidad * $precio_com;

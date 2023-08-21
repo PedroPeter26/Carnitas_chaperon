@@ -10,11 +10,11 @@
     <div class="container">
         <?php
         include '../class/database.php';
-        $db = new Database();
-        $db->conectarDB();
+        $db = new database();
+        $db->ConectarDB();
         $pdo = $db->getConexion();
         extract($_POST);
-        $db->verifica("$usuario",$password);
+        $db->verifica($username,$password);
         $db->desconectarDB();
         ?>
     </div>

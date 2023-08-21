@@ -1,9 +1,13 @@
 <?php
 include '../class/database.php';
-$db = new Database();
-$db->conectarDB();
+$db = new database();
+$db->ConectarDB();
 $pdo = $db->getConexion();
-require '../class/config.php';
+require '../class/configp.php';
+
+$sentenciaTipos = $pdo->prepare("SELECT * FROM TIPOS");
+$sentenciaTipos->execute();
+$listaTipos = $sentenciaTipos->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +47,7 @@ require '../class/config.php';
     </style>
 
     <title>Ordenar</title>
-</head>
+    </head>
 <body>
 
     <header class="d-flex align-items-center justify-content-center lilita bg-header">
@@ -62,7 +66,7 @@ require '../class/config.php';
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>-->
                 <li class="nav-item">
-                <a class="btn btn-warning" href="../checkout.php">Carrito <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span></a>
+                <a class="btn btn-warning" href="checkout.php">Carrito <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span></a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="ordenar.php">Ordenar</a>
@@ -86,13 +90,30 @@ require '../class/config.php';
     <!-- Nav Bar de comidas -->
 
     <!-- Contenido principal -->
-  <div class="container mt-5">
-    <div class="content-section">
+    <div class="container mt-5">
+    <div class="content-section mt-5">
+            <form id="filtroForm">
+                <select class="form-select mb-3" id="tipo_filtro" name="tipo_filtro">
+                    <?php foreach($listaTipos as $tipo): ?>
+                        <option value="<?php echo $tipo['id_tipo']; ?>"><?php echo $tipo['nombre']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </form>
+
         <?php
-         $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Rapido') AND status = 'Activo'");
-         $sentencia->execute();
-         $listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-         
+            $tipoFiltro = isset($_GET['tipo_filtro']) ? $_GET['tipo_filtro'] : '';
+
+            if (!empty($tipoFiltro)) {
+                $sql = "SELECT * FROM PRODUCTOS WHERE (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Rapido') AND status = 'Activo' AND tipo = :tipo";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':tipo', $tipoFiltro, PDO::PARAM_STR);
+            } else {
+                $sql = "SELECT * FROM PRODUCTOS WHERE (PRODUCTOS.disponibilidad = 'Ambos' OR PRODUCTOS.disponibilidad = 'Rapido') AND status = 'Activo'";
+                $stmt = $pdo->prepare($sql);
+            }
+            
+            $stmt->execute();
+            $listaProductos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         ?>
         <div class="row">
             <?php foreach($listaProductos as $producto){ ?>
@@ -108,19 +129,48 @@ require '../class/config.php';
                         <div class="card-body">
                             <span><?php echo $producto['nombre'];?></span>
                             <h5 class="card-title">$<?php echo $producto['precio_app']?></h5>
-                            <button class="btn btn-outline-primary" type="button"
+                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#prodAgregado"
                             onclick="addProducto(<?php echo $producto['producto_id']; ?>)">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
             <?php } ?>
-
         </div>
     </div>
+</div>
 
-  </div>
+        <div class="modal fade" id="prodAgregado" tabindex="-1" aria-labelledby="prodAgregadoLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="prodAgregadoLabel">¡Producto agregado!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Se ha agregdo un nuevo producto a la orden.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+                </div>
+            </div>
+        </div>
 
   <script>
+    document.getElementById('tipo_filtro').addEventListener('change', function() {
+        const tipoFiltro = this.value;
+        let url = 'ordenar.php';
+        
+        // Agrega el filtro de tipo de producto a la URL si está seleccionado
+        if (tipoFiltro) {
+            url += '?tipo_filtro=' + tipoFiltro;
+        }
+        
+        // Redirecciona a la página con el filtro aplicado
+        window.location.href = url;
+    });
+
+
     function addProducto(producto_id) {
         let url = '../class/carrito.php'
         let formData = new FormData()

@@ -1,5 +1,5 @@
 <?php 
 include 'database.php';
-$obj = new Database();
+$obj = new database();
 $obj->cerrarSesion();
 ?>

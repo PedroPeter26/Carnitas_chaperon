@@ -1,13 +1,13 @@
 <?php
-require_once '../class/Database.php';
+require_once '../class/database.php';
 
 // Verificar si se ha seleccionado un producto válido
 if (isset($_GET['producto_id']) && is_numeric($_GET['producto_id'])) {
     $producto_id = $_GET['producto_id'];
 
     // Crear una instancia de la clase Database y conectar a la base de datos
-    $database = new Database();
-    $database->conectarDB();
+    $database = new database();
+    $database->ConectarDB();
 
     // Consultar información del producto desde la base de datos
     $sql = "SELECT * FROM PRODUCTOS WHERE producto_id = :producto_id";

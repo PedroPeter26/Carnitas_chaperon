@@ -1,7 +1,7 @@
 <?php
 include '../class/database.php';
-$db = new Database();
-$db->conectarDB();
+$db = new database();
+$db->ConectarDB();
 $pdo = $db->getConexion();
 require '../class/config.php';
 if (isset($_GET['tipo'])) {
@@ -26,7 +26,6 @@ if (isset($_GET['tipo'])) {
         echo '</div>';
         echo '</div>';
     }
-    
 } else {
     $sentencia = $pdo->prepare("SELECT * FROM PRODUCTOS WHERE tipo = 'TIPO1' AND (disponibilidad = 'Ambos' OR disponibilidad = 'Rapido') AND status = 'Activo'");
     $sentencia->execute([$tipoSeleccionado]);
@@ -56,15 +55,15 @@ if (isset($_GET['tipo'])) {
         formData.append('producto_id', producto_id)
 
         fetch(url, {
-            method: 'POST',
-            body: formData,
-            mode: 'cors'
-        }).then(response => response.json())
-        .then(data => {
-            if (data.ok) {
-                let elemento = document.getElementById("num_cart")
-                elemento.innerHTML = data.numero
-            }
-        })
+                method: 'POST',
+                body: formData,
+                mode: 'cors'
+            }).then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    let elemento = document.getElementById("num_cart")
+                    elemento.innerHTML = data.numero
+                }
+            })
     }
-  </script>
+</script>
