@@ -1,5 +1,5 @@
 <?php
-require 'configp.php';
+require 'config.php';
 
 if (isset($_POST['producto_id'])){
 

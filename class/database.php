@@ -8,18 +8,24 @@ class database
 
     function ConectarDB()
     {
-        try {
-            $this->PDOlocal = new PDO($this->server, $this->user, $this->password);
-        } catch (PDOException $e) {
+        try
+        {
+            $this->PDOlocal = new PDO($this->server,$this->user,$this->password);
+        }
+        catch(PDOException $e)
+        {
             echo $e->getMessage();
         }
     }
 
     function desconectarDB()
     {
-        try {
+        try
+        {
             $this->PDOlocal = null;
-        } catch (PDOException $e) {
+        }
+        catch(PDOException $e)
+        {
             echo $e->getMessage();
         }
     }
@@ -31,94 +37,122 @@ class database
 
     function seleccionar($consulta)
     {
-        try {
+        try
+        {
             $resultado = $this->PDOlocal->query($consulta);
             $fila = $resultado->fetchAll(PDO::FETCH_OBJ);
             return $fila;
-        } catch (PDOException $e) {
+        }
+        catch(PDOException $e)
+        {
             echo $e->getMessage();
         }
     }
 
-    function ejecutaSQL($consulta)
-    {
-        try {
+    function ejecutaSQL($consulta){
+        try
+        {
             $this->PDOlocal->query($consulta);
-        } catch (PDOException $e) {
+        }
+        catch(PDOException $e)
+        {
             echo $e->getMessage();
         }
     }
 
     function ExisteUsuario($usuario)
     {
-        try {
+        try
+        {
             $query = "SELECT * FROM USUARIOS WHERE user = '$usuario'";
 
             $resultado = $this->PDOlocal->query($query);
 
-            if ($resultado->fetch(PDO::FETCH_ASSOC)) {
+            if($resultado->fetch(PDO::FETCH_ASSOC))
+            {
                 echo "<br><div class='alert alert-danger'>";
                 echo "<H6 align='center'>Este usuario ya existe actualmente.</H6>";
                 echo "</div>";
-            } else {
+            }
+            else
+            {
                 extract($_POST);
 
-                $tipo = "client";
-                $status='activo';
+                $tipo="client";
                 $hash = password_hash($contraseña, PASSWORD_DEFAULT);
 
-                $cadena = "INSERT INTO USUARIOS(nombre, apellido, user, tipo, correo, password, status) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash', '$status')";
-
+                $cadena = "INSERT INTO USUARIOS(nombre, apellido, user, tipo, correo, password) values('$nombre','$apellido', '$user', '$tipo', '$correo','$hash')";
+                   
                 $resultado = $this->PDOlocal->query($cadena);
 
-                if ($resultado) {
+                if($resultado)
+                {
                     echo "<br>";
-                    echo "<div class='alert alert-success'>Usuario registrado exitosamente!</div>";
+                    echo "<div class='alert alert-success'>¡Cliente registrado exitosamente!</div>";
                     echo "<script>window.location.href='../views/login.php'</script>";
-                } else {
+                }
+                else 
+                {
                     echo "<br>";
                     echo "<div class='alert alert-danger'>Hubo un error al registrarse. Intente de nuevo.</div>";
                 }
             }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+        }
+        catch (PDOException $e)
+        {
+        echo $e->getMessage();
         }
     }
 
-    function verifica($usuario, $pass)
+    function verifica($usuario,$contraseña)
     {
-        try {
-            $pase = false;
-            $query = "SELECT * FROM USUARIOS where user = '$usuario' AND status = 'Activo'";
-            $consulta = $this->PDOlocal->query($query);
-            $renglon = $consulta->fetch(PDO::FETCH_ASSOC);
+        try
+        {
 
-            if ($renglon) {
-                if (password_verify($pass, $renglon['password'])) {
-                    $pase = true;
+            $pase = false;
+            $query = "SELECT * FROM USUARIOS WHERE user = '$usuario'";
+            $consulta = $this->PDOlocal->query($query);
+            $renglon=$consulta->fetch(PDO::FETCH_ASSOC);
+
+            if($renglon)
+            {
+                if(password_verify($contraseña,$renglon['password']))
+                {
+                    $pase=true;
                 }
             }
 
-            if ($pase) {
-                if ($renglon['tipo'] == "client") {
+            if($pase)
+            {
+                if($renglon['tipo']=="client")
+                {
                     session_start();
-                    $_SESSION["usuario"] = $usuario;
-                    $_SESSION["idUsuario"] = $renglon['user_id'];
-                    header("Location: ../index2.php");
-                } else {
-                    session_start();
-                    $_SESSION["usuario"] = $usuario;
-                    $_SESSION["idUsuario"] = $renglon['user_id'];
-                    header("Location: ../indexadmin.php");
+                    $_SESSION["usuario"]=$usuario;
+                    echo "<div class='alert alert-success'>";
+                    echo "<H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>";
+                    echo "</div>";
+                    header("refresh:2; ../index.php");
                 }
-                exit(); // Importante: detener la ejecución del script después de las redirecciones
-            } else {
+                else 
+                {
+                    session_start();
+                    $_SESSION["usuario"]=$usuario;
+                    echo "<div class='alert alert-success'>";
+                    echo "<H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>";
+                    echo "</div>";
+                    header("refresh:2; ../views/validacionAdmin.php");
+                }
+            }
+            else
+            {
                 echo "<div class='alert alert-danger'>";
                 echo "<H6 align='center'>Usuario o contraseña incorrecta.</H6>";
                 echo "</div>";
             }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+        }
+        catch (PDOException $e)
+        {
+        echo $e->getMessage();
         }
     }
 
@@ -129,3 +163,4 @@ class database
         header("Location:../index.php");
     }
 }
+?>

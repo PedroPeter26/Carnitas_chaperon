@@ -1,9 +1,9 @@
 <?php
 include '../class/database.php';
-$db = new database();
-$db->ConectarDB();
+$db = new Database();
+$db->conectarDB();
 $pdo = $db->getConexion();
-require '../class/configp.php';
+require '../class/config.php';
 
 $sentenciaTipos = $pdo->prepare("SELECT * FROM TIPOS");
 $sentenciaTipos->execute();
@@ -47,7 +47,7 @@ $listaTipos = $sentenciaTipos->fetchAll(PDO::FETCH_ASSOC);
     </style>
 
     <title>Ordenar</title>
-    </head>
+</head>
 <body>
 
     <header class="d-flex align-items-center justify-content-center lilita bg-header">
@@ -66,7 +66,7 @@ $listaTipos = $sentenciaTipos->fetchAll(PDO::FETCH_ASSOC);
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>-->
                 <li class="nav-item">
-                <a class="btn btn-warning" href="checkout.php">Carrito <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span></a>
+                <a class="btn btn-warning" href="../checkout.php">Carrito <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span></a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" style="color: white;" href="ordenar.php">Ordenar</a>

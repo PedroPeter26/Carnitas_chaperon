@@ -1,9 +1,9 @@
 <?php
 include 'database.php';
-$db = new database();
-$db->ConectarDB();
+$db = new Database();
+$db->conectarDB();
 $pdo = $db->getConexion();
-require 'configp.php';
+require 'config.php';
 
 $json = file_get_contents('php://input');
 $datos = json_decode($json, true);
@@ -22,13 +22,12 @@ if (is_array($datos)) {
         if ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
             $user_id = $row['user_id'];
 
-            date_default_timezone_set('America/Mexico_City');
             $fecha = $datos['detalles']['update_time'];
             $fecha_nueva = date('Y-m-d', strtotime($fecha));
             $hora_actual = date("H:i:s", strtotime($fecha));
 
             $sql = $pdo->prepare("INSERT INTO ORDENES (cliente, mesa, forma_pago, fecha, hora_inicio, hora_fin, tipo_orden, status) VALUES (?,?,?,?,?,?,?,?)");
-            $sql->execute([$user_id, null, 'Tarjeta', $fecha_nueva, $hora_actual, $hora_actual, 1, 'Pendiente']);
+            $sql->execute([$user_id, null, 'Tarjeta', $fecha_nueva, $hora_actual, $hora_actual, 1, 'Proceso']);
             $id = $pdo->lastInsertId();
         } else {
             echo "El usuario en la sesión no corresponde a un user_id válido en la tabla USUARIOS.";
