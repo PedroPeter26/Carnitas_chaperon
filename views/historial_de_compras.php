@@ -1,14 +1,30 @@
 <?php
 require '../class/config.php';
 require '../class/database.php';
-session_start();
 $db = new database();
 $db->ConectarDB();
 $pdo = $db->getConexion();
 
-$idCliente = $_SESSION["usuario"];
-$sql = $pdo->prepare("SELECT num_usuario, orden, fecha, hora FROM BITACORA_HISTORIAL WHERE num_usuario = '$idCliente' GROUP BY orden, fecha, hora ORDER BY orden DESC");
-$sql->execute();
+$user = $_SESSION["usuario"];
+
+// Step 1: Retrieve user_id based on the user value
+$userQuery = $pdo->prepare("SELECT user_id FROM USUARIOS WHERE user = :user");
+$userQuery->bindParam(':user', $user, PDO::PARAM_STR);
+$userQuery->execute();
+$userRow = $userQuery->fetch(PDO::FETCH_ASSOC);
+
+if ($userRow) {
+    $user_id = $userRow['user_id'];
+
+    // Step 2: Use the user_id in the main query
+    $sql = $pdo->prepare("SELECT BITACORA_HISTORIAL.num_usuario, BITACORA_HISTORIAL.orden, BITACORA_HISTORIAL.fecha, ORDENES.status
+    FROM BITACORA_HISTORIAL 
+    JOIN ORDENES on ORDENES.orden_id = BITACORA_HISTORIAL.orden
+    WHERE num_usuario = :user_id GROUP BY orden, fecha ORDER BY orden DESC");
+    $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $sql->execute();
+} else {
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +54,6 @@ $sql->execute();
 
         @media screen and (max-width: 576px)
 
-        /*Pantalla pequeña*/
             {
             .navbar-brand {
                 font-size: 100%;
@@ -118,17 +133,20 @@ $sql->execute();
         <hr>
 
         <?php
-        $historial = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $processedOrden = array();
 
-        foreach ($historial as $row) {
+        while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
+            $orden = $row['orden'];
+
         ?>
             <div class="card mb-3" style="margin-bottom: 1em;">
-                <div class="card-header">
-                    Folio de Orden: <?php echo $row['orden']; ?>
+                <div class="card-header d-flex">
+                    <h3>Folio de Orden: <?php echo $row['orden']; ?></h3>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Fecha: <?php echo $row['fecha'], "<br>Hora: ", $row['hora']; ?> </h5><br>
-                    <a href="#" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#<?php echo $row['orden']; ?>">Ver detalles de compra</a>
+                    <h6>Estado de la orden: <b><?php echo $row['status']; ?> </b></h6><br>
+                    <h5 class="card-title">Fecha: <?php echo $row['fecha']; ?> </h5> <br>
+                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#<?php echo $row['orden']; ?>">Ver detalles de compra</a>
                 </div>
             </div>
             <?php
@@ -148,7 +166,7 @@ $sql->execute();
                         </div>
                         <div class="modal-body" style="background-color: white;">
                             <p>
-                                <strong>Fecha: </strong><?php echo $row['fecha']; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora: </strong><?php echo $row['hora']; ?>
+                                <strong>Fecha: </strong><?php echo $row['fecha']; ?>
                             </p>
                             <p><strong>Folio de orden: </strong> <?php echo $row['orden']; ?> </p>
                             <br>
@@ -164,12 +182,12 @@ $sql->execute();
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $total = 0;
                                         foreach ($assoc as $detalle) {
-                                            $total = 0;
                                             $precio = $detalle['precio_app'];
                                             $cantidad = $detalle['cantidad'];
                                             $subtotal_ = $precio * $cantidad;
-                                            $total += $detalle['TOTAL'];
+                                            $total += $subtotal_;
                                         ?>
                                             <tr>
                                                 <td> <?php echo $detalle['nombre']; ?> </td>

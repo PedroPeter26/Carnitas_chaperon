@@ -28,7 +28,7 @@ try {
     $sql1 = $pdo->prepare($sql1);
     $sql1->execute();
     $users = $sql1->fetchAll(PDO::FETCH_ASSOC);
-
+    
     if ($notifications) {
         foreach ($notifications as $notification) {
             foreach($users as $user){

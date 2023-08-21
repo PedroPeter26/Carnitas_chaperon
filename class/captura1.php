@@ -27,7 +27,7 @@ if (is_array($datos)) {
             $hora_actual = date("H:i:s", strtotime($fecha));
 
             $sql = $pdo->prepare("INSERT INTO ORDENES (cliente, mesa, forma_pago, fecha, hora_inicio, hora_fin, tipo_orden, status) VALUES (?,?,?,?,?,?,?,?)");
-            $sql->execute([$user_id, null, 'Tarjeta', $fecha_nueva, $hora_actual, $hora_actual, 1, 'Proceso']);
+            $sql->execute([$user_id, null, 'Tarjeta', $fecha_nueva, $hora_actual, $hora_actual, 1, 'Pendiente']);
             $id = $pdo->lastInsertId();
         } else {
             echo "El usuario en la sesión no corresponde a un user_id válido en la tabla USUARIOS.";
