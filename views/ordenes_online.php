@@ -1,6 +1,6 @@
 <?php
-require '../../class/config.php';
-include '../../class/database.php';
+require '../class/config.php';
+include '../class/database.php';
 $db = new database();
 $db->conectarDB();
 $pdo = $db->getConexion();
@@ -35,12 +35,11 @@ $pdo = $db->getConexion();
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-ZqK5f5JSMVRg8M8Ax3n3MCIyJTQUh4nCf2a0X+Hp6z1LyLvJ5m9h5n2mwVU6BvLE" crossorigin="anonymous"></script>
-    <?php include '../headadmin.php'; ?>
-    <?php include '../footeradmin.php'; ?>
+    <?php include 'headfooteradmin2.php'; ?>
 </head>
 
 <body>
-    <?php include '../sidebaradmin.php'; ?>
+    <?php include 'sidebaradmin2.php'; ?>
 
     <div class="content-wrapper p-5">
 

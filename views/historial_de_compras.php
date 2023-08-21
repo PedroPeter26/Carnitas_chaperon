@@ -1,13 +1,13 @@
 <?php
 require '../class/config.php';
 require '../class/database.php';
-session_start();
-$db = new database();
-$db->ConectarDB();
+
+$db = new Database();
+$db->conectarDB();
 $pdo = $db->getConexion();
 
-$idCliente = $_SESSION["usuario"];
-$sql = $pdo->prepare("SELECT num_usuario, orden, fecha, hora FROM BITACORA_HISTORIAL WHERE num_usuario = '$idCliente' GROUP BY orden, fecha, hora ORDER BY orden DESC");
+$idCliente = $_SESSION["idUsuario"];
+$sql = $pdo->prepare("SELECT DISTINCT num_usuario, orden, fecha, hora FROM BITACORA_HISTORIAL WHERE num_usuario = '$idCliente' GROUP BY num_usuario, orden, fecha, hora ORDER BY orden, hora DESC");
 $sql->execute();
 ?>
 <!DOCTYPE html>
@@ -23,9 +23,36 @@ $sql->execute();
         @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap');
 
+        body {
+            background-color: #ffefcf;
+        }
+
         html,
         body {
             max-width: 100% !important;
+        }
+
+        .barranav {
+            height: 70px;
+            background-image: url(../img/barranav1.jpg);
+            background-size: contain;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1200;
+            font-family: 'Lilita One', sans-serif;
+            color: white;
+        }
+
+        .navbar-brand {
+            font-family: 'Lilita One', sans-serif;
+            font-size: 30px;
+            color: white;
+
+        }
+
+        .navbar-brand:hover {
+            color: white;
         }
 
         a.color {
@@ -59,62 +86,49 @@ $sql->execute();
         .HC {
             font-family: 'Lilita One', sans-serif;
         }
-
-        nav {
-            background-color: #212429;
-            font-family: 'Bricolage Grotesque', sans-serif;
-        }
-
-        a.barra1 {
-            text-decoration: none;
-            color: gold;
-        }
-
-        a.barra1:hover {
-            color: goldenrod;
-        }
-
-        .contenedorprincipal {
-            margin-top: 100px;
-            margin-bottom: 40px;
-            width: 80%;
-            font-family: 'Bricolage Grotesque', sans-serif;
-        }
-
-        .navbar-container {
-            position: sticky;
-            z-index: 2;
-            top: 0;
-            width: 100%;
-            /* Make sure it's above other elements */
-        }
     </style>
-    <title>Historial de compras</title>
+    <title>HISTORIAL DE COMPRAS</title>
 </head>
 
 <body>
-    <!-- BARRA -->
-    <div class="navbar-container" style="position:fixed; width:100%; top: 0;">
-        <!--BARRA DE NAV 1-->
-        <nav class="navbar navbar-expand-md navbar-light barranav sticky-top">
-            <div class="container-fluid" style="width: 90%;">
-                <a class="navbar-brand" style="color: white;" href="index2.php">
-                    <img src="../img/logo.png" alt="Logo" width="35" height="50"> <span style="font-family: 'Bricolage Grotesque', sans-serif;">CARNITAS CHAPERON</span>
-                </a>
-                <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="true">
-                    <span class="navbar-toggler-icon text-white"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                    <ul class="navbar-nav dropdown-menu position-static gap-1 p-2 rounded-3 ms-auto shadow w-220px">
-                        <li><a class="dropdown-item" href="../class/cerrarsesion.php"><b>Cerrar sesión</b></a></li>
-                    </ul>
-                </div>
+    <nav class="navbar navbar-expand-lg barranav sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" style="color: white;" href="index.php">
+                <img src="../img/logo.png" alt="Logo" width="35" height="50"> CARNITAS&nbsp;EL&nbsp;CHAPERON
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="true">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav dropdown-menu position-static gap-1 p-2 rounded-3 ms-auto shadow w-220px" style="margin-right: 2%">
+                    <li>
+                        <a class="dropdown-item rounded-2" href="../index.php">Home</a>
+                    </li>
+                    <?php
+                    if (isset($_SESSION["usuario"])) {
+                        echo '<li class="dropdown">
+                        <a class="dropdown-item rounded-2 dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Usuario</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li>
+                                <a class="dropdown-item" href="perfil_usuario.php">
+                                    Perfil
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="../class/cerrarsesion.php">Cerrar sesión</a>
+                            </li>
+                        </ul>
+                    </li>';
+                    }
+                    ?>
+                </ul>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
 
-    <div class="container contenedorprincipal" style="margin-top: 8%;">
-        <h2 class="HC">Hisorial de compras</h2>
+    <div class="container contenedor" style="margin-top: 8%;">
+        <h2 class="HC">HISTORIAL DE COMPRAS</h2>
         <hr>
 
         <?php
@@ -122,13 +136,16 @@ $sql->execute();
 
         foreach ($historial as $row) {
         ?>
-            <div class="card mb-3" style="margin-bottom: 1em;">
+            <div class="card mb-3" style="margin-bottom: 1em; background: rgb(231,180,155);
+            background: linear-gradient(45deg, rgba(231,180,155,0.5858718487394958) 0%, rgba(249,245,167,0.6446953781512605) 72%);">
                 <div class="card-header">
                     Folio de Orden: <?php echo $row['orden']; ?>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Fecha: <?php echo $row['fecha'], "<br>Hora: ", $row['hora']; ?> </h5><br>
-                    <a href="#" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#<?php echo $row['orden']; ?>">Ver detalles de compra</a>
+                    <br><h5 class="card-title">Fecha: <?php echo $row['fecha'], "<br>Hora: ", $row['hora']; ?> </h5><br>
+                </div>
+                <div class="card-footer text-end">
+                    <a href="#" class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#<?php echo $row['orden']; ?>">Ver detalles de compra</a>
                 </div>
             </div>
             <?php

@@ -95,7 +95,7 @@
       </li> -->
   </ul>
   <!-- notis y cerrar sesión-->
-  <a href="../class/cerrarsesion.php">
+  <a href="../../class/cerrarsesion.php">
     <button type="button" class="btn btn-block col-2 btn-dark">Cerrar sesión</button>
   </a>
 </nav>

@@ -50,4 +50,3 @@ function calcularTotal() {
     // Actualizar el valor del elemento con el id "totalPagar" con el total calculado
     document.getElementById("totalPagar").textContent = "$" + totalPagar.toFixed(2);
 }
-

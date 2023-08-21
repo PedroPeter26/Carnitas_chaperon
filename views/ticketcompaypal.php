@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ticket de Compra - PayPal</title>
+    <title>Ticket de paypal</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Ticket de Compra - PayPal</h1>
+        <h1>Carnitas el chaperón</h1>
         <?php
         // Conexión a la base de datos y obtención de los detalles de la orden
         require '../class/database.php';

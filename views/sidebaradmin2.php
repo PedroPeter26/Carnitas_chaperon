@@ -95,7 +95,9 @@
       </li> -->
   </ul>
   <!-- notis y cerrar sesión-->
-  <button type="button" class="btn btn-block col-2 btn-dark">Cerrar sesión</button>
+  <a href="../class/cerrarsesion.php">
+    <button class="btn btn-block col-12 btn-dark justify-content-md-end">Cerrar sesión</button>
+  </a>
 </nav>
 <!-- /.navbar -->
 <!--<script type="text/javascript">
@@ -289,5 +291,5 @@
       <div class="os-scrollbar-corner"></div>
     </div>
 
-      
+          
 </aside>

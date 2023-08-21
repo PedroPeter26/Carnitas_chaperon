@@ -1,7 +1,7 @@
 <?php
 require 'database.php';
-$database = new database();
-$database->ConectarDB();
+$database = new Database();
+$database->conectarDB();
 require 'configcom.php';
 
 if (isset($_POST['producto_id']) && isset($_POST['mesa_id'])) {
