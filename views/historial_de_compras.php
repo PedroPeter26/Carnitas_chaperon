@@ -98,7 +98,7 @@ $sql->execute();
         <!--BARRA DE NAV 1-->
         <nav class="navbar navbar-expand-md navbar-light barranav sticky-top">
             <div class="container-fluid" style="width: 90%;">
-                <a class="navbar-brand" style="color: white;" href="index2.php">
+                <a class="navbar-brand" style="color: white;" href="../index.php">
                     <img src="../img/logo.png" alt="Logo" width="35" height="50"> <span style="font-family: 'Bricolage Grotesque', sans-serif;">CARNITAS CHAPERON</span>
                 </a>
                 <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="true">
@@ -114,7 +114,7 @@ $sql->execute();
     </div>
 
     <div class="container contenedorprincipal" style="margin-top: 8%;">
-        <h2 class="HC">Hisorial de compras</h2>
+        <h2 class="HC">Historial de compras</h2>
         <hr>
 
         <?php

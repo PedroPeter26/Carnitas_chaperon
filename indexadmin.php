@@ -246,33 +246,12 @@ $pdo = $db->getConexion();
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link" style="color: black;">
+                    <a href="views/prodcrud.php" class="nav-link" style="color: black;">
                       <i class="nav-icon fas fa-circle"></i>
                       <p>
                         Productos
-                        <i class="right fas fa-angle-left"></i>
                       </p>
                     </a>
-                    <ul class="nav nav-treeview" style="display: none;">
-                      <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Añadir productos</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Editar productos</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: black;">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Eliminar productos</p>
-                        </a>
-                      </li>
-                    </ul>
                   </li>
                   <li><br><br><br><br><br><br></li>
                 </ul>

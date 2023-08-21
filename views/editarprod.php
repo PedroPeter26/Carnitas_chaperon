@@ -15,110 +15,118 @@ $tipos = $tiposQuery->fetchAll(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuevo producto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <?php include "headfooteradmin2.php" ?>
 </head>
-<body class="py-3">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h4>Editar producto:</h4>
+
+<body>
+    <?php include "sidebaradmin2.php" ?>
+
+    <div class="content-wrapper p-4">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h4>Editar producto:</h4>
+                </div>
             </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col">
-                <form id="productform" class="row g-3" method="POST" action="../scripts/guardaredit.php" autocomplete="off" enctype="multipart/form-data">
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <form id="productform" class="row g-3" method="POST" action="../scripts/guardaredit.php" autocomplete="off" enctype="multipart/form-data">
 
-                    <input type="hidden" name="id" id="id" value="<?php echo $row['producto_id'] ?>">
+                        <input type="hidden" name="id" id="id" value="<?php echo $row['producto_id'] ?>">
 
-                    <div class="col-md-4">
-                        <label for="nombre" class="form-label">Nombre:</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo $row['nombre'] ?>" required autofocus>
-                    </div>
+                        <div class="col-md-4">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo $row['nombre'] ?>" required autofocus>
+                        </div>
 
-                    <div class="col-md-4">
-                        <label for="disponibilidad" class="form-label">Disponibilidad:</label>
-                        <select name="disponibilidad" id="disponibilidad" class="form-control" required>
-                            <?php
+                        <div class="col-md-4">
+                            <label for="disponibilidad" class="form-label">Disponibilidad:</label>
+                            <select name="disponibilidad" id="disponibilidad" class="form-control" required>
+                                <?php
                                 $opcionesDisponibilidad = array("Ambos", "Comedor", "Rapido");
 
                                 foreach ($opcionesDisponibilidad as $opcion) {
                                     $selected = ($opcion === $row['disponibilidad']) ? 'selected' : '';
                                     echo "<option value='{$opcion}' {$selected}>{$opcion}</option>";
                                 }
-                            ?>
-                        </select>
-                    </div>
+                                ?>
+                            </select>
+                        </div>
 
-                    <div class="col-md-2">
-                        <label for="precioapp" class="form-label">Precio aplicación:</label>
-                        <input type="text" name="precioapp" id="precioapp" class="form-control" value="<?php echo $row['precio_app'] ?>" onkeydown="return limitarInput(event)">
-                    </div>
+                        <div class="col-md-2">
+                            <label for="precioapp" class="form-label">Precio aplicación:</label>
+                            <input type="text" name="precioapp" id="precioapp" class="form-control" value="<?php echo $row['precio_app'] ?>" onkeydown="return limitarInput(event)">
+                        </div>
 
-                    <div class="col-md-2">
-                        <label for="preciocom" class="form-label">Precio comedor:</label>
-                        <input type="text" name="preciocom" id="preciocom" class="form-control" value="<?php echo $row['precio_com'] ?>" onkeydown="return limitarInput(event)">
-                    </div>
+                        <div class="col-md-2">
+                            <label for="preciocom" class="form-label">Precio comedor:</label>
+                            <input type="text" name="preciocom" id="preciocom" class="form-control" value="<?php echo $row['precio_com'] ?>" onkeydown="return limitarInput(event)">
+                        </div>
 
-                    <div class="col-md-4">
-                        <label for="tipoprod" class="form-label">Tipo:</label>
-                        <select name="tipoprod" id="tipoprod" class="form-control" required>
-                        <?php
-                        foreach ($tipos as $tipo) {
-                            $selected = ($tipo['id_tipo'] == $row['tipo']) ? 'selected' : '';
-                            echo "<option value='{$tipo['id_tipo']}' $selected>{$tipo['nombre']}</option>";
-                        }
-                        ?>
-                        </select>
-                    </div>
-
-                    <div class="col-md-8">
-                        <label for="description" class="form-label">Descripción:</label>
-                        <textarea name="description" id="description" class="form-control" rows="5" maxlength="300" required><?php echo $row['descripcion'] ?></textarea>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="archivo" class="form-label">Cambiar Imagen:</label>
-                        <input type="file" name="archivo" id="archivo" class="form-control" accept="image/*" onchange="validateFile(this)">
-                    </div>
-
-                    <script>
-                        function validateFile(input) {
-                            const maxSize = 5 * 1024 * 1024;
-                            if (input.files && input.files[0]) {
-                                if (input.files[0].size > maxSize) {
-                                    alert("El archivo es demasiado grande. Por favor, seleccione un archivo de máximo 5MB.");
-                                    input.value = '';
-                                    return;
+                        <div class="col-md-4">
+                            <label for="tipoprod" class="form-label">Tipo:</label>
+                            <select name="tipoprod" id="tipoprod" class="form-control" required>
+                                <?php
+                                foreach ($tipos as $tipo) {
+                                    $selected = ($tipo['id_tipo'] == $row['tipo']) ? 'selected' : '';
+                                    echo "<option value='{$tipo['id_tipo']}' $selected>{$tipo['nombre']}</option>";
                                 }
+                                ?>
+                            </select>
+                        </div>
 
-                                const allowedTypes = ["image/jpeg", "image/png"];
-                                if (!allowedTypes.includes(input.files[0].type)) {
-                                    alert("Tipo de archivo no válido. Solo se permiten archivos de imagen (JPEG/PNG).");
-                                    input.value = '';
+                        <div class="col-md-8">
+                            <label for="description" class="form-label">Descripción:</label>
+                            <textarea name="description" id="description" class="form-control" rows="5" maxlength="300" required><?php echo $row['descripcion'] ?></textarea>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="archivo" class="form-label">Cambiar Imagen:</label>
+                            <input type="file" name="archivo" id="archivo" class="form-control" accept="image/*" onchange="validateFile(this)">
+                        </div>
+
+                        <script>
+                            function validateFile(input) {
+                                const maxSize = 5 * 1024 * 1024;
+                                if (input.files && input.files[0]) {
+                                    if (input.files[0].size > maxSize) {
+                                        alert("El archivo es demasiado grande. Por favor, seleccione un archivo de máximo 5MB.");
+                                        input.value = '';
+                                        return;
+                                    }
+
+                                    const allowedTypes = ["image/jpeg", "image/png"];
+                                    if (!allowedTypes.includes(input.files[0].type)) {
+                                        alert("Tipo de archivo no válido. Solo se permiten archivos de imagen (JPEG/PNG).");
+                                        input.value = '';
+                                    }
                                 }
                             }
-                        }
-                    </script>
+                        </script>
 
-                    <div class="col-md-4">
-                        <label for="imgshow" class="form-label">Imagen existente:</label> <br>
-                        <img style="width: 200px; height: 200px" src="<?php echo $row['img'] ?>" id="imgshow">
-                    </div>
+                        <div class="col-md-4">
+                            <label for="imgshow" class="form-label">Imagen existente:</label> <br>
+                            <img style="width: 200px; height: 200px" src="<?php echo $row['img'] ?>" id="imgshow">
+                        </div>
 
-                    <div class="col-md-12">
-                        <a class="btn btn-danger" href="prodcrud.php">Regresar</a>
-                        <button type="submit" class="btn btn-primary" name="editar">Editar producto</button>
-                    </div>
+                        <div class="col-md-12">
+                            <a class="btn btn-danger" href="prodcrud.php">Regresar</a>
+                            <button type="submit" class="btn btn-primary" name="editar">Editar producto</button>
+                        </div>
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
+
     </div>
 
     <script>
@@ -127,8 +135,7 @@ $tipos = $tiposQuery->fetchAll(PDO::FETCH_ASSOC);
 
             if ((keyCode >= 48 && keyCode <= 57) ||
                 (keyCode >= 96 && keyCode <= 105) ||
-                keyCode === 190 ||
-                [8, 9, 35, 36, 37, 38, 39, 40, 46].includes(keyCode)) {
+                keyCode === 190 || [8, 9, 35, 36, 37, 38, 39, 40, 46].includes(keyCode)) {
                 return true;
             }
 

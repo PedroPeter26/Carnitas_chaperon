@@ -10,95 +10,102 @@ $tipos = $tiposQuery->fetchAll(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuevo producto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <?php include "headfooteradmin2.php" ?>
 </head>
-<body class="py-3">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h4>Nuevo producto:</h4>
+
+<body>
+    <?php include "sidebaradmin2.php" ?>
+
+    <div class="content-wrapper p-3" style="top: 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h4>Nuevo producto:</h4>
+                </div>
             </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col">
-                <form id="productform" class="row g-3" method="POST" action="../scripts/guardarprod.php" autocomplete="off" enctype="multipart/form-data">
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <form id="productform" class="row g-3" method="POST" action="../scripts/guardarprod.php" autocomplete="off" enctype="multipart/form-data">
 
-                    <div class="col-md-4">
-                        <label for="nombre" class="form-label">Nombre:</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control" required autofocus>
-                    </div>
+                        <div class="col-md-4">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" name="nombre" id="nombre" class="form-control" required autofocus>
+                        </div>
 
-                    <div class="col-md-4">
-                        <label for="disponibilidad" class="form-label">Disponibilidad:</label>
-                        <select name="disponibilidad" id="disponibilidad" class="form-control" required>
-                            <option value="Ambos">Ambos</option>
-                            <option value="Comedor">Comedor</option>
-                            <option value="Rapido">Rápido</option>
-                        </select>
-                    </div>
+                        <div class="col-md-4">
+                            <label for="disponibilidad" class="form-label">Disponibilidad:</label>
+                            <select name="disponibilidad" id="disponibilidad" class="form-control" required>
+                                <option value="Ambos">Ambos</option>
+                                <option value="Comedor">Comedor</option>
+                                <option value="Rapido">Rápido</option>
+                            </select>
+                        </div>
 
-                    <div class="col-md-2">
-                        <label for="precioapp" class="form-label">Precio aplicación:</label>
-                        <input type="text" name="precioapp" id="precioapp" class="form-control" onkeydown="return limitarInput(event)">
-                    </div>
+                        <div class="col-md-2">
+                            <label for="precioapp" class="form-label">Precio aplicación:</label>
+                            <input type="text" name="precioapp" id="precioapp" class="form-control" onkeydown="return limitarInput(event)">
+                        </div>
 
-                    <div class="col-md-2">
-                        <label for="preciocom" class="form-label">Precio comedor:</label>
-                        <input type="text" name="preciocom" id="preciocom" class="form-control" onkeydown="return limitarInput(event)">
-                    </div>
+                        <div class="col-md-2">
+                            <label for="preciocom" class="form-label">Precio comedor:</label>
+                            <input type="text" name="preciocom" id="preciocom" class="form-control" onkeydown="return limitarInput(event)">
+                        </div>
 
-                    <div class="col-md-4">
-                        <label for="tipoprod" class="form-label">Tipo:</label>
-                        <select name="tipoprod" id="tipoprod" class="form-control" required>
-                            <?php
-                            foreach ($tipos as $tipo) {
-                                echo "<option value='{$tipo['id_tipo']}'>{$tipo['nombre']}</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-
-                    <div class="col-md-8">
-                        <label for="description" class="form-label">Descripción:</label>
-                        <textarea name="description" id="description" class="form-control" rows="5" maxlength="300" required></textarea>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="archivo" class="form-label">Imagen:</label>
-                        <input type="file" name="archivo" id="archivo" class="form-control" accept="image/*" onchange="validateFile(this)" required>
-                    </div>
-
-                    <script>
-                        function validateFile(input) {
-                            const maxSize = 5 * 1024 * 1024;
-                            if (input.files && input.files[0]) {
-                                if (input.files[0].size > maxSize) {
-                                    alert("El archivo es demasiado grande. Por favor, seleccione un archivo de máximo 5MB.");
-                                    input.value = '';
-                                    return;
+                        <div class="col-md-4">
+                            <label for="tipoprod" class="form-label">Tipo:</label>
+                            <select name="tipoprod" id="tipoprod" class="form-control" required>
+                                <?php
+                                foreach ($tipos as $tipo) {
+                                    echo "<option value='{$tipo['id_tipo']}'>{$tipo['nombre']}</option>";
                                 }
+                                ?>
+                            </select>
+                        </div>
 
-                                const allowedTypes = ["image/jpeg", "image/png"];
-                                if (!allowedTypes.includes(input.files[0].type)) {
-                                    alert("Tipo de archivo no válido. Solo se permiten archivos de imagen (JPEG/PNG).");
-                                    input.value = '';
+                        <div class="col-md-8">
+                            <label for="description" class="form-label">Descripción:</label>
+                            <textarea name="description" id="description" class="form-control" rows="5" maxlength="300" required></textarea>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="archivo" class="form-label">Imagen:</label>
+                            <input type="file" name="archivo" id="archivo" class="form-control" accept="image/*" onchange="validateFile(this)" required>
+                        </div>
+
+                        <script>
+                            function validateFile(input) {
+                                const maxSize = 5 * 1024 * 1024;
+                                if (input.files && input.files[0]) {
+                                    if (input.files[0].size > maxSize) {
+                                        alert("El archivo es demasiado grande. Por favor, seleccione un archivo de máximo 5MB.");
+                                        input.value = '';
+                                        return;
+                                    }
+
+                                    const allowedTypes = ["image/jpeg", "image/png"];
+                                    if (!allowedTypes.includes(input.files[0].type)) {
+                                        alert("Tipo de archivo no válido. Solo se permiten archivos de imagen (JPEG/PNG).");
+                                        input.value = '';
+                                    }
                                 }
                             }
-                        }
-                    </script>
+                        </script>
 
-                    <div class="col-md-12">
-                        <a class="btn btn-danger" href="prodcrud.php">Regresar</a>
-                        <button type="submit" class="btn btn-primary" name="crear">Crear producto</button>
-                    </div>
+                        <div class="col-md-12">
+                            <a class="btn btn-danger" href="prodcrud.php">Regresar</a>
+                            <button type="submit" class="btn btn-primary" name="crear">Crear producto</button>
+                        </div>
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
