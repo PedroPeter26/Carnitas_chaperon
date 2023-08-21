@@ -1,9 +1,9 @@
 <?php
-include '../../class/database.php';
-$db = new database();
-$db->ConectarDB();
+include '../class/database.php';
+$db = new Database();
+$db->conectarDB();
 $pdo = $db->getConexion();
-require '../../class/configcom.php';
+require '../class/configcom.php';
 
 $mesa_id = isset($_GET['mesa_id']) ? $_GET['mesa_id'] : null;
 if ($mesa_id === null) {
@@ -104,7 +104,7 @@ if($productos != null){
                     <td><?php echo $nombre; ?></td>
                     <td><?php echo MONEDA . $precio_com; ?></td>
                     <td>
-                        <input type="number" min="1" max="30" step="1" value="<?php echo $cantidad ?>" size="5" id="cantidad_<?php echo $_id; ?>" onkeydown="return limitarInput(event)" onchange="actualizaCantidad(this.value, <?php echo $_id; ?>)">
+                        <input type="number" min="1" max="40" step="1" value="<?php echo $cantidad ?>" size="5" id="cantidad_<?php echo $_id; ?>" onchange="actualizaCantidad(this.value, <?php echo $_id; ?>)">
                     </td>
                     <td>
                         <div id="subtotal_<?php echo $_id; ?>" name="subtotal[]">
@@ -115,6 +115,15 @@ if($productos != null){
                         <a id="eliminar" class="btn btn-danger btn-sm" data-bs-id="<?php echo $_id; ?>" data-bs-toggle="modal" data-bs-target="#eliminaModal" href="?mesa_id=<?php echo $mesa_id; ?>">Eliminar</a>
                     </td>
                 </tr>
+                    <script>
+                        var inputElement = document.getElementById("cantidad_<?php echo $_id; ?>");
+
+                        inputElement.addEventListener("keydown", function(event) {
+                            if (event.keyCode !== 38 && event.keyCode !== 40) {
+                                event.preventDefault();
+                            }
+                        });
+                    </script>
                 <?php } ?>
 
                 <tr>

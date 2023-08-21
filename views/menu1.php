@@ -470,7 +470,7 @@ require '../class/config.php';
                     <h2 class="mb-4">Lonches</h2>
                     <!--CARD-->
                     <?php
-                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE disponibilidad<>'Comedor' and tipo='TIPO3' and status='Activo'");
+                        $sentencia=$pdo->prepare("SELECT * FROM PRODUCTOS WHERE tipo='TIPO3' and status='Activo'");
                         $sentencia->execute();
                         $listaproductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                     ?>

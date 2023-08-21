@@ -1,6 +1,6 @@
 <?php
-    require '../../class/config.php';
-    require '../../class/database.php';
+    require '../class/config.php';
+    require '../class/database.php';
     $db = new Database();
     $db->conectarDB();
     $pdo = $db->getConexion();
@@ -15,7 +15,7 @@
     {
         foreach ($productos as $clave => $cantidad)
         {
-            $sql = $pdo->prepare("select producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id=?  and status='Activo'");
+            $sql = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id=?  and status='Activo'");
             $sql->execute([$clave]);
             $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
         }
@@ -23,7 +23,7 @@
 
 
     //session_destroy();
-    $sql = $pdo->prepare("select producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id='$clave' and status='Activo'");
+    $sql = $pdo->prepare("SELECT producto_id, nombre, precio_app, $cantidad as cantidad from PRODUCTOS where producto_id='$clave' and status='Activo'");
     $sql->execute();
     $orden = $sql->fetch(PDO::FETCH_ASSOC);
 
@@ -58,7 +58,7 @@
 </head>
 <body>
 
-<?php include '../sidebaradmin.php'; ?>
+<?php include 'sidebaradmin.php'; ?>
     
     <div class="content-wrapper"  style="background-color: white; margin-top: 4%; padding: 2%;">
 
@@ -186,7 +186,7 @@
         </div>
     </div>
 
-    <?php include '../footeradmin.php'; ?>
+    <?php include 'footeradmin.php'; ?>
 
     </div>
 

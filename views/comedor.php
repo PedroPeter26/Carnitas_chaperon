@@ -1,5 +1,5 @@
 <?php
-require_once '../../class/database.php';
+require_once '../class/database.php';
 $database = new database();
 $database->ConectarDB();
 
@@ -17,12 +17,12 @@ $database->desconectarDB();
 <head>
     <title>Atender Mesas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <?php include '../headadmin.php'; ?>
-    <?php include '../footeradmin.php'; ?>
+    <?php include 'headadmin.php'; ?>
+    <?php include 'footeradmin.php'; ?>
 </head>
 
 <body>
-    <?php include '../sidebaradmin.php'; ?>
+    <?php include 'sidebaradmin.php'; ?>
 
     <div class="content-wrapper p-5">
         <div class="container">
