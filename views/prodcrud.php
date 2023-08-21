@@ -99,7 +99,7 @@ $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
                             echo "<td>{$row['disponibilidad']}</td>";
                             echo "<td><img style='width: 100px; height: 100px;' src='{$row['img']}'></td>";
                             echo "<td><a href='editarprod.php?id={$row['producto_id']}' class='btn btn-warning'>Editar</a></td>";
-                            echo "<td><a href='eliminarprod.php?id={$row['producto_id']}' class='btn btn-danger'>Editar</a></td>";
+                            echo "<td><a href='eliminarprod.php?id={$row['producto_id']}' class='btn btn-danger'>Eliminar</a></td>";
                             echo "</tr>";
                         }
                         ?>
