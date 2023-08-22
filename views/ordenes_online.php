@@ -127,7 +127,7 @@ $pdo = $db->getConexion();
                 USUARIOS.user AS CLIENTE,
                 ORDENES.hora_inicio AS HORA_INICIO,
                 ORDENES.fecha AS FECHA, 
-                ORDENES.status as ESTADO /*Hasta aquí son datos del card*/
+                ORDENES.status as ESTADO /Hasta aquí son datos del card/
                 FROM ORDENES
                 INNER JOIN USUARIOS ON ORDENES.cliente = USUARIOS.user_id
                 WHERE ORDENES.tipo_orden = 1
@@ -170,14 +170,13 @@ $pdo = $db->getConexion();
                 $sql_products->execute();
                 $products = $sql_products->fetchAll(PDO::FETCH_ASSOC); /*GUARDAMOS EN $products LA LISTA DE PRODUCTOS QUE CONSUMIO ESA ORDEN*/
             ?>
-
                 <?php
                 if ($orden['ESTADO'] == 'Pendiente') {
                 ?>
 
                     <!--CARDS DE LAS ORDENES DE ACUERDO A LA CONSULTA Y AL FOREACH-->
                     <div class="col-12 col-md-6 col-xl-4">
-                        <div class="card ms-4 me-4 pt-3 bg-warning">
+                        <div class="card ms-4 me-4 pt-3 bg-warning" style="height: 320px;">
                             <div class="card-header">
                                 <h4>Orden ID: <?php echo $orden['ORDEN_ID']; ?></h4>
                                 <p>Fecha: <?php echo $orden['FECHA']; ?> </p>
@@ -185,13 +184,21 @@ $pdo = $db->getConexion();
                             </div>
                             <div class="card-body">
                                 <h5>Cliente: <b> <?php echo $orden['CLIENTE']; ?> </b> </h5>
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button class="btn btn-secondary" data-bs-target="#exampleModalToggle<?php echo $orden['ORDEN_ID']; ?>" data-bs-toggle="modal">Ver detalles</button>
+
+                                <div class="row">
+                                    <div class="d-grid col-12">
+                                        <button class="btn btn-dark" data-bs-target="#exampleModalToggle<?php echo $orden['ORDEN_ID']; ?>" data-bs-toggle="modal">Ver detalles</button>
+                                    </div>
+                                    <div class="d-grid col-12 mt-3">
+                                        <form action="cambiar_estado.php" method="post">
+                                            <input type="hidden" name="orden_id" value="<?php echo $orden['ORDEN_ID']; ?>">
+                                            <input style="width: 100%;" class="btn btn-dark" type="submit" name="marcar_proceso" value="Marcar en proceso">
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 <?php
                 }
                 ?>
@@ -202,7 +209,7 @@ $pdo = $db->getConexion();
 
                     <!--CARDS DE LAS ORDENES DE ACUERDO A LA CONSULTA Y AL FOREACH-->
                     <div class="col-12 col-md-6 col-xl-4">
-                        <div class="card ms-4 me-4 pt-3 bg-info">
+                        <div class="card ms-4 me-4 pt-3 bg-info" style="height: 320px;">
                             <div class="card-header">
                                 <h4>Orden ID: <?php echo $orden['ORDEN_ID']; ?></h4>
                                 <p>Fecha: <?php echo $orden['FECHA']; ?> </p>
@@ -210,8 +217,16 @@ $pdo = $db->getConexion();
                             </div>
                             <div class="card-body">
                                 <h5>Cliente: <b> <?php echo $orden['CLIENTE']; ?> </b> </h5>
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button class="btn btn-secondary" data-bs-target="#exampleModalToggle<?php echo $orden['ORDEN_ID']; ?>" data-bs-toggle="modal">Ver detalles</button>
+                                <div class="row">
+                                    <div class="d-grid col-12">
+                                        <button class="btn btn-dark" data-bs-target="#exampleModalToggle<?php echo $orden['ORDEN_ID']; ?>" data-bs-toggle="modal">Ver detalles</button>
+                                    </div>
+                                    <div class="d-grid col-12 mt-3">
+                                        <form action="cambiar_estado.php" method="post">
+                                            <input type="hidden" name="orden_id" value="<?php echo $orden['ORDEN_ID']; ?>">
+                                            <input style="width: 100%;" class="btn btn-dark" type="submit" name="finalizar_orden" value="Marcar finalizada">
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -227,7 +242,7 @@ $pdo = $db->getConexion();
 
                     <!--CARDS DE LAS ORDENES DE ACUERDO A LA CONSULTA Y AL FOREACH-->
                     <div class="col-12 col-md-6 col-xl-4">
-                        <div class="card ms-4 me-4 pt-3 bg-success">
+                        <div class="card ms-4 me-4 pt-3 bg-success" style="height: 320px;">
                             <div class="card-header">
                                 <h4>Orden ID: <?php echo $orden['ORDEN_ID']; ?></h4>
                                 <p>Fecha: <?php echo $orden['FECHA']; ?> </p>
@@ -235,8 +250,13 @@ $pdo = $db->getConexion();
                             </div>
                             <div class="card-body">
                                 <h5>Cliente: <b> <?php echo $orden['CLIENTE']; ?> </b> </h5>
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button class="btn btn-secondary" data-bs-target="#exampleModalToggle<?php echo $orden['ORDEN_ID']; ?>" data-bs-toggle="modal">Ver detalles</button>
+                                <div class="row">
+                                    <div class="col-12" style="height: 30px;"></div>
+                                    <div class="col-12">
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <button style="width: 100%;" class="btn btn-dark" data-bs-target="#exampleModalToggle<?php echo $orden['ORDEN_ID']; ?>" data-bs-toggle="modal">Ver detalles</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -285,79 +305,6 @@ $pdo = $db->getConexion();
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <?php
-                                if (($orden['ESTADO'] == 'Pendiente') || ($orden['ESTADO'] == 'Proceso')) {
-                                ?>
-                                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2<?php echo $orden['ORDEN_ID']; ?>" data-bs-toggle="modal">Actualizar estado</button>
-                                <?php
-                                }
-                                ?>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!--MODAL 2: ACTUALIZAR ESTADO DE LA ORDEN-->
-                <!-- Modal for the order <?php echo $orden['ORDEN_ID']; ?> -->
-                <div class="modal fade" id="exampleModalToggle2<?php echo $orden['ORDEN_ID']; ?>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <i class="fas fa-exclamation-triangle m-2" style="color: #FFC107;"></i>
-                                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Advertencia</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body" style="text-align: justify; align-items: center; justify-content: center;">
-                                <span>
-                                    Asegurese de querer continuar, de lo contrario pulse en "Regresar".
-                                </span>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-warning me-auto" data-bs-target="#exampleModalToggle<?php echo $orden['ORDEN_ID']; ?>" data-bs-toggle="modal">Regresar</button>
-                                <?php
-                                if ($orden['ESTADO'] == 'Pendiente') {
-                                ?>
-                                    <form action="ordenes_online.php" method="post">
-                                        <button class="btn btn-success ms-auto" type="submit" name="proceso" id="proceso" value="proceso" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Marcar en proceso</button>
-                                    </form>
-                                <?php
-                                } else if ($orden['ESTADO'] == 'Proceso') {
-                                ?>
-                                    <form action="ordenes_online.php" method="post">
-                                        <button class="btn btn-success ms-auto" type="submit" name="finalizar" id="finalizar" value="finalizar" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Finalizar orden</button>
-                                    </form>
-                                <?php
-                                }
-                                ?>
-
-                                <?php
-                                $orden_id = $orden['ORDEN_ID'];
-                                $tipo_orden = 'Online';
-                                try {
-                                    //Falta corrección
-                                    if (isset($_POST['proceso'])) {
-                                        $sql = $pdo->prepare("CALL actualizarstatus_orden_proceso('$tipo_orden', '$orden_id', '')");
-                                        $sql->execute();
-                                        echo "<div class='alert alert-secondary' id='alert1'><h2 align='center'>Se actualizó con éxito.</h2></div>";
-                                    } else if (isset($_POST['finalizar'])) {
-                                        $sql = $pdo->prepare("CALL actualizarstatus_orden_finalizado('$tipo_orden', '$orden_id', '')");
-                                        $sql->execute();
-                                        echo "<div class='alert alert-secondary' id='alert1'><h2 align='center'>Se finalizó con éxito.</h2></div>";
-                                    }
-                                } catch (PDOException $e) {
-                                    echo "Error: " . $e->getMessage();
-                                }
-                                ?>
-
-                                <script>
-                                    // Esperar 3 segundos y luego ocultar el div
-                                    setTimeout(function() {
-                                        var alert1 = document.getElementById('alert1');
-                                        alert1.style.display = 'none';
-                                    }, 3000); // 3000 milisegundos = 3 segundos
-                                </script>
                             </div>
                         </div>
                     </div>
@@ -368,8 +315,7 @@ $pdo = $db->getConexion();
             ?>
 
         </div>
-    </div>
-    <br>
+
     </div>
 
 </body>

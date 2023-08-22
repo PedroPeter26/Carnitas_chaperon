@@ -7,7 +7,6 @@ $pdo = $db->getConexion();
 
 $user = $_SESSION["usuario"];
 
-// Step 1: Retrieve user_id based on the user value
 $userQuery = $pdo->prepare("SELECT user_id FROM USUARIOS WHERE user = :user");
 $userQuery->bindParam(':user', $user, PDO::PARAM_STR);
 $userQuery->execute();

@@ -140,7 +140,7 @@ class database
                     echo "<div class='alert alert-success'>";
                     echo "<H2 align='center'>Bienvenido ".$_SESSION["usuario"]."</H2>";
                     echo "</div>";
-                    header("refresh:2; .. /indexadmin.php");
+                    header("refresh:2; ../indexadmin.php");
                 }
             }
             else

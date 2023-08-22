@@ -3,7 +3,7 @@ include '../class/database.php';
 $db = new database();
 $db->ConectarDB();
 $pdo = $db->getConexion();
-require '../class/configp.php';
+require '../class/config.php';
 
 $productos = isset($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
 $lista_carrito = array();
