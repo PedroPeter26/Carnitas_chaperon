@@ -127,7 +127,7 @@ $pdo = $db->getConexion();
                 USUARIOS.user AS CLIENTE,
                 ORDENES.hora_inicio AS HORA_INICIO,
                 ORDENES.fecha AS FECHA, 
-                ORDENES.status as ESTADO /Hasta aquí son datos del card/
+                ORDENES.status as ESTADO
                 FROM ORDENES
                 INNER JOIN USUARIOS ON ORDENES.cliente = USUARIOS.user_id
                 WHERE ORDENES.tipo_orden = 1
